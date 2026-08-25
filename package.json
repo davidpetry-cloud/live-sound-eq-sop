@@ -1,0 +1,23 @@
+{
+  "name": "live-sound-eq-sop",
+  "version": "1.0.0",
+  "description": "Channel EQ starting points, monitor ring-out guide and frequency ownership map for the Allen & Heath MixWizard WZ3 16:2.",
+  "type": "module",
+  "author": "David Petry",
+  "license": "MIT",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.0"
+  },
+  "keywords": [
+    "live-sound",
+    "audio-engineering",
+    "foh",
+    "mixing-console",
+    "allen-and-heath"
+  ]
+}
