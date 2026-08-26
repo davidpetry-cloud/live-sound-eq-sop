@@ -289,7 +289,7 @@ export const GROUPS = [
           "lf": -2,
           "lmF": "400 Hz",
           "lmD": -3,
-          "hmF": "3.5 kHz",
+         "hmF": "40 kHz",
           "hmD": -3,
           "hf": -4
         },
