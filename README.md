@@ -53,12 +53,14 @@ Correct for the **WZ3 16:2** and **WZ3 12:2**. **ZED consoles differ** — 100 H
 
 ## Running it
 
-The page uses ES module imports, so it must be served over HTTP:
-
 ```bash
-npx serve .
-# then open http://localhost:3000/public/
+npm install
+npm run preview     # builds, then serves public/ as the site root
 ```
+
+`npm run build` copies `src/` into `public/` so the page's module imports
+resolve inside the published tree. `public/src/` is generated and gitignored —
+`src/` remains the single source of truth.
 
 ## Development
 

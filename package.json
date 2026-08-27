@@ -6,6 +6,8 @@
   "author": "David Petry",
   "license": "MIT",
   "scripts": {
+    "build": "mkdir -p public/src && cp src/*.js public/src/",
+    "preview": "npm run build && npx --yes serve public",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"

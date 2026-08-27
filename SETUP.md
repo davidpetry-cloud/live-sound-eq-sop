@@ -85,9 +85,14 @@ The page uses ES module imports, so it must be served over HTTP. Opening it
 as a file:// URL will fail silently with a blank page.
 
 ```bash
-npx serve .
-# then open http://localhost:3000/public/
+npm run preview
+# then open http://localhost:3000/
 ```
+
+This copies src/ into public/ and serves public/ as the site root — exactly
+how Netlify serves it in production. Serving the repo root instead will appear
+to work locally while failing on deploy, because ../src/ sits outside the
+published tree.
 
 Check that the four states render distinctly: attested, proposed, lapsed and
 rejected. This has never been visually verified — the build environment could
