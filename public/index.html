@@ -13,7 +13,7 @@
   --body:'Inter',system-ui,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
   --att:#3FB271; --prop:#C08A2E; --exp:#D4614A; --rej:#7A8194;
-  --freq:#E8A33D; --db:#6FA8DC;
+  --freq:#5FCF80; --db:#6FA8DC;
 }
 :root,[data-mode="dark"]{
   --bg:#0A0C13;--panel:#12151F;--panel2:#171B27;--line:#262B3B;--soft:#1D2130;
@@ -22,7 +22,7 @@
 [data-mode="light"]{
   --bg:#F4F2ED;--panel:#FFF;--panel2:#FAF8F4;--line:#DCD7CC;--soft:#E8E4DC;
   --text:#1A1D26;--t2:#545A6B;--t3:#838A9C;--shadow:0 6px 20px rgba(30,28,24,.07);
-  --att:#2A8A55;--prop:#96650F;--exp:#B23E27;--rej:#6A7183;--freq:#96650F;--db:#1D6FAE;
+  --att:#2A8A55;--prop:#96650F;--exp:#B23E27;--rej:#6A7183;--freq:#1B7A42;--db:#1D6FAE;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15px;
@@ -141,8 +141,8 @@ let filter = "all", query = "";
 
 function bandLine(b){
   return `<span>HPF <i>${b.hpf}</i></span><span>LF <i>${fmt(b.lf)}</i></span>
-    <span>LM <b>${b.lmF}</b> <i>${fmt(b.lmD)}</i></span>
-    <span>HM <b>${b.hmF==="park 15k"?"15 kHz":b.hmF}</b> <i>${fmt(b.hmD)}</i></span>
+    <span>LM ${b.lmD===0?'<i>0 dB</i>':`<b>${b.lmF}</b> <i>${fmt(b.lmD)}</i>`}</span>
+    <span>HM ${b.hmD===0?'<i>0 dB</i>':`<b>${b.hmF}</b> <i>${fmt(b.hmD)}</i>`}</span>
     <span>HF <i>${fmt(b.hf)}</i></span>`;
 }
 const fmt = n => n>0?`+${n}`:n===0?"0":`\u2212${Math.abs(n)}`;

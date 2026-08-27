@@ -52,8 +52,8 @@ export const GROUPS = [
           "source": "practitioner",
           "by": "David Petry",
           "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors.",
+          "verified": "2026-08-25",
           "ttlDays": 730
         }
       },
@@ -74,8 +74,8 @@ export const GROUPS = [
           "source": "practitioner",
           "by": "David Petry",
           "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors.",
+          "verified": "2026-08-25",
           "ttlDays": 730
         }
       },
@@ -96,8 +96,8 @@ export const GROUPS = [
           "source": "practitioner",
           "by": "David Petry",
           "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors.",
+          "verified": "2026-08-25",
           "ttlDays": 730
         }
       },
@@ -118,8 +118,8 @@ export const GROUPS = [
           "source": "practitioner",
           "by": "David Petry",
           "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors.",
+          "verified": "2026-08-25",
           "ttlDays": 730
         }
       },
@@ -132,7 +132,7 @@ export const GROUPS = [
           "lf": -6,
           "lmF": "400 Hz",
           "lmD": -3,
-          "hmF": "park 15k",
+          "hmF": "0 dB",
           "hmD": 0,
           "hf": 3
         },
@@ -140,8 +140,8 @@ export const GROUPS = [
           "source": "practitioner",
           "by": "David Petry",
           "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors.",
+          "verified": "2026-08-25",
           "ttlDays": 730
         }
       },
@@ -154,7 +154,7 @@ export const GROUPS = [
           "lf": -8,
           "lmF": "800 Hz",
           "lmD": -3,
-          "hmF": "park 15k",
+          "hmF": "0 dB",
           "hmD": 0,
           "hf": 2
         },
@@ -162,8 +162,8 @@ export const GROUPS = [
           "source": "practitioner",
           "by": "David Petry",
           "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors.",
+          "verified": "2026-08-25",
           "ttlDays": 730
         }
       },
@@ -231,8 +231,8 @@ export const GROUPS = [
           "source": "practitioner",
           "by": "David Petry",
           "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors.",
+          "verified": "2026-08-25",
           "ttlDays": 730
         }
       },
@@ -253,8 +253,8 @@ export const GROUPS = [
           "source": "practitioner",
           "by": "David Petry",
           "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors.",
+          "verified": "2026-08-25",
           "ttlDays": 730
         }
       },
@@ -275,8 +275,8 @@ export const GROUPS = [
           "source": "practitioner",
           "by": "David Petry",
           "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors.",
+          "verified": "2026-08-25",
           "ttlDays": 730
         }
       },
@@ -297,8 +297,8 @@ export const GROUPS = [
           "source": "practitioner",
           "by": "David Petry",
           "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors.",
+          "verified": "2026-08-25",
           "ttlDays": 730
         }
       },
@@ -319,8 +319,8 @@ export const GROUPS = [
           "source": "practitioner",
           "by": "David Petry",
           "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors.",
+          "verified": "2026-08-25",
           "ttlDays": 730
         }
       },
@@ -388,8 +388,8 @@ export const GROUPS = [
           "source": "practitioner",
           "by": "David Petry",
           "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors.",
+          "verified": "2026-08-25",
           "ttlDays": 730
         }
       },
@@ -410,8 +410,8 @@ export const GROUPS = [
           "source": "practitioner",
           "by": "David Petry",
           "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors.",
+          "verified": "2026-08-25",
           "ttlDays": 730
         }
       },
@@ -432,8 +432,8 @@ export const GROUPS = [
           "source": "practitioner",
           "by": "David Petry",
           "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors.",
+          "verified": "2026-08-25",
           "ttlDays": 730
         }
       },
@@ -451,12 +451,11 @@ export const GROUPS = [
           "hf": 1
         },
         "attestation": {
-          "source": "practitioner",
-          "by": "David Petry",
-          "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
-          "ttlDays": 730
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "Reasoned from the backing-vocal pattern with more presence for cutting over a track. Practitioner has not run this channel and gave an explicit no during review — kept as a starting point, not attested.",
+          "by": null,
+          "verified": null
         }
       }
     ]
@@ -466,7 +465,7 @@ export const GROUPS = [
     "channels": [
       {
         "name": "PIANO",
-        "variant": "ACOUSTIC / ELECTRIC",
+        "variant": "ACOUSTIC",
         "pad": "IF LINE",
         "bands": {
           "hpf": "IN",
@@ -481,9 +480,51 @@ export const GROUPS = [
           "source": "practitioner",
           "by": "David Petry",
           "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors.",
+          "verified": "2026-08-25",
           "ttlDays": 730
+        }
+      },
+      {
+        "name": "RHODES",
+        "variant": "ELECTRIC PIANO",
+        "pad": null,
+        "bands": {
+          "hpf": "IN",
+          "lf": -2,
+          "lmF": "300 Hz",
+          "lmD": -2,
+          "hmF": "3 kHz",
+          "hmD": 1,
+          "hf": 1
+        },
+        "attestation": {
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "Rhodes typically arrives DI'd or line-level, midrange-forward with less low-end weight than acoustic piano and no soundboard resonance to manage. Light LF cut and a small HM lift for bell-tone presence. Practitioner has played and mixed Rhodes but these console values are unverified on the WZ3.",
+          "by": null,
+          "verified": null
+        }
+      },
+      {
+        "name": "HAMMOND B3",
+        "variant": "LESLIE",
+        "pad": null,
+        "bands": {
+          "hpf": "IN",
+          "lf": -3,
+          "lmF": "400 Hz",
+          "lmD": -3,
+          "hmF": "3.5 kHz",
+          "hmD": 2,
+          "hf": 2
+        },
+        "attestation": {
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "Leslie-mic'd B3 brings a moving tonal character from the rotating horn and drum, plus real low end if bass pedals are in use. LF cut leaves room for bass guitar; HM lift for horn-rotor presence. Practitioner has played and mixed B3/Leslie but these console values are unverified on the WZ3.",
+          "by": null,
+          "verified": null
         }
       },
       {
@@ -495,17 +536,16 @@ export const GROUPS = [
           "lf": -6,
           "lmF": "300 Hz",
           "lmD": -4,
-          "hmF": "park 15k",
+          "hmF": "0 dB",
           "hmD": 0,
           "hf": 1
         },
         "attestation": {
-          "source": "practitioner",
-          "by": "David Petry",
-          "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
-          "ttlDays": 730
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "Reasoned from mixing theory about how sustained pad content should sit under a mix — not yet verified with this specific patch through the WZ3.",
+          "by": null,
+          "verified": null
         }
       },
       {
@@ -522,12 +562,11 @@ export const GROUPS = [
           "hf": 0
         },
         "attestation": {
-          "source": "practitioner",
-          "by": "David Petry",
-          "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
-          "ttlDays": 730
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "Reasoned from mixing theory treating a synth lead like a second vocal or guitar solo — not yet verified with this specific patch through the WZ3.",
+          "by": null,
+          "verified": null
         }
       },
       {
@@ -544,17 +583,16 @@ export const GROUPS = [
           "hf": -3
         },
         "attestation": {
-          "source": "practitioner",
-          "by": "David Petry",
-          "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
-          "ttlDays": 730
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "Reasoned from frequency-conflict principles between synth bass and bass guitar. Practitioner has mixed synth bass in a DAW context but has not yet swept LM/HM on the WZ3 itself — this is the specific gap the values are pending verification against.",
+          "by": null,
+          "verified": null
         }
       },
       {
-        "name": "HORNS",
-        "variant": "SAX / BRASS",
+        "name": "TENOR SAXOPHONE",
+        "variant": null,
         "pad": null,
         "bands": {
           "hpf": "IN",
@@ -569,9 +607,72 @@ export const GROUPS = [
           "source": "practitioner",
           "by": "David Petry",
           "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors.",
+          "verified": "2026-08-25",
           "ttlDays": 730
+        }
+      },
+      {
+        "name": "TRUMPET",
+        "variant": null,
+        "pad": null,
+        "bands": {
+          "hpf": "IN",
+          "lf": -4,
+          "lmF": "400 Hz",
+          "lmD": -3,
+          "hmF": "3 kHz",
+          "hmD": -2,
+          "hf": 1
+        },
+        "attestation": {
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "Trumpet is bright and cutting by nature — LF cut since there is little useful content down there, HM cut to tame the natural edge rather than adding more of it. Practitioner has played and mixed trumpet but these console values are unverified on the WZ3.",
+          "by": null,
+          "verified": null
+        }
+      },
+      {
+        "name": "TROMBONE",
+        "variant": null,
+        "pad": null,
+        "bands": {
+          "hpf": "IN",
+          "lf": -2,
+          "lmF": "350 Hz",
+          "lmD": -3,
+          "hmF": "2.5 kHz",
+          "hmD": -1,
+          "hf": 1
+        },
+        "attestation": {
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "Trombone sits lower and with more body than trumpet or sax — smaller LF cut, mud cut around 350 Hz same as most horns. Practitioner has played and mixed trombone but these console values are unverified on the WZ3.",
+          "by": null,
+          "verified": null
+        }
+      },
+      {
+        "name": "ALTO SAXOPHONE",
+        "variant": null,
+        "pad": null,
+        "bands": {
+          "hpf": "IN",
+          "lf": -3,
+          "lmF": "350 Hz",
+          "lmD": -3,
+          "hmF": "3 kHz",
+          "hmD": -2,
+          "hf": 2
+        },
+        "attestation": {
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "Alto sits higher and reedier than tenor — similar treatment to the existing tenor record with a slightly higher HM centre. Practitioner has played and mixed alto sax but these console values are unverified on the WZ3.",
+          "by": null,
+          "verified": null
         }
       },
       {
@@ -617,8 +718,8 @@ export const GROUPS = [
           "source": "practitioner",
           "by": "David Petry",
           "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors.",
+          "verified": "2026-08-25",
           "ttlDays": 730
         }
       },
@@ -639,8 +740,8 @@ export const GROUPS = [
           "source": "practitioner",
           "by": "David Petry",
           "role": "FOH engineer",
-          "basis": "PLACEHOLDER — replace with your own account of what these values are grounded in (rooms, years, rig).",
-          "verified": "2026-08-01",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors.",
+          "verified": "2026-08-25",
           "ttlDays": 730
         }
       },
@@ -661,7 +762,7 @@ export const GROUPS = [
           "source": "practitioner",
           "by": "David Petry",
           "role": "FOH engineer",
-          "basis": "PLACEHOLDER — an older rig, kept to demonstrate attestation decay.",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors. Kept as a demonstration of an older, unrevisited rig — deliberately dated to exercise the decay path.",
           "verified": "2021-03-14",
           "ttlDays": 730
         }
@@ -694,9 +795,9 @@ export const GROUPS = [
         }
       },
       {
-        "name": "DJ RIG (STAGE)",
-        "variant": "HIP-HOP · LEFT",
-        "pad": "LINE",
+        "name": "DJ RIG",
+        "variant": "STAGE L",
+        "pad": null,
         "bands": {
           "hpf": "OUT",
           "lf": 0,
@@ -709,15 +810,15 @@ export const GROUPS = [
         "attestation": {
           "source": "model",
           "model": "Claude (Anthropic)",
-          "rationale": "Stereo pair off a battle mixer. HPF stays out because the sub content is the genre — an 80 Hz filter guts an 808. LF held at flat rather than boosted: the tracks arrive already mastered and bass-heavy, and lifting the shelf tends to go flubby in a live room. The 315 Hz cut clears mud from stacked samples. The HM cut at 2.5 kHz is the important one — it carves a seat for the live MC, applying the ownership map rule that 3 to 5 kHz is protected for vocal. On a stage rig, also watch for low-frequency energy from the wedges reaching the turntables and skipping the needle; that is a physical isolation problem, not an EQ one.",
+          "rationale": "Hip-hop act, DJ rig live on stage, stereo pair off a battle mixer taken at line level. HPF stays out because the sub content is the genre — an 80 Hz filter guts an 808. LF held at flat rather than boosted: the tracks arrive already mastered and bass-heavy, and lifting the shelf tends to go flubby in a live room. The 315 Hz cut clears mud from stacked samples. The HM cut at 2.5 kHz is the important one — it carves a seat for the live MC, applying the ownership map rule that 3 to 5 kHz is protected for vocal. On a stage rig, also watch for low-frequency energy from the wedges reaching the turntables and skipping the needle; that is a physical isolation problem, not an EQ one.",
           "by": null,
           "verified": null
         }
       },
       {
-        "name": "DJ RIG (STAGE)",
-        "variant": "HIP-HOP · RIGHT",
-        "pad": "LINE",
+        "name": "DJ RIG",
+        "variant": "STAGE R",
+        "pad": null,
         "bands": {
           "hpf": "OUT",
           "lf": 0,
@@ -730,14 +831,14 @@ export const GROUPS = [
         "attestation": {
           "source": "model",
           "model": "Claude (Anthropic)",
-          "rationale": "Matched to the left channel. A stereo pair should track identically unless the room forces otherwise — dialling them apart introduces image shift that reads as a phase problem from the floor.",
+          "rationale": "Hip-hop act, stage rig. Matched to the left channel. A stereo pair should track identically unless the room forces otherwise — dialling them apart introduces image shift that reads as a phase problem from the floor.",
           "by": null,
           "verified": null
         }
       },
       {
         "name": "DJ MIC",
-        "variant": "HYPE / DROPS",
+        "variant": "HYPE",
         "pad": null,
         "bands": {
           "hpf": "IN",
@@ -751,7 +852,7 @@ export const GROUPS = [
         "attestation": {
           "source": "model",
           "model": "Claude (Anthropic)",
-          "rationale": "Follows the backing vocal pattern with more presence, since a DJ mic has to cut over a full track rather than sit inside a band. HPF in and LF down hard because the mic sits on a stage next to the rig and will pick up sub energy from the wedges. Sits in the same 3 to 5 kHz band as the lead MC, which is the conflict to watch — if both are open at once, one has to give ground."
+          "rationale": "DJ mic for hype and drops on a hip-hop set. Follows the backing vocal pattern with more presence, since a DJ mic has to cut over a full track rather than sit inside a band. HPF in and LF down hard because the mic sits on a stage next to the rig and will pick up sub energy from the wedges. Sits in the same 3 to 5 kHz band as the lead MC, which is the conflict to watch — if both are open at once, one has to give ground."
         }
       }
     ]
@@ -760,6 +861,9 @@ export const GROUPS = [
 
 /** Parse a frequency label such as "3.5 kHz", "350 Hz" or "park 15k" into hertz. */
 export function toHz(label) {
+  // "0 dB" means the band is inactive. Frequency is meaningless at zero gain,
+  // so the record says so plainly rather than implying a sweep position.
+  if (label === "0 dB") return null;
   if (label === "park 15k") return 15000;
   const value = parseFloat(label);
   if (Number.isNaN(value)) return NaN;

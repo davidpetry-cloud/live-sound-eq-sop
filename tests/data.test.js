@@ -65,6 +65,7 @@ describe("high-pass filter", () => {
 describe("frequencies are reachable on the console", () => {
   it("keeps LM inside its 35 Hz to 1 kHz sweep", () => {
     for (const channel of channels) {
+      if (channel.bands.lmD === 0) continue; // band inactive — no sweep position to check
       const hz = toHz(channel.bands.lmF);
       const id = `${channelId(channel)} LM "${channel.bands.lmF}"`;
       expect(Number.isNaN(hz), `${id} is not a readable frequency`).toBe(false);
@@ -75,6 +76,7 @@ describe("frequencies are reachable on the console", () => {
 
   it("keeps HM inside its 500 Hz to 15 kHz sweep", () => {
     for (const channel of channels) {
+      if (channel.bands.hmD === 0) continue; // band inactive — no sweep position to check
       const hz = toHz(channel.bands.hmF);
       const id = `${channelId(channel)} HM "${channel.bands.hmF}"`;
       expect(Number.isNaN(hz), `${id} is not a readable frequency`).toBe(false);
@@ -83,14 +85,23 @@ describe("frequencies are reachable on the console", () => {
     }
   });
 
-  it("parks a band at 15 kHz with zero gain, per the SOP rule", () => {
+  it("labels an inactive band 0 dB rather than implying a sweep position", () => {
     for (const channel of channels) {
-      if (channel.bands.hmF === "park 15k") {
-        expect(
-          channel.bands.hmD,
-          `${channelId(channel)} is parked but still has gain applied`
-        ).toBe(0);
+      const id = channelId(channel);
+      if (channel.bands.lmD === 0) {
+        expect(channel.bands.lmF, `${id} LM is at 0 dB but names a frequency`).toBe("0 dB");
       }
+      if (channel.bands.hmD === 0) {
+        expect(channel.bands.hmF, `${id} HM is at 0 dB but names a frequency`).toBe("0 dB");
+      }
+    }
+  });
+
+  it("never labels a band 0 dB while gain is applied", () => {
+    for (const channel of channels) {
+      const id = channelId(channel);
+      if (channel.bands.lmF === "0 dB") expect(channel.bands.lmD, `${id} LM`).toBe(0);
+      if (channel.bands.hmF === "0 dB") expect(channel.bands.hmD, `${id} HM`).toBe(0);
     }
   });
 });
@@ -102,8 +113,8 @@ describe("toHz", () => {
     expect(toHz("1 kHz")).toBe(1000);
   });
 
-  it("treats a parked band as 15 kHz", () => {
-    expect(toHz("park 15k")).toBe(15000);
+  it("returns null for an inactive band, since frequency is meaningless at 0 dB", () => {
+    expect(toHz("0 dB")).toBeNull();
   });
 
   it("returns NaN for anything it cannot read", () => {
