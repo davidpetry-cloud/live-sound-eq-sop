@@ -99,6 +99,16 @@ One suite tests what is physically possible. The other tests what is procedurall
 
 See [docs/BUILD-NOTES.md](docs/BUILD-NOTES.md) for the full reasoning behind every design decision.
 
+## Related
+
+- **[DJ Mixing SOP](https://github.com/davidpetry-cloud/dj-mixing-sop)**
+  ([live site](https://dj-mixing-sop.netlify.app)) — procedures for running a
+  DJ source through a two-sub, two-main rig. A physically different system:
+  full-range XLR pass-through to standalone powered subs rather than this
+  console's aux-fed sub feature.
+- **[attestation-ledger](https://www.npmjs.com/package/attestation-ledger)**
+  — the published engine both SOPs depend on.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
