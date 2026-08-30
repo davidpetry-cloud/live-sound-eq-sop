@@ -41,13 +41,16 @@ The 18 proposed channels split into two kinds. Some — cajón, congas, upright 
 
 | Band | Behaviour |
 |------|-----------|
-| HPF  | 80 Hz fixed, 12 dB/oct, in or out only |
+| HPF  | 80 Hz fixed, 12 dB/octave, pre-insert and pre-EQ, in or out only |
 | HF   | Shelving, 12 kHz and above |
 | HM   | Peak/dip, swept 500 Hz – 15 kHz |
 | LM   | Peak/dip, swept 35 Hz – 1 kHz |
 | LF   | Shelving, 80 Hz and below |
 | Q    | Fixed at 1.8 on both sweeps |
-| Range | ±15 dB on all four gain bands |
+| Range | ±15 dB on all four gain bands, centre-detent at 0 dB |
+| Pad | 20 dB — the PAD switch selects the LINE jack, and acts as a pad on the mic XLR when nothing is plugged in |
+
+All of the above verified against the WZ3 16:2 / 12:2 User Guide (publication AP5331) on 27 August 2026.
 
 Correct for the **WZ3 16:2** and **WZ3 12:2**. **ZED consoles differ** — 100 Hz HPF and a different EQ layout.
 

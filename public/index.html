@@ -14,6 +14,7 @@
   --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
   --att:#3FB271; --prop:#C08A2E; --exp:#D4614A; --rej:#7A8194;
   --freq:#5FCF80; --db:#6FA8DC;
+  --b-hpf:#B3A6EC; --b-lf:#F26A5A; --b-lm:#FF8A5C; --b-hm:#FFB057; --b-hf:#F7E06B;
 }
 :root,[data-mode="dark"]{
   --bg:#0A0C13;--panel:#12151F;--panel2:#171B27;--line:#262B3B;--soft:#1D2130;
@@ -23,6 +24,7 @@
   --bg:#F4F2ED;--panel:#FFF;--panel2:#FAF8F4;--line:#DCD7CC;--soft:#E8E4DC;
   --text:#1A1D26;--t2:#545A6B;--t3:#838A9C;--shadow:0 6px 20px rgba(30,28,24,.07);
   --att:#2A8A55;--prop:#96650F;--exp:#B23E27;--rej:#6A7183;--freq:#1B7A42;--db:#1D6FAE;
+  --b-hpf:#775DE7;--b-lf:#E31902;--b-lm:#D63C00;--b-hm:#B25E00;--b-hf:#867000;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15px;
@@ -60,8 +62,14 @@ input[type=search]{font-family:var(--body);font-size:14px;padding:9px 14px;borde
 .top{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:14px 18px}
 .nm{font-family:var(--display);font-size:16px;font-weight:500}
 .nm em{font-style:normal;color:var(--t3);font-size:13px;font-weight:400}
-.bands{display:flex;flex-wrap:wrap;gap:14px;margin-top:6px;font-family:var(--mono);font-size:11.5px;color:var(--t3)}
+.bands{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:6px;font-family:var(--mono);font-size:11.5px;color:var(--t3)}
 .bands b{font-weight:400;color:var(--freq)}
+.bands u{text-decoration:none;font-weight:700;font-size:9px;letter-spacing:.02em;
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:26px;height:17px;padding:0 5px;border-radius:999px;
+  border:1px solid currentColor;margin-right:3px;vertical-align:middle}
+.bands .hpf u{color:var(--b-hpf)} .bands .lf u{color:var(--b-lf)}
+.bands .lm u{color:var(--b-lm)} .bands .hm u{color:var(--b-hm)} .bands .hf u{color:var(--b-hf)}
 .bands i{font-style:normal;color:var(--db)}
 .mark{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:9px;
   letter-spacing:.15em;text-transform:uppercase;padding:5px 11px;border-radius:999px;
@@ -140,10 +148,10 @@ const LABEL = { attested:"Attested", proposed:"Proposed", expired:"Lapsed", reje
 let filter = "all", query = "";
 
 function bandLine(b){
-  return `<span>HPF <i>${b.hpf}</i></span><span>LF <i>${fmt(b.lf)}</i></span>
-    <span>LM ${b.lmD===0?'<i>0 dB</i>':`<b>${b.lmF}</b> <i>${fmt(b.lmD)}</i>`}</span>
-    <span>HM ${b.hmD===0?'<i>0 dB</i>':`<b>${b.hmF}</b> <i>${fmt(b.hmD)}</i>`}</span>
-    <span>HF <i>${fmt(b.hf)}</i></span>`;
+  return `<span class="hpf"><u>HPF</u> <i>${b.hpf}</i></span><span class="lf"><u>LF</u> <i>${fmt(b.lf)}</i></span>
+    <span class="lm"><u>LM</u> ${b.lmD===0?'<i>0 dB</i>':`<b>${b.lmF}</b> <i>${fmt(b.lmD)}</i>`}</span>
+    <span class="hm"><u>HM</u> ${b.hmD===0?'<i>0 dB</i>':`<b>${b.hmF}</b> <i>${fmt(b.hmD)}</i>`}</span>
+    <span class="hf"><u>HF</u> <i>${fmt(b.hf)}</i></span>`;
 }
 const fmt = n => n>0?`+${n}`:n===0?"0":`\u2212${Math.abs(n)}`;
 

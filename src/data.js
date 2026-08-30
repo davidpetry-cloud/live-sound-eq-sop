@@ -11,8 +11,15 @@
  * Status is never stored here. It is derived in src/attestation.js from the
  * verification date, so an attestation decays unless somebody re-checks it.
  *
- * Console constraints every record must respect:
- *   HPF  80 Hz fixed, in or out only
+ * Console constraints every record must respect. All verified against the
+ * WZ3 16:2 / 12:2 User Guide (publication AP5331) on 2026-08-27.
+ *
+ * The manual states the HPF attenuates below 80 Hz at 12 dB per octave, and
+ * that it sits pre-insert, pre-EQ. Some retailer copy and two of the author's
+ * own earlier reference documents say 100 Hz; they are wrong, likely
+ * conflating it with the WZ3 redesign making the shelving filters more
+ * responsive around 100 Hz. The manual is the primary source and wins.
+ *   HPF  80 Hz fixed, 12 dB/octave, in or out only
  *   LF   shelving at 80 Hz and below
  *   LM   peak/dip, swept 35 Hz - 1 kHz
  *   HM   peak/dip, swept 500 Hz - 15 kHz
@@ -23,6 +30,19 @@
 /** Sweep and gain limits for the WZ3 channel strip. */
 export const CONSOLE = {
   name: "Allen & Heath MixWizard WZ3 16:2",
+  hpfHz: 80,
+  hpfSlope: "12 dB/octave",
+  hpfPosition: "pre-insert, pre-EQ",
+  padDb: 20,
+  padNote: "The PAD switch selects the LINE jack. With nothing plugged into it, the switch acts as a 20 dB pad on the mic XLR.",
+  gainRangeMic: "+10 to +60 dB",
+  gainRangeLine: "-10 to +40 dB",
+  detent: "All four gain bands have a centre-detent 0 dB position.",
+  // Frequencies printed around the sweep knobs — landing on a printed mark is
+  // faster and more repeatable at the desk than reading between them.
+  lmPanelMarks: ["35 Hz", "45", "70", "180", "250", "400", "1k"],
+  hmPanelMarks: ["500 Hz", "700", "1k", "3k", "4k", "6k", "15k"],
+  specVerified: "2026-08-27 — against the WZ3 16:2 / 12:2 User Guide, publication AP5331",
   alsoFits: ["WZ3 12:2"],
   notFor: ["ZED series — 100 Hz HPF and a different EQ layout"],
   gainLimitDb: 15,
@@ -797,43 +817,45 @@ export const GROUPS = [
       {
         "name": "DJ RIG",
         "variant": "STAGE L",
-        "pad": null,
+        "pad": "IF CLIPPING",
         "bands": {
           "hpf": "OUT",
           "lf": 0,
           "lmF": "315 Hz",
           "lmD": -3,
-          "hmF": "2.5 kHz",
+          "hmF": "2 kHz",
           "hmD": -3,
-          "hf": 2
+          "hf": -2
         },
         "attestation": {
-          "source": "model",
-          "model": "Claude (Anthropic)",
-          "rationale": "Hip-hop act, DJ rig live on stage, stereo pair off a battle mixer taken at line level. HPF stays out because the sub content is the genre — an 80 Hz filter guts an 808. LF held at flat rather than boosted: the tracks arrive already mastered and bass-heavy, and lifting the shelf tends to go flubby in a live room. The 315 Hz cut clears mud from stacked samples. The HM cut at 2.5 kHz is the important one — it carves a seat for the live MC, applying the ownership map rule that 3 to 5 kHz is protected for vocal. On a stage rig, also watch for low-frequency energy from the wedges reaching the turntables and skipping the needle; that is a physical isolation problem, not an EQ one.",
-          "by": null,
-          "verified": null
+          "source": "practitioner",
+          "by": "David Petry",
+          "role": "FOH engineer",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors. Confirmed against his own Hip Hop Live Mixing & EQ Reference and Two-DJ FOH Setup Checklist: cut 2-4 dB in the 1-3 kHz HM band to clear a vocal pocket for rap consonants, gentle HF cut where hats and sizzle mask sibilance, LF left flat because the dual mono subs carry the 808s and double-boosting only adds mud. Pad engaged when gain is near minimum and the channel still clips.",
+          "verified": "2026-08-26",
+          "ttlDays": 730
         }
       },
       {
         "name": "DJ RIG",
         "variant": "STAGE R",
-        "pad": null,
+        "pad": "IF CLIPPING",
         "bands": {
           "hpf": "OUT",
           "lf": 0,
           "lmF": "315 Hz",
           "lmD": -3,
-          "hmF": "2.5 kHz",
+          "hmF": "2 kHz",
           "hmD": -3,
-          "hf": 2
+          "hf": -2
         },
         "attestation": {
-          "source": "model",
-          "model": "Claude (Anthropic)",
-          "rationale": "Hip-hop act, stage rig. Matched to the left channel. A stereo pair should track identically unless the room forces otherwise — dialling them apart introduces image shift that reads as a phase problem from the floor.",
-          "by": null,
-          "verified": null
+          "source": "practitioner",
+          "by": "David Petry",
+          "role": "FOH engineer",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors. Confirmed against his own Hip Hop Live Mixing & EQ Reference and Two-DJ FOH Setup Checklist: cut 2-4 dB in the 1-3 kHz HM band to clear a vocal pocket for rap consonants, gentle HF cut where hats and sizzle mask sibilance, LF left flat because the dual mono subs carry the 808s and double-boosting only adds mud. Pad engaged when gain is near minimum and the channel still clips.",
+          "verified": "2026-08-26",
+          "ttlDays": 730
         }
       },
       {
@@ -843,16 +865,19 @@ export const GROUPS = [
         "bands": {
           "hpf": "IN",
           "lf": -3,
-          "lmF": "400 Hz",
+          "lmF": "300 Hz",
           "lmD": -3,
           "hmF": "4 kHz",
-          "hmD": 3,
-          "hf": 2
+          "hmD": 1,
+          "hf": 0
         },
         "attestation": {
-          "source": "model",
-          "model": "Claude (Anthropic)",
-          "rationale": "DJ mic for hype and drops on a hip-hop set. Follows the backing vocal pattern with more presence, since a DJ mic has to cut over a full track rather than sit inside a band. HPF in and LF down hard because the mic sits on a stage next to the rig and will pick up sub energy from the wedges. Sits in the same 3 to 5 kHz band as the lead MC, which is the conflict to watch — if both are open at once, one has to give ground."
+          "source": "practitioner",
+          "by": "David Petry",
+          "role": "FOH engineer",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors. Confirmed against his own Hip Hop Live Mixing & EQ Reference: HPF engaged since cupping and proximity effect leave nothing useful below it live, 2-4 dB cut at 250-400 Hz for cupped-mic mud, and only a small 3-5 kHz presence lift as a last resort because carving the DJ channel first usually solves it without inviting feedback. A hype mic sits 3-6 dB under the lead vocal and gets muted whenever it is not in use.",
+          "verified": "2026-08-26",
+          "ttlDays": 730
         }
       }
     ]
