@@ -6,11 +6,14 @@
   "author": "David Petry",
   "license": "MIT",
   "scripts": {
-    "build": "mkdir -p public/src && cp src/*.js public/src/",
+    "build": "mkdir -p public/src && cp src/*.js public/src/ && mkdir -p public/vendor/attestation-ledger && cp node_modules/attestation-ledger/src/index.js public/vendor/attestation-ledger/index.js",
     "preview": "npm run build && npx --yes serve public",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "attestation-ledger": "^0.1.0"
   },
   "devDependencies": {
     "vitest": "^2.1.0"

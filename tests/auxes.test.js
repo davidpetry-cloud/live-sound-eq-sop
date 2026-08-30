@@ -11,7 +11,7 @@ import {
   allAuxRecords
 } from "../src/auxes.js";
 import { GROUPS, allChannels } from "../src/data.js";
-import { SOURCE, STATUS, resolveStatus, isTrusted } from "../src/attestation.js";
+import { SOURCE, STATUS, resolveStatus, isTrusted } from "attestation-ledger";
 
 describe("console facts — the hardware wins", () => {
   it("declares all six sends with the manual's fade modes", () => {

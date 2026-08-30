@@ -65,6 +65,16 @@ npm run preview     # builds, then serves public/ as the site root
 resolve inside the published tree. `public/src/` is generated and gitignored —
 `src/` remains the single source of truth.
 
+## Architecture
+
+The attestation engine that powers this SOP is published separately as
+[`attestation-ledger`](https://www.npmjs.com/package/attestation-ledger) on
+npm — a general-purpose library for expert assertions with provenance, with
+zero coupling to audio. This project consumes it as a real dependency rather
+than a local copy, which is the proof the extraction was genuine: the same
+rule that governs a kick drum EQ value governs a bus routing policy, enforced
+by code neither file can see.
+
 ## Development
 
 ```bash

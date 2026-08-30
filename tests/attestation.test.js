@@ -10,7 +10,7 @@ import {
   reject,
   propose,
   tally
-} from "../src/attestation.js";
+} from "attestation-ledger";
 
 const channels = allChannels();
 
