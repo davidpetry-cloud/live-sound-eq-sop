@@ -456,27 +456,6 @@ export const GROUPS = [
           "verified": "2026-08-25",
           "ttlDays": 730
         }
-      },
-      {
-        "name": "GUEST MIC",
-        "variant": "KARAOKE / SPEECH",
-        "pad": null,
-        "bands": {
-          "hpf": "IN",
-          "lf": -2,
-          "lmF": "250 Hz",
-          "lmD": -4,
-          "hmF": "4 kHz",
-          "hmD": 2,
-          "hf": 1
-        },
-        "attestation": {
-          "source": "model",
-          "model": "Claude (Anthropic)",
-          "rationale": "Reasoned from the backing-vocal pattern with more presence for cutting over a track. Practitioner has not run this channel and gave an explicit no during review — kept as a starting point, not attested.",
-          "by": null,
-          "verified": null
-        }
       }
     ]
   },
