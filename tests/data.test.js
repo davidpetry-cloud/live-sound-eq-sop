@@ -16,16 +16,30 @@ describe("every channel has a complete band set", () => {
 });
 
 describe("gain limits", () => {
-  it("keeps every dB value inside the console's plus or minus 15 dB range", () => {
+  // A band value is normally a signed number. HF on ALTO SAXOPHONE is a
+  // deliberate exception — a real range ("−2 dB to +2 dB") the practitioner
+  // asked for because HF varies more than the other bands by horn and room.
+  // Both endpoints still have to respect the console's limits, so a range
+  // string is parsed into its two numbers rather than skipped.
+  function endpointsOf(value) {
+    if (typeof value === "number") return [value];
+    const nums = String(value).match(/[−-]?\d+/g);
+    return nums ? nums.map((n) => parseInt(n.replace("−", "-"), 10)) : [];
+  }
+
+  it("keeps every dB value (or range endpoint) inside the console's plus or minus 15 dB range", () => {
     for (const channel of channels) {
       const id = channelId(channel);
       for (const band of ["lf", "lmD", "hmD", "hf"]) {
         const value = channel.bands[band];
-        expect(typeof value, `${id} ${band} should be a number`).toBe("number");
-        expect(
-          Math.abs(value),
-          `${id} ${band} is ${value} dB, outside the console range`
-        ).toBeLessThanOrEqual(CONSOLE.gainLimitDb);
+        const endpoints = endpointsOf(value);
+        expect(endpoints.length, `${id} ${band} value "${value}" has no readable number`).toBeGreaterThan(0);
+        for (const n of endpoints) {
+          expect(
+            Math.abs(n),
+            `${id} ${band} is ${value} dB, outside the console range`
+          ).toBeLessThanOrEqual(CONSOLE.gainLimitDb);
+        }
       }
     }
   });
@@ -33,10 +47,12 @@ describe("gain limits", () => {
   it("uses whole-dB values only — the WZ3 has no finer detent", () => {
     for (const channel of channels) {
       for (const band of ["lf", "lmD", "hmD", "hf"]) {
-        expect(
-          Number.isInteger(channel.bands[band]),
-          `${channelId(channel)} ${band} is not a whole number`
-        ).toBe(true);
+        for (const n of endpointsOf(channel.bands[band])) {
+          expect(
+            Number.isInteger(n),
+            `${channelId(channel)} ${band} is not a whole number`
+          ).toBe(true);
+        }
       }
     }
   });

@@ -540,11 +540,12 @@ export const GROUPS = [
           "hf": 1
         },
         "attestation": {
-          "source": "model",
-          "model": "Claude (Anthropic)",
-          "rationale": "Reasoned from mixing theory about how sustained pad content should sit under a mix — not yet verified with this specific patch through the WZ3.",
-          "by": null,
-          "verified": null
+          "source": "practitioner",
+          "by": "David Petry",
+          "role": "FOH engineer",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors. It's never perfect on paper — always use your ears, not your eyes. These numbers are a starting point to dial in against the room, not a target to hit exactly.",
+          "verified": "2026-08-31",
+          "ttlDays": 730
         }
       },
       {
@@ -561,11 +562,12 @@ export const GROUPS = [
           "hf": 0
         },
         "attestation": {
-          "source": "model",
-          "model": "Claude (Anthropic)",
-          "rationale": "Reasoned from mixing theory treating a synth lead like a second vocal or guitar solo — not yet verified with this specific patch through the WZ3.",
-          "by": null,
-          "verified": null
+          "source": "practitioner",
+          "by": "David Petry",
+          "role": "FOH engineer",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors. It's never perfect on paper — always use your ears, not your eyes. These numbers are a starting point to dial in against the room, not a target to hit exactly.",
+          "verified": "2026-08-31",
+          "ttlDays": 730
         }
       },
       {
@@ -578,15 +580,16 @@ export const GROUPS = [
           "lmF": "250 Hz",
           "lmD": -3,
           "hmF": "1 kHz",
-          "hmD": 2,
+          "hmD": "0 dB to +2 dB",
           "hf": -3
         },
         "attestation": {
-          "source": "model",
-          "model": "Claude (Anthropic)",
-          "rationale": "Reasoned from frequency-conflict principles between synth bass and bass guitar. Practitioner has mixed synth bass in a DAW context but has not yet swept LM/HM on the WZ3 itself — this is the specific gap the values are pending verification against.",
-          "by": null,
-          "verified": null
+          "source": "practitioner",
+          "by": "David Petry",
+          "role": "FOH engineer",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors. Swept and verified against bass guitar and kick on the WZ3 — this is the channel where the low end genuinely has to be dialed in live, not read off a chart. It's never perfect on paper — always use your ears, not your eyes. These numbers are a starting point to dial in against the room, not a target to hit exactly.",
+          "verified": "2026-08-31",
+          "ttlDays": 730
         }
       },
       {
@@ -674,14 +677,15 @@ export const GROUPS = [
           "lmD": -3,
           "hmF": "3 kHz",
           "hmD": -2,
-          "hf": 2
+          "hf": "−2 dB to +2 dB"
         },
         "attestation": {
-          "source": "model",
-          "model": "Claude (Anthropic)",
-          "rationale": "Alto sits higher and reedier than tenor — similar treatment to the existing tenor record with a slightly higher HM centre. Practitioner has played and mixed alto sax but these console values are unverified on the WZ3.",
-          "by": null,
-          "verified": null
+          "source": "practitioner",
+          "by": "David Petry",
+          "role": "FOH engineer",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors. HF varies more than the other bands depending on horn and room, so it is kept as a range rather than a fixed number. HM at 3 kHz −2 dB kept as-is despite being the trickiest band to dial in by ear.",
+          "verified": "2026-08-31",
+          "ttlDays": 730
         }
       },
       {
