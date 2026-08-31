@@ -625,11 +625,12 @@ export const GROUPS = [
           "hf": 1
         },
         "attestation": {
-          "source": "model",
-          "model": "Claude (Anthropic)",
-          "rationale": "Trumpet is bright and cutting by nature — LF cut since there is little useful content down there, HM cut to tame the natural edge rather than adding more of it. Practitioner has played and mixed trumpet but these console values are unverified on the WZ3.",
-          "by": null,
-          "verified": null
+          "source": "practitioner",
+          "by": "David Petry",
+          "role": "FOH engineer",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors. Played and mixed both instruments; these values are close to how I'd start them on this console.",
+          "verified": "2026-08-31",
+          "ttlDays": 730
         },
         "mic": {
           "cheap": "SM57 or Audix i5",
@@ -650,11 +651,12 @@ export const GROUPS = [
           "hf": 1
         },
         "attestation": {
-          "source": "model",
-          "model": "Claude (Anthropic)",
-          "rationale": "Trombone sits lower and with more body than trumpet or sax — smaller LF cut, mud cut around 350 Hz same as most horns. Practitioner has played and mixed trombone but these console values are unverified on the WZ3.",
-          "by": null,
-          "verified": null
+          "source": "practitioner",
+          "by": "David Petry",
+          "role": "FOH engineer",
+          "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors. Played and mixed both instruments; these values are close to how I'd start them on this console.",
+          "verified": "2026-08-31",
+          "ttlDays": 730
         },
         "mic": {
           "cheap": "SM57 or MD421",
