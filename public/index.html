@@ -13,7 +13,8 @@
   --body:'Inter',system-ui,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
   --att:#3FB271; --prop:#C08A2E; --exp:#D4614A; --rej:#7A8194;
-  --freq:#E8A33D; --db:#6FA8DC;
+  --freq:#5FCF80; --db:#6FA8DC;
+  --b-hpf:#B3A6EC; --b-lf:#F26A5A; --b-lm:#FF8A5C; --b-hm:#FFB057; --b-hf:#F7E06B;
 }
 :root,[data-mode="dark"]{
   --bg:#0A0C13;--panel:#12151F;--panel2:#171B27;--line:#262B3B;--soft:#1D2130;
@@ -22,7 +23,8 @@
 [data-mode="light"]{
   --bg:#F4F2ED;--panel:#FFF;--panel2:#FAF8F4;--line:#DCD7CC;--soft:#E8E4DC;
   --text:#1A1D26;--t2:#545A6B;--t3:#838A9C;--shadow:0 6px 20px rgba(30,28,24,.07);
-  --att:#2A8A55;--prop:#96650F;--exp:#B23E27;--rej:#6A7183;--freq:#96650F;--db:#1D6FAE;
+  --att:#2A8A55;--prop:#96650F;--exp:#B23E27;--rej:#6A7183;--freq:#1B7A42;--db:#1D6FAE;
+  --b-hpf:#775DE7;--b-lf:#E31902;--b-lm:#D63C00;--b-hm:#B25E00;--b-hf:#867000;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15px;
@@ -60,8 +62,14 @@ input[type=search]{font-family:var(--body);font-size:14px;padding:9px 14px;borde
 .top{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:14px 18px}
 .nm{font-family:var(--display);font-size:16px;font-weight:500}
 .nm em{font-style:normal;color:var(--t3);font-size:13px;font-weight:400}
-.bands{display:flex;flex-wrap:wrap;gap:14px;margin-top:6px;font-family:var(--mono);font-size:11.5px;color:var(--t3)}
+.bands{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:6px;font-family:var(--mono);font-size:11.5px;color:var(--t3)}
 .bands b{font-weight:400;color:var(--freq)}
+.bands u{text-decoration:none;font-weight:700;font-size:9px;letter-spacing:.02em;
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:26px;height:17px;padding:0 5px;border-radius:999px;
+  border:1px solid currentColor;margin-right:3px;vertical-align:middle}
+.bands .hpf u{color:var(--b-hpf)} .bands .lf u{color:var(--b-lf)}
+.bands .lm u{color:var(--b-lm)} .bands .hm u{color:var(--b-hm)} .bands .hf u{color:var(--b-hf)}
 .bands i{font-style:normal;color:var(--db)}
 .mark{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:9px;
   letter-spacing:.15em;text-transform:uppercase;padding:5px 11px;border-radius:999px;
@@ -85,6 +93,50 @@ footer{margin-top:50px;padding-top:20px;border-top:1px solid var(--line);
   .prov dt{padding-top:9px}
 }
 @media(prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}}
+
+/* ===== Aux & effects layer ===== */
+.aux-nav{display:flex;gap:8px;margin:0 0 22px}
+.aux-tab{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  padding:8px 16px;border:1px solid var(--line);border-radius:1px 12px 12px 1px;background:var(--panel);
+  color:var(--t3);cursor:pointer}
+.aux-tab[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:var(--text)}
+.aux-panel{display:none}
+.aux-panel[data-active]{display:block}
+.bus-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-bottom:28px}
+.bus-card{background:var(--panel);border:1px solid var(--line);border-radius:2px 14px 14px 2px;
+  padding:16px 18px;box-shadow:var(--shadow)}
+.bus-id{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--t3);text-transform:uppercase}
+.bus-role{font-family:var(--display);font-size:16px;font-weight:700;margin:4px 0 8px}
+.bus-fade{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;
+  padding:3px 9px;border-radius:999px;border:1px solid var(--att);color:var(--att);margin-bottom:10px}
+.bus-fade.post{border-color:var(--db);color:var(--db)}
+.bus-policy{font-size:12.5px;color:var(--t2);line-height:1.6;margin:0;padding-left:16px}
+.bus-policy li{margin-bottom:4px}
+.rule-row{display:grid;grid-template-columns:110px 90px 1fr;gap:14px;align-items:start;
+  padding:12px 0;border-bottom:1px solid var(--soft);font-size:13px}
+.rule-row:last-child{border-bottom:none}
+.rule-group{font-weight:600}
+.rule-verdict{font-family:var(--mono);font-size:11px;letter-spacing:.06em}
+.rule-verdict.on{color:var(--att)}.rule-verdict.off{color:var(--exp)}
+.rule-why{color:var(--t2)}
+.ring-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+.ring-table th{text-align:left;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--t3);padding:8px 10px;border-bottom:1px solid var(--line)}
+.ring-table td{padding:9px 10px;border-bottom:1px solid var(--soft);vertical-align:top}
+.ring-freq{font-family:var(--mono);color:var(--freq);white-space:nowrap}
+.opt-card{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--prop);
+  border-radius:2px 14px 14px 2px;padding:16px 18px;margin-bottom:10px;box-shadow:var(--shadow)}
+.opt-name{font-family:var(--display);font-size:15px;font-weight:700;margin-bottom:6px}
+.opt-config{font-family:var(--mono);font-size:11.5px;color:var(--t3);margin-bottom:10px}
+.opt-gc{display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:12.5px}
+.opt-gc div b{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;
+  text-transform:uppercase;margin-bottom:3px}
+.opt-gc .gains b{color:var(--att)}.opt-gc .costs b{color:var(--exp)}
+.conflict-note{background:var(--panel2);border-left:3px solid var(--exp);padding:12px 16px;
+  font-size:13px;color:var(--t2);margin-bottom:22px}
+.conflict-note b{color:var(--exp);font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;display:block;margin-bottom:5px}
+
 @media print{
   body{background:#fff;color:#000;padding:0}
   .bar,.chips{display:none!important}
@@ -115,7 +167,13 @@ footer{margin-top:50px;padding-top:20px;border-top:1px solid var(--line);
   <div class="counts" id="counts"></div>
 </section>
 
-<main id="list"></main>
+<div class="aux-nav" role="tablist" aria-label="View">
+  <button class="aux-tab" type="button" data-view="channels" aria-pressed="true">Channels</button>
+  <button class="aux-tab" type="button" data-view="aux" aria-pressed="false">Aux &amp; Effects</button>
+</div>
+
+<main id="channelsPanel" class="aux-panel" data-active><div id="list"></div></main>
+<section id="auxPanel" class="aux-panel"></section>
 
 <footer>
   LIVE SOUND EQ SOP · ALLEN &amp; HEATH MIXWIZARD WZ3 16:2 AND 12:2<br>
@@ -125,8 +183,10 @@ footer{margin-top:50px;padding-top:20px;border-top:1px solid var(--line);
 </div>
 
 <script type="module">
-import { GROUPS, allChannels, channelId } from "../src/data.js";
-import { resolveStatus, daysRemaining, STATUS, SOURCE, tally } from "../src/attestation.js";
+import { GROUPS, allChannels, channelId } from "./src/data.js";
+import { resolveStatus, daysRemaining, STATUS, SOURCE, tally } from "./vendor/attestation-ledger/index.js";
+import { AUX_CONSOLE, BUSES, SEND_RULES, FX_PATCHES, FX_OPTIONS, MONITOR_RINGOUT, allAuxRecords }
+  from "./src/auxes.js";
 
 const ICON = {
   attested:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3.2L13 5"/></svg>',
@@ -140,12 +200,12 @@ const LABEL = { attested:"Attested", proposed:"Proposed", expired:"Lapsed", reje
 let filter = "all", query = "";
 
 function bandLine(b){
-  return `<span>HPF <i>${b.hpf}</i></span><span>LF <i>${fmt(b.lf)}</i></span>
-    <span>LM <b>${b.lmF}</b> <i>${fmt(b.lmD)}</i></span>
-    <span>HM <b>${b.hmF==="park 15k"?"15 kHz":b.hmF}</b> <i>${fmt(b.hmD)}</i></span>
-    <span>HF <i>${fmt(b.hf)}</i></span>`;
+  return `<span class="hpf"><u>HPF</u> <i>${b.hpf}</i></span><span class="lf"><u>LF</u> <i>${fmt(b.lf)}</i></span>
+    <span class="lm"><u>LM</u> ${b.lmD===0?'<i>0 dB</i>':`<b>${b.lmF}</b> <i>${fmt(b.lmD)}</i>`}</span>
+    <span class="hm"><u>HM</u> ${b.hmD===0?'<i>0 dB</i>':`<b>${b.hmF}</b> <i>${fmt(b.hmD)}</i>`}</span>
+    <span class="hf"><u>HF</u> <i>${fmt(b.hf)}</i></span>`;
 }
-const fmt = n => n>0?`+${n}`:n===0?"0":`\u2212${Math.abs(n)}`;
+const fmt = n => n>0?`+${n} dB`:n===0?"0 dB":`\u2212${Math.abs(n)} dB`;
 
 function provenance(ch, status){
   const a = ch.attestation;
@@ -225,6 +285,80 @@ function render(){
   }
 }
 
+
+/* ---------- Aux & effects panel ---------- */
+function fadeChip(fade){
+  return `<span class="bus-fade ${fade}">${fade==="pre"?"Pre-fade":"Post-fade"}</span>`;
+}
+
+function renderBuses(){
+  return `<div class="bus-grid">${BUSES.map(bus => `
+    <div class="bus-card">
+      <div class="bus-id">${bus.id.toUpperCase()}</div>
+      <div class="bus-role">${bus.role}</div>
+      ${fadeChip(bus.fade)}
+      <ul class="bus-policy">${bus.policy.map(p=>`<li>${p}</li>`).join("")}</ul>
+    </div>`).join("")}</div>`;
+}
+
+function renderConflict(){
+  const fx = AUX_CONSOLE.fx;
+  return `<div class="conflict-note"><b>Console conflict</b>${fx.conflict}</div>`;
+}
+
+function renderSendRules(){
+  return `<div class="ledger" style="margin-bottom:28px">
+    <h2>Send rules</h2>
+    ${SEND_RULES.map(r => `
+      <div class="rule-row">
+        <div class="rule-group">${r.group}</div>
+        <div class="rule-verdict ${/OFF/.test(r.rule)?"off":"on"}">${r.rule.split("—")[0].trim()}</div>
+        <div class="rule-why">${r.why}</div>
+      </div>`).join("")}
+  </div>`;
+}
+
+function renderRingout(){
+  const r = MONITOR_RINGOUT;
+  return `<div class="ledger" style="margin-bottom:28px">
+    <h2>Monitor ring-out — ${r.appliesTo.map(a=>a.toUpperCase()).join(", ")}</h2>
+    <p style="font-size:13px;color:var(--t2);margin-bottom:4px">${r.note}</p>
+    <p style="font-size:12.5px;color:var(--exp);margin-bottom:6px">${r.rule}</p>
+    <table class="ring-table">
+      <thead><tr><th>Frequency</th><th>Band</th><th>What it is</th></tr></thead>
+      <tbody>${r.entries.map(e=>`
+        <tr><td class="ring-freq">${e.freq}</td><td>${e.band}</td><td>${e.what}</td></tr>`).join("")}
+      </tbody>
+    </table>
+  </div>`;
+}
+
+function renderFxOptions(){
+  return `<div style="margin-bottom:10px">
+    <h2 style="font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+      color:var(--t3);font-weight:400;margin-bottom:14px">FX configuration — awaiting ratification</h2>
+    ${FX_OPTIONS.map(o => `
+      <div class="opt-card">
+        <div class="opt-name">${o.name}</div>
+        <div class="opt-config">${o.config}</div>
+        <div class="opt-gc">
+          <div class="gains"><b>Gains</b>${o.gains}</div>
+          <div class="costs"><b>Costs</b>${o.costs}</div>
+        </div>
+      </div>`).join("")}
+  </div>`;
+}
+
+function renderAuxPanel(){
+  const panel = document.getElementById("auxPanel");
+  panel.innerHTML =
+    renderConflict() +
+    renderBuses() +
+    renderSendRules() +
+    renderRingout() +
+    renderFxOptions();
+}
+
 function renderLedger(){
   const c = tally(allChannels());
   const blurb = {
@@ -264,6 +398,17 @@ applyMode();
 renderFilters();
 renderLedger();
 render();
+renderAuxPanel();
+
+document.querySelectorAll(".aux-tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".aux-tab").forEach(t => t.setAttribute("aria-pressed", "false"));
+    tab.setAttribute("aria-pressed", "true");
+    const view = tab.dataset.view;
+    document.getElementById("channelsPanel").toggleAttribute("data-active", view === "channels");
+    document.getElementById("auxPanel").toggleAttribute("data-active", view === "aux");
+  });
+});
 </script>
 </body>
 </html>
