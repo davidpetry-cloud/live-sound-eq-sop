@@ -206,14 +206,17 @@ export const FX_PATCHES = [
 export const FX_OPTIONS = [
   {
     id: "opt-single",
-    name: "Single FX (current, by consequence)",
+    name: "Single FX — ratified",
     config: "Aux 5 feeds one 16-preset engine; Aux 6 stays the sub feed",
     gains: "Full aux-fed sub control — the backbone of the hip-hop rig",
     costs: "One effect at a time",
     attestation: {
-      source: "model", model: "Claude (Anthropic)",
-      rationale: "This is the configuration the rig already implies, but it exists by consequence of the sub decision, not as a ratified choice. Ratifying it makes the trade-off deliberate.",
-      by: null, verified: null
+      source: "practitioner",
+      by: "David Petry",
+      role: "FOH engineer",
+      basis: "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors. The equipment and the room get tested constantly and the right configuration changes depending on the scenario — but the sub feed is the one piece that has to stay available regardless of what else is happening that night, so single FX is the deliberate default. Dual FX is not off the table for a show that specifically calls for it; it is just not the standing configuration.",
+      verified: "2026-08-31",
+      ttlDays: 730
     }
   },
   {

@@ -133,14 +133,26 @@ describe("FX architecture — the manual's facts hold", () => {
     expect(internalPatches.length, "two simultaneous internal patches need dual mode, which needs aux6").toBeLessThanOrEqual(1);
   });
 
-  it("keeps every FX option honest — model-sourced, never trusted, each with gains and costs", () => {
+  it("keeps every FX option honest — gains and costs stated, and unratified options stay untrusted", () => {
     expect(FX_OPTIONS.length).toBeGreaterThanOrEqual(3);
     for (const opt of FX_OPTIONS) {
-      expect(opt.attestation.source).toBe(SOURCE.MODEL);
-      expect(isTrusted(opt)).toBe(false);
+      // A practitioner may ratify one option (attest it, with a real name and
+      // basis) — that is the whole point of the state existing. Everything
+      // that has NOT been ratified must stay model-sourced and untrusted.
+      if (opt.attestation.source !== SOURCE.MODEL) {
+        expect(opt.attestation.by, `${opt.id} is attested but unsigned`).toBeTruthy();
+        expect(opt.attestation.basis, `${opt.id} is attested but states no basis`).toBeTruthy();
+      } else {
+        expect(isTrusted(opt), `${opt.id} is model-sourced but reads as trusted`).toBe(false);
+      }
       expect(opt.gains, `${opt.id} states no gains`).toBeTruthy();
       expect(opt.costs, `${opt.id} states no costs — an option with no cost is an advertisement`).toBeTruthy();
     }
+  });
+
+  it("ratifies at most one FX option at a time — the console can only run one configuration", () => {
+    const ratified = FX_OPTIONS.filter((opt) => opt.attestation.source !== SOURCE.MODEL);
+    expect(ratified.length, "more than one FX option is ratified — only one config can be live").toBeLessThanOrEqual(1);
   });
 });
 
