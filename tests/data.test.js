@@ -121,3 +121,14 @@ describe("toHz", () => {
     expect(Number.isNaN(toHz("loud"))).toBe(true);
   });
 });
+
+describe("mic field — optional, but well-formed when present", () => {
+  it("gives every channel with a mic recommendation both a cheap option and a note", () => {
+    for (const channel of channels) {
+      if (!channel.mic) continue;
+      const id = channelId(channel);
+      expect(channel.mic.cheap, `${id} mic field has no cheap option`).toBeTruthy();
+      expect(channel.mic.note, `${id} mic field has no sourcing note`).toBeTruthy();
+    }
+  });
+});
