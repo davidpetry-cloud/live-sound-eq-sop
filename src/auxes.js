@@ -267,10 +267,10 @@ export const MONITOR_RINGOUT = {
   rule: "Never notch more than three frequencies per monitor. A wedge that needs a fourth cut has a placement problem, not an EQ problem — move the mic or the wedge.",
   entries: [
     { freq: "250 Hz", band: "LM", what: "Chesty, boomy ring. Most common on floor wedges near a back wall." },
-    { freq: "500 Hz", band: "LM or HM", what: "Hollow honk. Cut −4." },
+    { freq: "500 Hz", band: "LM or HM", what: "Hollow honk. Cut −4 dB." },
     { freq: "800 Hz – 1 kHz", band: "LM (max) or HM", what: "Overlap zone — either band reaches it." },
-    { freq: "2 kHz", band: "HM", what: "Piercing ring. Cut −4 to −6." },
-    { freq: "4 kHz", band: "HM", what: "Sharp whistle. Cut −6, then re-check vocal presence." }
+    { freq: "2 kHz", band: "HM", what: "Piercing ring. Cut −4 to −6 dB." },
+    { freq: "4 kHz", band: "HM", what: "Sharp whistle. Cut −6 dB, then re-check vocal presence." }
   ],
   attestation: attested("Restored from the practitioner's original Live Sound EQ SOP, where it was authored as a general reference; it was always a monitor-bus procedure and now lives with the buses it belongs to.")
 };
