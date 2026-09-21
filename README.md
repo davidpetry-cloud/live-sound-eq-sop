@@ -67,7 +67,7 @@ GET /api/channels
 | `status` | `attested`, `proposed`, `expired`, `rejected` | Case-insensitive. Resolved by the ledger's `resolveStatus()` at request time. |
 | `group` | `drums`, `bass-guitars`, `vocals`, `keys-synths-horns`, `playback` | Slug of the group name. |
 
-No params returns every channel, each flagged with its status. Both params together are ANDed. An unknown `status` or `group` returns `400` with the valid values; non-GET methods return `405`.
+No params returns every channel, each flagged with its status. Both params together are ANDed. An unknown or repeated `status` or `group` returns `400` (unknown values come back with the valid ones); non-GET methods return `405`.
 
 Every channel carries its `status` next to its `bands` — a proposed value is never returned without saying so.
 
@@ -129,7 +129,7 @@ by code neither file can see.
 
 ```bash
 npm install
-npm test              # 90 tests
+npm test              # 92 tests
 npm run test:watch
 ```
 
