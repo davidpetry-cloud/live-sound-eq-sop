@@ -8,7 +8,7 @@ Everything below runs on **your machine**, in your own terminal. Not in Claude.
 
 ```bash
 git --version     # any recent version is fine
-node --version    # want v18 or higher
+node --version    # want v22.12 or higher
 ```
 
 Missing git on macOS: run `xcode-select --install`.

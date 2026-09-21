@@ -5,6 +5,9 @@
   "type": "module",
   "author": "David Petry",
   "license": "MIT",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "build": "mkdir -p public/src && cp src/*.js public/src/ && mkdir -p public/vendor/attestation-ledger && cp node_modules/attestation-ledger/src/index.js public/vendor/attestation-ledger/index.js",
     "preview": "npm run build && npx --yes serve public",
@@ -16,7 +19,7 @@
     "attestation-ledger": "^0.1.0"
   },
   "devDependencies": {
-    "vitest": "^2.1.0"
+    "vitest": "^5.0.1"
   },
   "keywords": [
     "live-sound",
