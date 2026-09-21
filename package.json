@@ -13,7 +13,9 @@
     "preview": "npm run build && npx --yes serve public",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "verify:deploy": "node scripts/verify-deploy.mjs",
+    "verify:local": "node scripts/verify-deploy.mjs --local"
   },
   "dependencies": {
     "attestation-ledger": "^0.1.0"
