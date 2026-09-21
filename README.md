@@ -129,7 +129,7 @@ by code neither file can see.
 
 ```bash
 npm install
-npm test              # 92 tests
+npm test              # runs the full suite
 npm run test:watch
 ```
 
