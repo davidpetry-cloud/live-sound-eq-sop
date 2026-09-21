@@ -34,6 +34,13 @@ function json(body, status = 200, extra = {}) {
   });
 }
 
+const MAX_ECHO = 64;
+
+/** Quote a caller's value in an error message without echoing unbounded input. */
+function echo(value) {
+  return value.length > MAX_ECHO ? `${value.slice(0, MAX_ECHO)}…` : value;
+}
+
 function shapeAttestation(a = {}) {
   const r = a.rejection;
   return {
@@ -65,19 +72,26 @@ function shapeChannel(channel, group, now) {
 /** Pure core: a URL in, a Response out. Groups and clock are injectable. */
 export function buildChannelsResponse(url, { groups = GROUPS, now = new Date() } = {}) {
   const params = new URL(url).searchParams;
+
+  // A repeated param is ambiguous. Refuse it rather than silently pick one.
+  for (const name of ["status", "group"]) {
+    if (params.getAll(name).length > 1) {
+      return json({ error: `Parameter "${name}" may be given only once.` }, 400);
+    }
+  }
   const status = params.get("status")?.trim().toLowerCase() || null;
   const group = params.get("group")?.trim().toLowerCase() || null;
 
   if (status && !VALID_STATUSES.includes(status)) {
     return json(
-      { error: `Invalid status "${params.get("status")}".`, validStatuses: VALID_STATUSES },
+      { error: `Invalid status "${echo(params.get("status"))}".`, validStatuses: VALID_STATUSES },
       400
     );
   }
   const validGroups = groups.map((g) => slugify(g.name));
   if (group && !validGroups.includes(group)) {
     return json(
-      { error: `Invalid group "${params.get("group")}".`, validGroups },
+      { error: `Invalid group "${echo(params.get("group"))}".`, validGroups },
       400
     );
   }

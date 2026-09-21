@@ -104,6 +104,24 @@ describe("failing gracefully", () => {
     expect(body.validGroups).toEqual(["drums", "bass-guitars"]);
   });
 
+  it("rejects a repeated param with 400 instead of silently picking one", async () => {
+    for (const qs of ["?status=attested&status=bogus", "?group=drums&group=vocals"]) {
+      const { res, body } = await call(qs);
+      expect(res.status).toBe(400);
+      expect(body.error).toMatch(/only once/);
+      expect(body.channels).toBeUndefined();
+    }
+  });
+
+  it("does not echo unbounded input back in errors", async () => {
+    const long = "a".repeat(8000);
+    for (const p of ["status", "group"]) {
+      const res = buildChannelsResponse(`https://x.test/api/channels?${p}=${long}`, { groups: FIXTURE, now: NOW });
+      expect(res.status).toBe(400);
+      expect((await res.text()).length).toBeLessThan(600);
+    }
+  });
+
   it("answers non-GET with 405 and an Allow header", () => {
     const res = handleRequest(new Request("https://x.test/api/channels", { method: "POST" }));
     expect(res.status).toBe(405);
