@@ -69,7 +69,7 @@ versions were verified to work.
 npm test
 ```
 
-Expect 40 passing tests, plus a warning naming the records that still carry
+Expect 90 passing tests, plus a warning naming the records that still carry
 placeholder text. That warning is deliberate. Placeholders are allowed to
 exist during a build; they are not allowed to be invisible.
 
