@@ -54,6 +54,56 @@ All of the above verified against the WZ3 16:2 / 12:2 User Guide (publication AP
 
 Correct for the **WZ3 16:2** and **WZ3 12:2**. **ZED consoles differ** — 100 Hz HPF and a different EQ layout.
 
+## API
+
+A read-only JSON view of the channel data, served by a Netlify Function.
+
+```
+GET /api/channels
+```
+
+| Param | Accepts | Notes |
+|---|---|---|
+| `status` | `attested`, `proposed`, `expired`, `rejected` | Case-insensitive. Resolved by the ledger's `resolveStatus()` at request time. |
+| `group` | `drums`, `bass-guitars`, `vocals`, `keys-synths-horns`, `playback` | Slug of the group name. |
+
+No params returns every channel, each flagged with its status. Both params together are ANDed. An unknown `status` or `group` returns `400` with the valid values; non-GET methods return `405`.
+
+Every channel carries its `status` next to its `bands` — a proposed value is never returned without saying so.
+
+```bash
+curl "https://live-sound-eq-sop.netlify.app/api/channels?status=attested&group=drums"
+```
+
+```json
+{
+  "count": 6,
+  "filters": { "status": "attested", "group": "drums" },
+  "channels": [
+    {
+      "name": "KICK",
+      "variant": null,
+      "group": "Drums",
+      "groupSlug": "drums",
+      "status": "attested",
+      "bands": { "hpf": "OUT", "lf": 3, "lmF": "350 Hz", "lmD": -4, "hmF": "3.5 kHz", "hmD": 3, "hf": 0 },
+      "attestation": {
+        "source": "practitioner",
+        "by": "David Petry",
+        "role": "FOH engineer",
+        "basis": "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors.",
+        "verified": "2026-08-25",
+        "model": null,
+        "rationale": null,
+        "rejection": null
+      }
+    }
+  ]
+}
+```
+
+(`count` is 6 today; the example lists one channel for brevity. Gains are in dB. Model-sourced records have `by` and `verified` set to `null` and carry `model` and `rationale` instead; rejected records carry `rejection: { by, reason, reviewed }`.)
+
 ## Running it
 
 ```bash
