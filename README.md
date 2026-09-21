@@ -31,7 +31,7 @@ Each state is rendered with a distinct colour, shape and text label, so the dist
 
 ## Current ledger
 
-21 attested · 13 proposed · 1 lapsed · 1 rejected
+27 attested · 7 proposed · 1 lapsed · 1 rejected
 
 18 channels carry the basis "David Petry's years of music and creative related experiences into live audio engineering and other technical endeavors" — vocals, drums, bass and guitars, house music, and three instruments the practitioner has genuinely played and mixed: piano, tenor sax, and (indirectly, through a DAW) none of the synths.
 
@@ -129,7 +129,7 @@ by code neither file can see.
 
 ```bash
 npm install
-npm test              # 40 tests
+npm test              # 90 tests
 npm run test:watch
 ```
 
