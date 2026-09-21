@@ -104,6 +104,16 @@ curl "https://live-sound-eq-sop.netlify.app/api/channels?status=attested&group=d
 
 (`count` is 6 today; the example lists one channel for brevity. Gains are in dB. Model-sourced records have `by` and `verified` set to `null` and carry `model` and `rationale` instead; rejected records carry `rejection: { by, reason, reviewed }`.)
 
+## Verifying a deploy
+
+```bash
+npm run verify:deploy                  # production
+npm run verify:deploy -- <url>         # a preview or any other deploy
+npm run verify:local                   # the handler on a local throwaway server
+```
+
+Read-only checks of `/api/channels`: response shape, each filter, error handling, ledger internals not leaking, no model record reading as attested, and non-GET refused. Exits non-zero on any failure. It cannot see which Node version Netlify built with, so also check the deploy log. `npm test` runs the same checks against the local handler.
+
 ## Running it
 
 ```bash
