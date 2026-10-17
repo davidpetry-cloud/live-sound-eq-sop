@@ -46,6 +46,18 @@ export const CHECKS = [
       assert(res.status === 200, `${p}: ${res.status}`);
     }
   }],
+  ["pages ask for versioned assets that serve", async (b) => {
+    for (const page of ["", "strip.html"]) {
+      const { text } = await get(b, page);
+      const refs = [...text.matchAll(/\b(?:href|src)="([^":?]+\.(?:css|js)(?:\?[^"]*)?)"/g)].map((m) => m[1]);
+      assert(refs.length > 2, `${page || "index"}: no stylesheets or scripts found`);
+      for (const ref of refs) {
+        assert(/\?v=[0-9a-f]+$/.test(ref), `${page || "index"}: ${ref} has no ?v= stamp`);
+        const { res } = await get(b, ref);
+        assert(res.status === 200, `${ref}: ${res.status}`);
+      }
+    }
+  }],
   ["strip simulator serves", async (b) => {
     const { res, text } = await get(b, "strip.html");
     assert(res.status === 200, `strip.html: ${res.status}`);

@@ -1,6 +1,6 @@
-import { GROUPS, allChannels, channelId, toHz, CONSOLE } from "./src/data.js";
-import { resolveStatus, daysRemaining, STATUS, SOURCE, tally } from "./vendor/attestation-ledger/index.js";
-import { AUX_CONSOLE, BUSES, SEND_RULES, FX_OPTIONS, MONITOR_RINGOUT } from "./src/auxes.js";
+import { GROUPS, allChannels, channelId, toHz, CONSOLE } from "./src/data.js?v=614366e4";
+import { resolveStatus, daysRemaining, STATUS, SOURCE, tally } from "./vendor/attestation-ledger/index.js?v=0e508f28";
+import { AUX_CONSOLE, BUSES, SEND_RULES, FX_OPTIONS, MONITOR_RINGOUT } from "./src/auxes.js?v=fefcd75d";
 
 /* ---------- Shared vocabulary: one name, one shape, one colour per state ---------- */
 const ORDER = ["attested", "proposed", "expired", "rejected"];
