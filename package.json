@@ -14,8 +14,6 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "verify:deploy": "node scripts/verify-deploy.mjs",
-    "verify:local": "node scripts/verify-deploy.mjs --local",
     "verify:pages": "node scripts/verify-pages.mjs"
   },
   "dependencies": {

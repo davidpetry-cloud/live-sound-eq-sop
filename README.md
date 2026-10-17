@@ -118,7 +118,7 @@ curl "https://davidpetry-cloud.github.io/live-sound-eq-sop/api/channels/attested
 
 (`count` is 6 today; the example lists one channel for brevity. Gains are in dB. Model-sourced records have `by` and `verified` set to `null` and carry `model` and `rationale` instead; rejected records carry `rejection: { by, reason, reviewed }`.)
 
-The files are written by `scripts/build-api.mjs` using the same `buildChannelsResponse()` that served the earlier Netlify endpoint (`/api/channels?status=&group=`), so the shape and the allowlisted fields are unchanged. That endpoint keeps working until the Netlify site is retired.
+The files are written by `scripts/build-api.mjs` using `lib/channels-api.js`, the tested core that served the earlier Netlify endpoint (`/api/channels?status=&group=`), so the shape and the allowlisted fields are unchanged from that endpoint.
 
 ## Verifying a deploy
 
@@ -128,7 +128,7 @@ npm run verify:pages -- <url>          # any other copy of the site
 npm run verify:pages -- --local        # a fresh build on a local throwaway server
 ```
 
-Read-only checks: the page and its assets serve; every file in `api/index.json` is JSON; the data is less than 48 hours old; the status files add up to the whole; a combined filter equals the intersection; no model record reads as attested; only allowlisted fields leave the ledger. Exits non-zero on any failure. `npm test` runs the same checks against a local build. `npm run verify:deploy` still checks the Netlify endpoint while it exists.
+Read-only checks: the page and its assets serve; every file in `api/index.json` is JSON; the data is less than 48 hours old; the status files add up to the whole; a combined filter equals the intersection; no model record reads as attested; only allowlisted fields leave the ledger. Exits non-zero on any failure. `npm test` runs the same checks against a local build.
 
 ## Running it
 
