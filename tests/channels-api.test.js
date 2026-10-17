@@ -3,12 +3,10 @@ import { GROUPS } from "../src/data.js";
 import { propose, attest, reject } from "attestation-ledger";
 import {
   buildChannelsResponse,
-  handleRequest,
   slugify,
   VALID_STATUSES,
   VALID_GROUPS
-} from "../netlify/lib/channels-api.js";
-import handler, { config } from "../netlify/functions/channels.js";
+} from "../lib/channels-api.js";
 
 const NOW = new Date("2026-09-01T00:00:00Z");
 const bands = { hpf: "IN", lf: 0, lmF: "350 Hz", lmD: -3, hmF: "4 kHz", hmD: 2, hf: 0 };
@@ -122,17 +120,7 @@ describe("failing gracefully", () => {
     }
   });
 
-  it("answers non-GET with 405 and an Allow header", () => {
-    const res = handleRequest(new Request("https://x.test/api/channels", { method: "POST" }));
-    expect(res.status).toBe(405);
-    expect(res.headers.get("allow")).toMatch(/GET/);
-  });
 
-  it("turns an unexpected throw into JSON 500, not a crash", async () => {
-    const res = handleRequest(new Request("https://x.test/api/channels"), { groups: null });
-    expect(res.status).toBe(500);
-    expect((await res.json()).error).toBeTruthy();
-  });
 });
 
 describe("response shape is stable", () => {
@@ -171,12 +159,5 @@ describe("against the real data", () => {
     for (const s of VALID_STATUSES) sum += (await call(`?status=${s}`, { now: NOW })).body.count;
     expect(sum).toBe(all);
     expect(all).toBeGreaterThan(0);
-  });
-
-  it("is wired at /api/channels", async () => {
-    expect(config.path).toBe("/api/channels");
-    const res = await handler(new Request("https://x.test/api/channels?group=drums"));
-    expect(res.status).toBe(200);
-    expect((await res.json()).channels.every((c) => c.groupSlug === "drums")).toBe(true);
   });
 });

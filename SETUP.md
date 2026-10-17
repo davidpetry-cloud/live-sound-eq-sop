@@ -90,7 +90,7 @@ npm run preview
 ```
 
 This copies src/ into public/ and serves public/ as the site root — exactly
-how Netlify serves it in production. Serving the repo root instead will appear
+how GitHub Pages serves it in production. Serving the repo root instead will appear
 to work locally while failing on deploy, because ../src/ sits outside the
 published tree.
 
@@ -137,22 +137,6 @@ attestation status current, because status is resolved at build time.
 
 Check a deploy with `npm run verify:pages`.
 
-## 9a. Netlify (earlier host, being retired)
-
-The steps below set up the original Netlify site. Keep them only while that
-site still runs.
-
-On app.netlify.com: Add new site, Import an existing project, GitHub, pick
-`live-sound-eq-sop`.
-
-netlify.toml is already in the repo, so the settings should fill themselves in:
-
-    Build command:      npm ci && npm test
-    Publish directory:  public
-
-Deploy. You get a URL like live-sound-eq-sop.netlify.app. Add it to the repo's
-About section on GitHub, and link the repo from david-petry.netlify.app.
-
 ## 10. Prove the gate actually holds
 
 This is the step people skip, and the only one that proves the pipeline does
@@ -171,7 +155,7 @@ git push -u origin test-ci
 ```
 
 Open a pull request. Within a minute the Actions check goes red and the PR
-shows the failure. The Netlify deploy preview fails too.
+shows the failure. The Pages workflow runs the same tests before publishing, so a broken value never goes live.
 
 Close the pull request without merging, then clean up:
 
