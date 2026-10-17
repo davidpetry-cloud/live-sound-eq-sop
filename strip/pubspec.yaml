@@ -1,0 +1,9 @@
+name: strip
+description: WZ3 channel-strip simulator for the Live Sound EQ SOP, written in Dart and compiled to JavaScript.
+publish_to: none
+
+environment:
+  sdk: ^3.9.0
+
+dev_dependencies:
+  test: ^1.25.0

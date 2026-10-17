@@ -1,0 +1,219 @@
+/* Strip simulator (strip.html). Builds on app.css: its colour tokens, type,
+   masthead, toolbar, theme button, status marks and footer. Everything here
+   is scoped to the simulator's own classes, so app.css can change around it.
+
+   Numbers read at the desk are 23px semi-bold with the unit set smaller, as
+   on the channel cards. The console panel takes its texture from a real strip:
+   a vertical rail joins the colour-coded band pills, top to bottom. */
+
+.sim-page .masthead { padding-top: 40px; }
+.sim-page .sub { margin-bottom: 22px; }
+
+/* ===== Toolbar: way back to the list ===== */
+.sim-back {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px 0 12px;
+  border: 1px solid var(--ui-edge); border-radius: 999px; background: var(--panel); box-shadow: var(--shadow);
+  font-size: 15px; font-weight: 500; color: var(--text); text-decoration: none;
+}
+.sim-back:hover { background: var(--panel2); }
+.sim-back svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+.sim-msg { padding: 24px; border: 1px dashed var(--ui-edge); border-radius: 18px; color: var(--t2); display: grid; gap: 12px; justify-items: start; }
+.sim-msg[hidden], #sim-retry[hidden] { display: none; }
+#sim:focus { outline: none; }
+
+/* ===== Channel picker and how far to trust it ===== */
+/* Channel names run long ("TALKBOX (DEMONSTRATION RECORD)"), so the picker
+   gets a full row and the trust note sits under it. */
+.sim-pick { display: grid; gap: 8px; margin-bottom: 18px; }
+.sim-pick-label { font-size: 16px; font-weight: 600; color: var(--t2); }
+#sim-channel {
+  width: 100%; max-width: 560px; min-height: 48px; padding: 0 40px 0 14px;
+  font: inherit; font-size: 18px; font-weight: 600; letter-spacing: .02em; color: var(--text);
+  background: var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' fill='none' stroke='%23cfc3b2' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 14px center / 16px;
+  border: 1px solid var(--ui-edge); border-radius: 12px; appearance: none; -webkit-appearance: none; cursor: pointer;
+}
+[data-mode="light"] #sim-channel {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' fill='none' stroke='%23574a3d' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+#sim-channel option, #sim-channel optgroup { background: var(--panel); color: var(--text); }
+.sim-trust {
+  --edge: var(--att);
+  margin-top: 4px; max-width: 80ch;
+  padding: 12px 16px; background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--edge);
+  border-radius: var(--r-card); box-shadow: var(--shadow); font-size: 16px; line-height: 1.5;
+}
+.sim-trust .mark { float: left; margin: 0 12px 4px 0; }
+.sim-trust p { color: var(--text); }
+.sim-trust .sim-range { clear: both; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line); color: var(--t2); }
+.sim-trust:not([data-status="attested"]) { background: var(--panel2); }
+.sim-why { clear: both; margin-top: 8px; }
+.sim-why summary { cursor: pointer; font-weight: 500; min-height: 32px; display: inline-flex; align-items: center; }
+.sim-why p { color: var(--t2); margin-top: 4px; }
+
+/* ===== Two panels: the curve and the console ===== */
+.sim-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.sim-panel {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow);
+  padding: 16px 18px 18px;
+}
+.sim-h { font-family: var(--display); font-weight: 600; font-size: 28px; line-height: 1.1; font-variant-numeric: lining-nums; }
+/* The curve stays in view while the lower bands are turned, where there is room. */
+@media (min-width: 900px) and (min-height: 640px) {
+  .sim-graph { position: sticky; top: 16px; }
+}
+
+.sim-plot { margin: 12px 0 8px; min-height: 200px; }
+#sim-curve { display: block; max-width: 100%; overflow: hidden; }
+#sim-curve .g-minor { stroke: var(--line); stroke-width: 1; }
+#sim-curve .g-major { stroke: var(--ui-edge); stroke-width: 1; opacity: .7; }
+#sim-curve .g-zero { stroke: var(--ui-edge); stroke-width: 1.25; }
+#sim-curve .ax { fill: var(--t2); font-family: var(--body); font-size: 14px; font-weight: 500; font-variant-numeric: tabular-nums lining-nums; }
+#sim-curve .c-area { fill: color-mix(in oklch, var(--prop) 14%, transparent); }
+#sim-curve .c-start, .sim-legend .lg-start { fill: none; stroke: var(--t3); stroke-width: 2; stroke-dasharray: 6 5; stroke-linecap: round; }
+#sim-curve .c-live, .sim-legend .lg-live { fill: none; stroke: var(--prop); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+#sim-curve .c-dot { fill: var(--panel); stroke-width: 2.25; }
+#sim-curve .c-dot.hpf { stroke: var(--b-hpf); }
+#sim-curve .c-dot.hf { stroke: var(--b-hf); }
+#sim-curve .c-dot.hm { stroke: var(--b-hm); }
+#sim-curve .c-dot.lm { stroke: var(--b-lm); }
+#sim-curve .c-dot.lf { stroke: var(--b-lf); }
+
+.sim-legend { list-style: none; display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 15px; color: var(--t2); }
+.sim-legend li { display: inline-flex; align-items: center; gap: 8px; }
+.sim-legend svg { width: 28px; height: 8px; overflow: visible; }
+
+.sim-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 16px; margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.sim-summary dt { font-size: 15px; font-weight: 500; color: var(--t2); line-height: 1.35; }
+.sim-summary dd { font-size: 17px; font-weight: 600; color: var(--text); line-height: 1.35; }
+
+/* ===== The console ===== */
+.sim-console-top { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; }
+.sim-reset { min-height: 44px; }
+.sim-changed { font-size: 16px; color: var(--t2); margin: 6px 0 4px; min-height: 1.6em; }
+
+.knobs { list-style: none; position: relative; margin-top: 6px; }
+/* The rail: a strip is one column of controls, read top to bottom. */
+.knobs::before {
+  content: ""; position: absolute; left: 25px; top: 22px; bottom: 22px; width: 0;
+  border-left: 2px dotted var(--ui-edge); opacity: .7;
+}
+.knob {
+  --c: var(--text);
+  position: relative; display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 14px;
+  padding: 14px 0; border-top: 1px solid var(--line);
+}
+.knob:first-child { border-top: 0; }
+.knob.hpf { --c: var(--b-hpf); }
+.knob.hf { --c: var(--b-hf); }
+.knob.hm { --c: var(--b-hm); }
+.knob.lm { --c: var(--b-lm); }
+.knob.lf { --c: var(--b-lf); }
+.pill {
+  position: relative; align-self: start; justify-self: center; margin-top: 2px;
+  min-width: 48px; text-align: center; padding: 1px 8px; border-radius: 999px;
+  font-size: 14px; font-weight: 700; letter-spacing: .05em; line-height: 1.5;
+  color: var(--c); border: 1.5px solid currentColor; background: var(--panel);
+}
+.knob-body { display: grid; gap: 12px; min-width: 0; }
+
+.ctl { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 2px 12px; }
+.ctl label { font-size: 16px; font-weight: 500; color: var(--t2); }
+.val {
+  font-size: 23px; font-weight: 600; color: var(--text); letter-spacing: -.01em; white-space: nowrap;
+  font-variant-numeric: tabular-nums lining-nums; line-height: 1.2;
+}
+.val .u { font-size: .68em; font-weight: 500; color: var(--t2); letter-spacing: 0; }
+
+.ctl input[type=range] {
+  --a: 50%; --b: 50%;
+  grid-column: 1 / -1; width: 100%; height: 32px; margin: 2px 0 0; cursor: pointer;
+  appearance: none; -webkit-appearance: none; background: transparent;
+}
+/* The track: a groove with its edge at 3:1, filled in the band's colour from
+   the centre detent to the knob for gains, and from the bottom for sweeps. */
+.ctl input[type=range]::-webkit-slider-runnable-track {
+  height: 8px; border-radius: 4px; border: 1px solid var(--ui-edge);
+  background: linear-gradient(to right, transparent var(--a), var(--c) var(--a) var(--b), transparent var(--b)), var(--panel2);
+  box-shadow: inset 0 1px 2px oklch(0 0 0 / .25);
+}
+.ctl input[type=range]::-moz-range-track {
+  height: 8px; border-radius: 4px; border: 1px solid var(--ui-edge);
+  background: linear-gradient(to right, transparent var(--a), var(--c) var(--a) var(--b), transparent var(--b)), var(--panel2);
+  box-shadow: inset 0 1px 2px oklch(0 0 0 / .25);
+}
+/* The knob cap: a ring in the band's colour around a lit centre. */
+.ctl input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 22px; height: 22px; margin-top: -8px; border-radius: 50%;
+  background: radial-gradient(circle, var(--c) 0 3px, var(--panel) 3.5px); border: 3px solid var(--c);
+  box-shadow: 0 2px 5px -1px oklch(0 0 0 / .45);
+}
+.ctl input[type=range]::-moz-range-thumb {
+  width: 16px; height: 16px; border-radius: 50%;
+  background: radial-gradient(circle, var(--c) 0 3px, var(--panel) 3.5px); border: 3px solid var(--c);
+  box-shadow: 0 2px 5px -1px oklch(0 0 0 / .45);
+}
+.ctl input[type=range]:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 8px; }
+/* Tick marks sit under the knob's travel (11px in from each end). */
+.ticks { grid-column: 1 / -1; position: relative; display: block; height: 20px; margin: 0 11px; font-size: 14px; color: var(--t2); line-height: 1; }
+.ticks span { position: absolute; left: calc(var(--p) * 100%); top: 6px; translate: -50% 0; white-space: nowrap; }
+.ticks span::before {
+  content: ""; position: absolute; left: 50%; top: -6px; width: 1px; height: 4px; background: var(--ui-edge);
+}
+.gain-ticks span:nth-child(2)::before { height: 5px; width: 2px; translate: -.5px 0; background: var(--t3); }
+
+.spec { font-size: 15px; color: var(--t2); }
+.was { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 15px; line-height: 1.4; color: var(--t2); }
+.was .start { color: var(--text); font-weight: 500; }
+.was .same { color: var(--t2); }
+.was .delta { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--prop); }
+.was .delta svg { width: 10px; height: 10px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+
+/* HPF is a push switch that latches: lit and raised when IN, unlit and
+   recessed when OUT, as on the channel cards. Here it is a real control. */
+.ctl-switch { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.hpf-sw {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-width: 96px; min-height: 44px; padding: 0 16px; border-radius: 9px; cursor: pointer;
+  font-size: 16px; font-weight: 800; letter-spacing: .1em;
+  border: 1.5px solid var(--ui-edge); background: transparent; color: var(--t2);
+  box-shadow: inset 0 2px 5px oklch(0 0 0 / .25);
+  transition: background-color .12s, box-shadow .12s, translate .12s;
+}
+.hpf-sw .led { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid currentColor; }
+.hpf-sw[aria-checked="true"] {
+  background: var(--b-hpf); border-color: var(--b-hpf); color: var(--bg);
+  box-shadow: inset 0 1px 0 oklch(1 0 0 / .3), inset 0 -2px 0 oklch(0 0 0 / .22), 0 3px 8px -3px var(--b-hpf);
+}
+.hpf-sw[aria-checked="true"] .led { background: currentColor; }
+.hpf-sw:hover { border-color: var(--b-hpf); }
+.hpf-sw:active { translate: 0 1px; }
+
+.sim-fine { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); font-size: 15px; color: var(--t2); }
+
+/* ===== Narrower screens ===== */
+@media (max-width: 899px) {
+  .sim-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .sim-trust .mark { float: none; display: flex; width: fit-content; margin: 0 0 8px; }
+  .sim-panel { padding: 14px 14px 16px; border-radius: 14px; }
+  .sim-summary { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .sim-summary div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 12px; }
+  .knob { grid-template-columns: 44px minmax(0, 1fr); gap: 10px; }
+  .knobs::before { left: 21px; }
+  .pill { min-width: 44px; padding: 1px 4px; }
+  .ticks .minor { font-size: 0; }
+  .sim-console-top .sim-reset { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hpf-sw { transition: none; }
+  .hpf-sw:active { translate: none; }
+}
+
+@media print {
+  .sim-back, .sim-reset, .sim-msg { display: none !important; }
+  .sim-panel, .sim-trust { box-shadow: none; break-inside: avoid; }
+  .sim-graph { position: static; }
+}

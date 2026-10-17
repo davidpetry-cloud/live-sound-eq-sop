@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Strip simulator — Live Sound EQ SOP</title>
+<meta name="description" content="Try a channel's EQ starting point on a simulated Allen &amp; Heath MixWizard WZ3 channel strip, and see the response curve change as you turn each band.">
+<meta name="color-scheme" content="dark light">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#130e0a" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#eae0cf" media="(prefers-color-scheme: light)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<script src="theme.js"></script>
+<link rel="preload" href="fonts/cormorant-garamond-400-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/outfit-300-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="strip.css">
+</head>
+<body class="sim-page">
+<a class="skip" href="#sim">Skip to the simulator</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">FOH practice <span aria-hidden="true">·</span> Allen &amp; Heath MixWizard WZ3</p>
+    <h1><span class="h1-lead">Strip</span> simulator</h1>
+    <p class="sub">Pick a channel, then turn its EQ the way you would at the desk. The dashed line is the recorded starting point; the solid line is your setting. Nothing here makes sound, and nothing you do leaves this page.</p>
+  </div>
+  <svg class="frieze" aria-hidden="true" focusable="false" preserveAspectRatio="none" viewBox="0 0 1200 40">
+    <defs>
+      <pattern id="wave" width="160" height="40" patternUnits="userSpaceOnUse">
+        <path class="w1" d="M0 26 C 30 26 40 8 80 8 S 130 26 160 26"/>
+        <path class="w2" d="M0 14 C 30 14 40 32 80 32 S 130 14 160 14"/>
+        <path class="w3" d="M0 20 C 20 20 30 12 40 12 S 60 28 80 28 S 100 12 120 12 S 140 20 160 20"/>
+        <circle class="w4" cx="80" cy="20" r="2.2"/>
+        <circle class="w4" cx="0" cy="20" r="2.2"/>
+        <circle class="w4" cx="160" cy="20" r="2.2"/>
+      </pattern>
+    </defs>
+    <rect width="1200" height="40" fill="url(#wave)"/>
+  </svg>
+</header>
+
+<div class="wrap">
+  <div class="toolbar">
+    <a class="sim-back" href="./">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5"/></svg>Channel list
+    </a>
+    <button class="theme-btn" id="mode" type="button">
+      <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+      <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.6 12.6A6.6 6.6 0 0 1 7.4 4.4a6.6 6.6 0 1 0 8.2 8.2z"/></svg>
+      <span id="modeLabel">Light theme</span>
+    </button>
+  </div>
+
+  <main id="sim" tabindex="-1">
+    <noscript><p class="sim-msg">The simulator needs JavaScript. The <a href="./">channel list</a> works without it.</p></noscript>
+    <div class="sim-msg" id="sim-loading" role="status">
+      <p id="sim-loading-text">Loading the channels…</p>
+      <button class="ghost" type="button" id="sim-retry" hidden>Try again</button>
+    </div>
+
+    <div id="sim-body" hidden>
+      <section class="sim-pick" aria-label="Channel">
+        <label class="sim-pick-label" for="sim-channel">Channel</label>
+        <select id="sim-channel" aria-describedby="sim-trust"></select>
+        <div class="sim-trust" id="sim-trust"></div>
+      </section>
+
+      <div class="sim-grid">
+        <section class="sim-panel sim-graph" aria-labelledby="graph-h">
+          <h2 class="sim-h" id="graph-h">Response</h2>
+          <div class="sim-plot" id="sim-plot">
+            <svg id="sim-curve" role="img" aria-labelledby="graph-h sim-summary" focusable="false"></svg>
+          </div>
+          <ul class="sim-legend">
+            <li><svg viewBox="0 0 28 8" aria-hidden="true"><path class="lg-live" d="M1 4h26"/></svg>Your setting</li>
+            <li><svg viewBox="0 0 28 8" aria-hidden="true"><path class="lg-start" d="M1 4h26"/></svg><span id="sim-legend-start">Starting point</span></li>
+          </ul>
+          <dl class="sim-summary" id="sim-summary"></dl>
+        </section>
+
+        <section class="sim-panel sim-console" aria-labelledby="eq-h">
+          <div class="sim-console-top">
+            <h2 class="sim-h" id="eq-h">EQ, top to bottom of the strip</h2>
+            <button class="ghost sim-reset" type="button" id="sim-reset">Reset to starting point</button>
+          </div>
+          <p class="sim-changed" id="sim-changed" role="status"></p>
+
+          <ol class="knobs">
+            <li class="knob hpf">
+              <span class="pill" id="hpf-lbl">HPF</span>
+              <div class="knob-body">
+                <div class="ctl ctl-switch">
+                  <button class="hpf-sw" type="button" id="hpf" role="switch" aria-checked="false" aria-labelledby="hpf-lbl" aria-describedby="hpf-spec">
+                    <span class="led" aria-hidden="true"></span><span id="hpf-state" aria-hidden="true">OUT</span>
+                  </button>
+                  <span class="spec" id="hpf-spec">80 Hz, 12 dB per octave</span>
+                </div>
+                <p class="was" id="hpf-was"></p>
+              </div>
+            </li>
+
+            <li class="knob hf">
+              <span class="pill" aria-hidden="true">HF</span>
+              <div class="knob-body">
+                <div class="ctl">
+                  <label for="hf-gain"><span class="sr">HF </span>Gain</label>
+                  <output class="val" id="hf-gain-out" for="hf-gain"></output>
+                  <input type="range" id="hf-gain" min="-15" max="15" step="1" value="0" aria-describedby="hf-spec">
+                  <span class="ticks gain-ticks" aria-hidden="true"><span style="--p:0">−15</span><span style="--p:.5">0</span><span style="--p:1">+15</span></span>
+                </div>
+                <p class="spec" id="hf-spec">Shelf at 12 kHz</p>
+                <p class="was" id="hf-was"></p>
+              </div>
+            </li>
+
+            <li class="knob hm">
+              <span class="pill" aria-hidden="true">HM</span>
+              <div class="knob-body">
+                <div class="ctl">
+                  <label for="hm-freq"><span class="sr">HM </span>Frequency</label>
+                  <output class="val" id="hm-freq-out" for="hm-freq"></output>
+                  <input type="range" id="hm-freq" min="0" max="100" step="1" value="50" aria-describedby="hm-spec">
+                  <span class="ticks" id="hm-freq-ticks" aria-hidden="true"></span>
+                </div>
+                <div class="ctl">
+                  <label for="hm-gain"><span class="sr">HM </span>Gain</label>
+                  <output class="val" id="hm-gain-out" for="hm-gain"></output>
+                  <input type="range" id="hm-gain" min="-15" max="15" step="1" value="0" aria-describedby="hm-spec">
+                  <span class="ticks gain-ticks" aria-hidden="true"><span style="--p:0">−15</span><span style="--p:.5">0</span><span style="--p:1">+15</span></span>
+                </div>
+                <p class="spec" id="hm-spec">Peak or dip, 500 Hz to 15 kHz</p>
+                <p class="was" id="hm-was"></p>
+              </div>
+            </li>
+
+            <li class="knob lm">
+              <span class="pill" aria-hidden="true">LM</span>
+              <div class="knob-body">
+                <div class="ctl">
+                  <label for="lm-freq"><span class="sr">LM </span>Frequency</label>
+                  <output class="val" id="lm-freq-out" for="lm-freq"></output>
+                  <input type="range" id="lm-freq" min="0" max="100" step="1" value="50" aria-describedby="lm-spec">
+                  <span class="ticks" id="lm-freq-ticks" aria-hidden="true"></span>
+                </div>
+                <div class="ctl">
+                  <label for="lm-gain"><span class="sr">LM </span>Gain</label>
+                  <output class="val" id="lm-gain-out" for="lm-gain"></output>
+                  <input type="range" id="lm-gain" min="-15" max="15" step="1" value="0" aria-describedby="lm-spec">
+                  <span class="ticks gain-ticks" aria-hidden="true"><span style="--p:0">−15</span><span style="--p:.5">0</span><span style="--p:1">+15</span></span>
+                </div>
+                <p class="spec" id="lm-spec">Peak or dip, 35 Hz to 1 kHz</p>
+                <p class="was" id="lm-was"></p>
+              </div>
+            </li>
+
+            <li class="knob lf">
+              <span class="pill" aria-hidden="true">LF</span>
+              <div class="knob-body">
+                <div class="ctl">
+                  <label for="lf-gain"><span class="sr">LF </span>Gain</label>
+                  <output class="val" id="lf-gain-out" for="lf-gain"></output>
+                  <input type="range" id="lf-gain" min="-15" max="15" step="1" value="0" aria-describedby="lf-spec">
+                  <span class="ticks gain-ticks" aria-hidden="true"><span style="--p:0">−15</span><span style="--p:.5">0</span><span style="--p:1">+15</span></span>
+                </div>
+                <p class="spec" id="lf-spec">Shelf at 80 Hz</p>
+                <p class="was" id="lf-was"></p>
+              </div>
+            </li>
+          </ol>
+          <p class="sim-fine">Every gain band is ±15 dB in 1 dB steps, with Q fixed at 1.8, as on the console. The curve is a sketch of the filters, for reading shape; your ears and the room decide.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p><strong>Allen &amp; Heath MixWizard WZ3 16:2 and 12:2.</strong> ZED consoles differ — they have a 100 Hz HPF and a different EQ layout.</p>
+    <p>Your settings stay in this tab. Nothing is saved or sent.</p>
+    <p class="foot-links"><a href="./">Channel list</a> <span aria-hidden="true">·</span> <a href="api/channels.json">Channel data as JSON</a> <span aria-hidden="true">·</span> <a href="https://github.com/davidpetry-cloud/live-sound-eq-sop">Source on GitHub</a></p>
+  </footer>
+</div>
+
+<script defer src="strip.js"></script>
+</body>
+</html>
