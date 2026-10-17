@@ -1,6 +1,9 @@
 # Live Sound EQ SOP — with attestation
 
 [![test](https://github.com/davidpetry-cloud/live-sound-eq-sop/actions/workflows/test.yml/badge.svg)](https://github.com/davidpetry-cloud/live-sound-eq-sop/actions/workflows/test.yml)
+[![pages](https://github.com/davidpetry-cloud/live-sound-eq-sop/actions/workflows/pages.yml/badge.svg)](https://github.com/davidpetry-cloud/live-sound-eq-sop/actions/workflows/pages.yml)
+
+**Live site:** https://davidpetry-cloud.github.io/live-sound-eq-sop/
 
 Channel EQ starting points for the **Allen &amp; Heath MixWizard WZ3 16:2**, where every value carries a record of who asserted it and what it is grounded in.
 
@@ -69,27 +72,25 @@ Correct for the **WZ3 16:2** and **WZ3 12:2**. **ZED consoles differ** — 100 H
 
 ## API
 
-A read-only JSON view of the channel data, served by a Netlify Function.
+Read-only JSON of the channel data, published as static files with the site on GitHub Pages. Filters are part of the path, so any static host can serve them and nothing has to run per request.
 
-```
-GET /api/channels
-```
+| File | Holds |
+|---|---|
+| `api/index.json` | A map of the API: valid statuses, groups, and every file below |
+| `api/channels.json` | Every channel, each flagged with its status |
+| `api/channels/<status>.json` | One status: `attested`, `proposed`, `expired`, `rejected` |
+| `api/channels/<group>.json` | One group: `drums`, `bass-guitars`, `vocals`, `keys-synths-horns`, `playback` |
+| `api/channels/<status>/<group>.json` | Both filters together |
 
-| Param | Accepts | Notes |
-|---|---|---|
-| `status` | `attested`, `proposed`, `expired`, `rejected` | Case-insensitive. Resolved by the ledger's `resolveStatus()` at request time. |
-| `group` | `drums`, `bass-guitars`, `vocals`, `keys-synths-horns`, `playback` | Slug of the group name. |
-
-No params returns every channel, each flagged with its status. Both params together are ANDed. An unknown or repeated `status` or `group` returns `400` (unknown values come back with the valid ones); non-GET methods return `405`.
-
-Every channel carries its `status` next to its `bands` — a proposed value is never returned without saying so.
+Every file carries `generated`, the time its statuses were resolved by the ledger's `resolveStatus()`. The Pages workflow rebuilds daily, so an attestation lapses within a day of its shelf life running out. Every channel carries its `status` next to its `bands`, so a proposed value is never returned without saying so.
 
 ```bash
-curl "https://live-sound-eq-sop.netlify.app/api/channels?status=attested&group=drums"
+curl "https://davidpetry-cloud.github.io/live-sound-eq-sop/api/channels/attested/drums.json"
 ```
 
 ```json
 {
+  "generated": "2026-10-17T05:17:00.000Z",
   "count": 6,
   "filters": { "status": "attested", "group": "drums" },
   "channels": [
@@ -117,25 +118,28 @@ curl "https://live-sound-eq-sop.netlify.app/api/channels?status=attested&group=d
 
 (`count` is 6 today; the example lists one channel for brevity. Gains are in dB. Model-sourced records have `by` and `verified` set to `null` and carry `model` and `rationale` instead; rejected records carry `rejection: { by, reason, reviewed }`.)
 
+The files are written by `scripts/build-api.mjs` using the same `buildChannelsResponse()` that served the earlier Netlify endpoint (`/api/channels?status=&group=`), so the shape and the allowlisted fields are unchanged. That endpoint keeps working until the Netlify site is retired.
+
 ## Verifying a deploy
 
 ```bash
-npm run verify:deploy                  # production
-npm run verify:deploy -- <url>         # a preview or any other deploy
-npm run verify:local                   # the handler on a local throwaway server
+npm run verify:pages                   # GitHub Pages (production)
+npm run verify:pages -- <url>          # any other copy of the site
+npm run verify:pages -- --local        # a fresh build on a local throwaway server
 ```
 
-Read-only checks of `/api/channels`: response shape, each filter, error handling, ledger internals not leaking, no model record reading as attested, and non-GET refused. Exits non-zero on any failure. It cannot see which Node version Netlify built with, so also check the deploy log. `npm test` runs the same checks against the local handler.
+Read-only checks: the page and its assets serve; every file in `api/index.json` is JSON; the data is less than 48 hours old; the status files add up to the whole; a combined filter equals the intersection; no model record reads as attested; only allowlisted fields leave the ledger. Exits non-zero on any failure. `npm test` runs the same checks against a local build. `npm run verify:deploy` still checks the Netlify endpoint while it exists.
 
 ## Running it
 
 ```bash
 npm install
-npm run preview     # builds, then serves public/ as the site root
+npm run preview     # builds the page and API, then serves public/ as the site root
 ```
 
 `npm run build` copies `src/` into `public/` so the page's module imports
-resolve inside the published tree. `public/src/` is generated and gitignored —
+resolve inside the published tree, and writes the JSON API to `public/api/`.
+`public/src/` and `public/api/` are generated and gitignored —
 `src/` remains the single source of truth.
 
 ## Architecture

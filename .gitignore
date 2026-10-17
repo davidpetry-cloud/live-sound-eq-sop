@@ -1,6 +1,7 @@
 node_modules/
 public/src/
 public/vendor/
+public/api/
 coverage/
 dist/
 .DS_Store
