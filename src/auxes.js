@@ -12,10 +12,10 @@
  * per-gig levels are explicitly out of scope. The environment changes the
  * outcome; the policy is what survives the night.
  *
- * The attestation engine is reused from src/attestation.js with ZERO
- * changes. This layer is the first second-domain consumer of the engine —
- * if proposed/attested/expired/rejected survive contact with a genuinely
- * different record shape, the engine is ready to publish as a package.
+ * The attestation engine is the published attestation-ledger package, used
+ * with ZERO changes. This layer was the first second-domain consumer of the
+ * engine: proposed/attested/expired/rejected had to survive contact with a
+ * genuinely different record shape before it was ready to publish.
  */
 
 /**

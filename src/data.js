@@ -8,8 +8,9 @@
  *   source: "practitioner"  a named human signed this
  *   source: "model"         a model proposed it; nobody has ratified it
  *
- * Status is never stored here. It is derived in src/attestation.js from the
- * verification date, so an attestation decays unless somebody re-checks it.
+ * Status is never stored here. It is derived by resolveStatus() in the
+ * attestation-ledger package from the verification date, so an attestation
+ * decays unless somebody re-checks it.
  *
  * Console constraints every record must respect. All verified against the
  * WZ3 16:2 / 12:2 User Guide (publication AP5331) on 2026-08-27.
