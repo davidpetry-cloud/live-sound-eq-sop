@@ -107,16 +107,22 @@ function curve(raw, status) {
     <path class="area" d="${area}"/>${alt}<path class="line" d="${line}"/>${dots.join("")}</svg>`;
 }
 
-/* Strip order, top to bottom of the WZ3 channel: HPF, HF, HM, LM, LF. */
+/* Strip order, top to bottom of the WZ3 channel: HPF, HF, HM, LM, LF.
+   Numbers are the thing read at the desk, so they get the weight; the unit
+   is set smaller beside them and words like "Shelf" stay quiet. */
+const num = (text, quiet = false) =>
+  `<span class="num${quiet ? " quiet" : ""}">${esc(text).replace(/\s?(kHz|Hz|dB)\b/g, '<span class="u">\u2009$1</span>')}</span>`;
+const word = text => `<span class="w">${text}</span>`;
 function bandCells(b) {
-  const cell = (cls, lbl, f, g, flat = false) =>
-    `<li class="band ${cls}"><span class="lbl">${lbl}</span><span class="f${flat ? " flat" : ""}">${f}</span><span class="g${flat ? " flat" : ""}">${g}</span></li>`;
+  const cell = (cls, lbl, top, bottom) => `<li class="band ${cls}"><span class="lbl">${lbl}</span>${top}${bottom}</li>`;
   const sweep = (cls, lbl, F, D) => D === 0 || toHz(F) == null
-    ? cell(cls, lbl, "Flat", "0 dB", true)
-    : cell(cls, lbl, esc(F), db(D));
-  const shelf = (cls, lbl, D) => D === 0 && typeof D === "number" ? cell(cls, lbl, "Flat", "0 dB", true) : cell(cls, lbl, "Shelf", db(D));
+    ? cell(cls, lbl, word("Flat"), num("0 dB", true))
+    : cell(cls, lbl, num(F), num(db(D)));
+  const shelf = (cls, lbl, D) => D === 0 && typeof D === "number"
+    ? cell(cls, lbl, word("Flat"), num("0 dB", true))
+    : cell(cls, lbl, word("Shelf"), num(db(D)));
   return `<ul class="bands" aria-label="EQ, in strip order">
-    ${b.hpf === "IN" ? cell("hpf", "HPF", "In", `${CONSOLE.hpfHz} Hz`) : cell("hpf", "HPF", "Out", "—", true)}
+    ${b.hpf === "IN" ? cell("hpf", "HPF", word("In"), num(`${CONSOLE.hpfHz} Hz`)) : cell("hpf", "HPF", word("Out"), "")}
     ${shelf("hf", "HF", b.hf)}
     ${sweep("hm", "HM", b.hmF, b.hmD)}
     ${sweep("lm", "LM", b.lmF, b.lmD)}
