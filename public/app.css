@@ -204,17 +204,31 @@ input[type=search]::placeholder { color: var(--t3); opacity: 1; }
 .result { font-size: 16px; color: var(--t2); margin: 12px 0 4px; min-height: 1.6em; }
 
 /* ===== Groups and channel cards ===== */
-.group-h {
-  display: flex; align-items: baseline; gap: 14px; margin: 34px 0 14px;
-  font-family: var(--display); font-weight: 600; font-size: 30px; line-height: 1.1;
-}
-.group-h small { font-family: var(--body); font-size: 16px; font-weight: 400; color: var(--t2); }
-.group-h::after {
-  content: ""; flex: 1; height: 7px; align-self: center;
+/* Each category is its own section: a wide gap and an ornamental rule end the
+   last one, and the banner heading stays pinned while you scroll through it,
+   handing over to the next at the boundary. */
+.group { position: relative; }
+.group + .group { margin-top: 64px; }
+.group + .group::before {
+  content: ""; display: block; height: 14px; margin-bottom: 28px;
   background:
-    linear-gradient(var(--line), var(--line)) center / 100% 1px no-repeat,
-    radial-gradient(circle, var(--ui-edge) 2px, transparent 2.5px) right center / 7px 7px no-repeat;
+    linear-gradient(var(--ui-edge), var(--ui-edge)) left center / calc(50% - 16px) 1px no-repeat,
+    linear-gradient(var(--ui-edge), var(--ui-edge)) right center / calc(50% - 16px) 1px no-repeat,
+    linear-gradient(45deg, transparent 45%, var(--prop) 45% 55%, transparent 55%) center / 14px 14px no-repeat,
+    linear-gradient(-45deg, transparent 45%, var(--prop) 45% 55%, transparent 55%) center / 14px 14px no-repeat;
 }
+.group-h {
+  position: sticky; top: 0; z-index: 3;
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; margin: 0 0 14px;
+  padding: 14px 18px 12px;
+  font-family: var(--display); font-weight: 600; font-size: 34px; line-height: 1.1;
+  background: color-mix(in oklch, var(--panel2) 94%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border: 1px solid var(--line); border-left: 6px solid var(--prop);
+  border-radius: 0 0 16px 16px; box-shadow: var(--shadow);
+}
+.group-h small { font-family: var(--body); font-size: 16px; font-weight: 500; color: var(--t2); }
+@media (max-width: 640px) { .group-h { font-size: 28px; padding: 10px 14px; } .group + .group { margin-top: 44px; } }
 
 .card {
   --edge: var(--att);

@@ -198,7 +198,7 @@ function render() {
     if (!rows.length) continue;
     shown += rows.length;
     const hid = `g-${group.name.toLowerCase().replace(/[^a-z]+/g, "-")}`;
-    html += `<section aria-labelledby="${hid}"><h2 class="group-h" id="${hid}">${esc(group.name)} <small>${rows.length} ${rows.length === 1 ? "channel" : "channels"}</small></h2>`;
+    html += `<section class="group" aria-labelledby="${hid}"><h2 class="group-h" id="${hid}">${esc(group.name)} <small>${rows.length} ${rows.length === 1 ? "channel" : "channels"}</small></h2>`;
     html += rows.map(({ ch, status }, i) => cardHTML(ch, status, channelId(ch), `${hid}-${i}`)).join("");
     html += `</section>`;
   }
