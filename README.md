@@ -29,6 +29,19 @@ Rejected values are kept, not deleted. Knowing that somebody tried something and
 
 Each state is rendered with a distinct colour, shape and text label, so the distinction survives colour blindness, greyscale printing and screen readers.
 
+## Reading the page
+
+Built for reading at the desk, in a dark room or on a phone.
+
+- **Strip order.** Each channel's EQ reads top to bottom like the WZ3 strip: **HPF → HF → HM → LM → LF**. The dB and Hz values are the largest text on the card.
+- **Response curve.** Each card sketches the strip's frequency response from the console's own filters: HPF 80 Hz at 12 dB/octave, shelves at 80 Hz and 12 kHz, sweeps at Q 1.8. Proposed and rejected curves are dashed. The numbers beside the curve are the instruction; the curve is for seeing the shape at a glance.
+- **Pad.** Channels that need the PAD switch carry a solid **PAD** badge next to their name.
+- **Ledger as filter.** The four state counts at the top filter the list. Search matches channel and group names.
+- **Aux & effects.** Every bus, send rule, ring-out step and FX option shows its own state, with who said so (or why a model proposed it) one click away.
+- **Themes.** Dark and a warm light theme. The page follows the device until you choose. The choice is kept in your browser only.
+- **No third parties.** Fonts (Cormorant Garamond and Outfit, SIL Open Font License) are served from the site, so a visit makes no requests to Google or anyone else.
+- **Accessibility.** Text meets WCAG 2.2 AA contrast in both themes. The page works by keyboard, reflows to 320px wide, and respects reduced motion.
+
 ## Current ledger
 
 27 attested · 7 proposed · 1 lapsed · 1 rejected

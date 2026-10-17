@@ -28,7 +28,7 @@ Not a policy in a README. A constraint the data model refuses to violate.
 src/data.js          channel records, each carrying an attestation block
 src/attestation.js   the state machine and the enforcement
 tests/               29 tests, 18 of them on the attestation rule itself
-public/index.html    interface that renders the three states differently
+public/index.html    page shell; public/app.js and app.css render the states
 ```
 
 Data, logic, and interface are three separate files on purpose. The whole point is that the rule lives in `attestation.js` and cannot be bypassed by the interface, so the interface must not own the rule.
@@ -133,7 +133,7 @@ The distinction is worth naming in a presentation: **one suite tests what is phy
 
 Honest gaps, so you are not surprised:
 
-- **No browser screenshot.** The sandbox blocks Playwright's browser download, so I validated the page script with `node --check` and verified the render inputs directly, but I have not seen it render. Open it and check.
+- **No browser screenshot.** The sandbox blocks Playwright's browser download, so I validated the page script with `node --check` and verified the render inputs directly, but I have not seen it render. Open it and check. *(Since resolved: checked in a browser in October 2026, when the interface was redesigned.)*
 - **The interface uses ES module imports** from `../src/`, which means it must be served over HTTP, not opened as a `file://` URL. Run `npx serve .` from the project root, then visit `/public/`. If you want a true double-click-to-open file, the data has to be inlined at build time.
 - **The five proposed channels are inference, not experience.** Marked as such throughout. The banjo low cut at −5 in particular is a guess.
 - **The `CONSOLE` sweep ranges** were taken from your own SOP text. Check them against the manual. If they are wrong, the tests enforce a wrong constraint — worse than no test.

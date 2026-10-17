@@ -107,16 +107,26 @@ function curve(raw, status) {
     <path class="area" d="${area}"/>${alt}<path class="line" d="${line}"/>${dots.join("")}</svg>`;
 }
 
-/* Strip order, top to bottom of the WZ3 channel: HPF, HF, HM, LM, LF. */
+/* Strip order, top to bottom of the WZ3 channel: HPF, HF, HM, LM, LF.
+   Numbers are the thing read at the desk, so they get the weight; the unit
+   is set smaller beside them and words like "Shelf" stay quiet. */
+const num = (text, quiet = false) =>
+  `<span class="num${quiet ? " quiet" : ""}">${esc(text).replace(/\s?(kHz|Hz|dB)\b/g, '<span class="u">\u2009$1</span>')}</span>`;
+const word = text => `<span class="w">${text}</span>`;
+/* HPF is an in/out push switch on the strip, so its state reads like one:
+   lit and raised when IN, unlit and recessed when OUT. It is a reading,
+   not a control, so it gets no pointer or hover. */
+const sw = on => `<span class="sw ${on ? "on" : "off"}"><span class="led" aria-hidden="true"></span>${on ? "IN" : "OUT"}</span>`;
 function bandCells(b) {
-  const cell = (cls, lbl, f, g, flat = false) =>
-    `<li class="band ${cls}"><span class="lbl">${lbl}</span><span class="f${flat ? " flat" : ""}">${f}</span><span class="g${flat ? " flat" : ""}">${g}</span></li>`;
+  const cell = (cls, lbl, top, bottom) => `<li class="band ${cls}"><span class="lbl">${lbl}</span>${top}${bottom}</li>`;
   const sweep = (cls, lbl, F, D) => D === 0 || toHz(F) == null
-    ? cell(cls, lbl, "Flat", "0 dB", true)
-    : cell(cls, lbl, esc(F), db(D));
-  const shelf = (cls, lbl, D) => D === 0 && typeof D === "number" ? cell(cls, lbl, "Flat", "0 dB", true) : cell(cls, lbl, "Shelf", db(D));
+    ? cell(cls, lbl, word("Flat"), num("0 dB", true))
+    : cell(cls, lbl, num(F), num(db(D)));
+  const shelf = (cls, lbl, D) => D === 0 && typeof D === "number"
+    ? cell(cls, lbl, word("Flat"), num("0 dB", true))
+    : cell(cls, lbl, word("Shelf"), num(db(D)));
   return `<ul class="bands" aria-label="EQ, in strip order">
-    ${b.hpf === "IN" ? cell("hpf", "HPF", "In", `${CONSOLE.hpfHz} Hz`) : cell("hpf", "HPF", "Out", "—", true)}
+    ${b.hpf === "IN" ? cell("hpf", "HPF", sw(true), num(`${CONSOLE.hpfHz} Hz`)) : cell("hpf", "HPF", sw(false), "")}
     ${shelf("hf", "HF", b.hf)}
     ${sweep("hm", "HM", b.hmF, b.hmD)}
     ${sweep("lm", "LM", b.lmF, b.lmD)}
@@ -171,7 +181,9 @@ function matches(ch, group, status) {
 function cardHTML(ch, status, id, idx) {
   const open = state.open.has(id);
   const pid = `prov-${idx}`;
-  const pad = ch.pad ? `<span class="pad">Pad: ${esc(ch.pad.toLowerCase())}</span>` : "";
+  const pad = ch.pad
+    ? `<span class="pad"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 5h12M2 11h12"/><path d="M8 2v12"/></svg>PAD \u00b7 ${esc(ch.pad)}</span>`
+    : "";
   const mic = ch.mic ? `<div class="note mic"><b>Mic · cheap option</b><p>${esc(ch.mic.cheap)}</p><p>${esc(ch.mic.note)}</p></div>` : "";
   return `<article class="card ${status}" style="--edge:${EDGE[status]}" data-id="${esc(id)}">
     <button class="card-head" type="button" aria-expanded="${open}" aria-controls="${pid}">
@@ -192,7 +204,7 @@ function render() {
     if (!rows.length) continue;
     shown += rows.length;
     const hid = `g-${group.name.toLowerCase().replace(/[^a-z]+/g, "-")}`;
-    html += `<section aria-labelledby="${hid}"><h2 class="group-h" id="${hid}">${esc(group.name)} <small>${rows.length} ${rows.length === 1 ? "channel" : "channels"}</small></h2>`;
+    html += `<section class="group" aria-labelledby="${hid}"><h2 class="group-h" id="${hid}">${esc(group.name)} <small>${rows.length} ${rows.length === 1 ? "channel" : "channels"}</small></h2>`;
     html += rows.map(({ ch, status }, i) => cardHTML(ch, status, channelId(ch), `${hid}-${i}`)).join("");
     html += `</section>`;
   }
