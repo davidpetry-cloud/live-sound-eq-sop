@@ -9,13 +9,14 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "build": "mkdir -p public/src && cp src/*.js public/src/ && mkdir -p public/vendor/attestation-ledger && cp node_modules/attestation-ledger/src/index.js public/vendor/attestation-ledger/index.js",
+    "build": "mkdir -p public/src && cp src/*.js public/src/ && mkdir -p public/vendor/attestation-ledger && cp node_modules/attestation-ledger/src/index.js public/vendor/attestation-ledger/index.js && node scripts/build-api.mjs",
     "preview": "npm run build && npx --yes serve public",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "verify:deploy": "node scripts/verify-deploy.mjs",
-    "verify:local": "node scripts/verify-deploy.mjs --local"
+    "verify:local": "node scripts/verify-deploy.mjs --local",
+    "verify:pages": "node scripts/verify-pages.mjs"
   },
   "dependencies": {
     "attestation-ledger": "^0.1.0"

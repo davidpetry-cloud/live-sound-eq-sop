@@ -127,7 +127,20 @@ the suite passed on a clean checkout on GitHub's machine, not just on a laptop
 that happens to have the right things installed. That distinction is the whole
 point of CI.
 
-## 9. Netlify
+## 9. GitHub Pages
+
+The site is published by `.github/workflows/pages.yml`. Turn it on once:
+repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+Every push to `main`, and a daily scheduled run, then tests, builds and
+publishes `public/` to https://davidpetry-cloud.github.io/live-sound-eq-sop/. The daily run keeps
+attestation status current, because status is resolved at build time.
+
+Check a deploy with `npm run verify:pages`.
+
+## 9a. Netlify (earlier host, being retired)
+
+The steps below set up the original Netlify site. Keep them only while that
+site still runs.
 
 On app.netlify.com: Add new site, Import an existing project, GitHub, pick
 `live-sound-eq-sop`.
