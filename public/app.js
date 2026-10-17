@@ -177,7 +177,9 @@ function matches(ch, group, status) {
 function cardHTML(ch, status, id, idx) {
   const open = state.open.has(id);
   const pid = `prov-${idx}`;
-  const pad = ch.pad ? `<span class="pad">Pad: ${esc(ch.pad.toLowerCase())}</span>` : "";
+  const pad = ch.pad
+    ? `<span class="pad"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 5h12M2 11h12"/><path d="M8 2v12"/></svg>PAD \u00b7 ${esc(ch.pad)}</span>`
+    : "";
   const mic = ch.mic ? `<div class="note mic"><b>Mic · cheap option</b><p>${esc(ch.mic.cheap)}</p><p>${esc(ch.mic.note)}</p></div>` : "";
   return `<article class="card ${status}" style="--edge:${EDGE[status]}" data-id="${esc(id)}">
     <button class="card-head" type="button" aria-expanded="${open}" aria-controls="${pid}">

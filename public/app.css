@@ -245,10 +245,15 @@ input[type=search]::placeholder { color: var(--t3); opacity: 1; }
 }
 .nm { font-weight: 600; font-size: 20px; line-height: 1.25; letter-spacing: .03em; }
 .nm .var { font-weight: 500; font-size: 17px; letter-spacing: .03em; color: var(--t2); }
+/* Pad is a physical switch to set before the fader comes up, so it gets a
+   solid badge that can't be mistaken for the outlined status marks. */
 .pad {
-  display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 6px; vertical-align: 3px;
-  font-size: 14px; font-weight: 500; letter-spacing: 0; color: var(--t2); border: 1px solid var(--ui-edge);
+  display: inline-flex; align-items: center; gap: 6px; margin-left: 10px; vertical-align: 2px;
+  padding: 2px 11px 2px 9px; border-radius: 6px;
+  font-family: var(--body); font-size: 15px; font-weight: 700; letter-spacing: .04em; line-height: 1.4;
+  background: var(--text); color: var(--bg);
 }
+.pad svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
 .head-r { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
 .chev {
   width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%;
@@ -418,6 +423,7 @@ footer strong { color: var(--text); font-weight: 500; }
   .card-head { padding: 12px 14px 2px; align-items: start; }
   .head-r { flex-direction: column-reverse; align-items: end; gap: 8px; }
   .nm { font-size: 18px; }
+  .pad { display: flex; width: fit-content; margin: 6px 0 0; }
   /* Phones: one row per band, top to bottom like the strip, numbers kept large. */
   .bands { grid-template-columns: 1fr; gap: 0; }
   .band {

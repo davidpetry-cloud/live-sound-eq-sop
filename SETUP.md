@@ -95,8 +95,8 @@ to work locally while failing on deploy, because ../src/ sits outside the
 published tree.
 
 Check that the four states render distinctly: attested, proposed, lapsed and
-rejected. This has never been visually verified — the build environment could
-not run a browser — so you are the first person to see it.
+rejected. The page was checked in a browser in October 2026, in both themes and
+at 320px wide; re-check after any interface change.
 
 ## 6. First commit
 
