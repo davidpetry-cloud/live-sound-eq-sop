@@ -45,6 +45,16 @@ Built for reading at the desk, in a dark room or on a phone.
 - **No third parties.** Fonts (Cormorant Garamond and Outfit, SIL Open Font License) are served from the site, so a visit makes no requests to Google or anyone else.
 - **Accessibility.** Text meets WCAG 2.2 AA contrast in both themes. The page works by keyboard, reflows to 320px wide, and respects reduced motion.
 
+## Strip simulator
+
+[`strip.html`](https://davidpetry-cloud.github.io/live-sound-eq-sop/strip.html) puts any channel's starting point on a simulated WZ3 strip, linked from the page header.
+
+- **Pick a channel**, then turn HPF (a latched IN/OUT switch), HF, HM, LM and LF, top to bottom as on the strip. The controls keep to the console's limits: ±15 dB in 1 dB steps, LM 35 Hz – 1 kHz, HM 500 Hz – 15 kHz, Q 1.8. Sweeps step in about a 24th of an octave and land on the panel's printed marks.
+- **The curve** redraws as you turn. The dashed line is the recorded starting point; the solid line is your setting. Each band shows its starting value and what you changed (in dB and octaves), and **Reset to starting point** puts it back.
+- **Trust.** A proposed, lapsed or rejected channel says so above the controls, in words. The starting point is only as good as its status.
+- **Private.** Your settings live in the open tab only. Nothing is saved or sent; the address bar keeps just the channel's name.
+- **Built in Dart.** The source is in `strip/` (`lib/eq.dart` holds the filter maths). `sh strip/build.sh` tests it and compiles it to `public/strip.js`, which is committed, so the Pages build needs no Dart SDK. The Dart filters match the channel cards' curves in `public/app.js` within 0.01 dB; `strip/tool/js_reference.mjs` takes reference values from `app.js` itself, and `npm test` fails if they drift.
+
 ## Current ledger
 
 27 attested · 7 proposed · 1 lapsed · 1 rejected
@@ -128,7 +138,7 @@ npm run verify:pages -- <url>          # any other copy of the site
 npm run verify:pages -- --local        # a fresh build on a local throwaway server
 ```
 
-Read-only checks: the page and its assets serve; every file in `api/index.json` is JSON; the data is less than 48 hours old; the status files add up to the whole; a combined filter equals the intersection; no model record reads as attested; only allowlisted fields leave the ledger. Exits non-zero on any failure. `npm test` runs the same checks against a local build. `npm run verify:deploy` still checks the Netlify endpoint while it exists.
+Read-only checks: the page, its assets and the strip simulator serve; every file in `api/index.json` is JSON; the data is less than 48 hours old; the status files add up to the whole; a combined filter equals the intersection; no model record reads as attested; only allowlisted fields leave the ledger. Exits non-zero on any failure. `npm test` runs the same checks against a local build. `npm run verify:deploy` still checks the Netlify endpoint while it exists.
 
 ## Running it
 
@@ -158,7 +168,10 @@ by code neither file can see.
 npm install
 npm test              # runs the full suite
 npm run test:watch
+sh strip/build.sh     # strip simulator: Dart tests, then compile to public/strip.js
 ```
+
+The simulator needs the [Dart SDK](https://dart.dev/get-dart) (3.9 or later) only to change it.
 
 ### What the tests cover
 

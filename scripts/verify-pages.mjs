@@ -46,6 +46,15 @@ export const CHECKS = [
       assert(res.status === 200, `${p}: ${res.status}`);
     }
   }],
+  ["strip simulator serves", async (b) => {
+    const { res, text } = await get(b, "strip.html");
+    assert(res.status === 200, `strip.html: ${res.status}`);
+    assert(text.includes("Strip simulator"), "strip.html title missing");
+    for (const p of ["strip.js", "strip.css"]) {
+      const r = await get(b, p);
+      assert(r.res.status === 200, `${p}: ${r.res.status}`);
+    }
+  }],
   ["index lists every file, and each is JSON", async (b) => {
     const { json } = await get(b, "api/index.json");
     assert(json && Array.isArray(json.files) && json.files.length > 0, "api/index.json missing or empty");
