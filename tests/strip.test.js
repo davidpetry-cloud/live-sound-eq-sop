@@ -36,7 +36,10 @@ describe("strip simulator", () => {
     expect(order).toEqual(["hpf", "hf", "hm", "lm", "lf"]);
   });
 
-  it("is linked from the channel list", async () => {
-    expect(await read("public/index.html")).toContain('href="strip.html"');
+  it("has a button in the channel list's header, and a footer link", async () => {
+    const html = await read("public/index.html");
+    const header = html.slice(html.indexOf('<header class="masthead">'), html.indexOf("</header>"));
+    expect(header).toContain('<a class="cta" href="strip.html">');
+    expect(html.match(/href="strip\.html"/g)).toHaveLength(2);
   });
 });
