@@ -3,9 +3,9 @@
  * Write the channel API as static JSON files for GitHub Pages.
  *
  * Pages serves files, not functions, so every filter combination is written
- * out ahead of time. Each file is produced by the same buildChannelsResponse()
- * that served /api/channels on Netlify, so the shape and the allowlisted
- * attestation fields are identical.
+ * out ahead of time. Each file is produced by buildChannelsResponse(), the
+ * tested core that once served /api/channels on Netlify, so the shape and the
+ * allowlisted attestation fields are unchanged.
  *
  *   api/channels.json                     every channel
  *   api/channels/<status>.json            attested | proposed | expired | rejected
@@ -20,7 +20,7 @@
 import { mkdir, writeFile, rm } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { buildChannelsResponse, VALID_STATUSES, VALID_GROUPS } from "../netlify/lib/channels-api.js";
+import { buildChannelsResponse, VALID_STATUSES, VALID_GROUPS } from "../lib/channels-api.js";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 

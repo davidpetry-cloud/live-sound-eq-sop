@@ -3,7 +3,7 @@ import { mkdtemp, readFile, readdir } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { buildApi, apiFiles } from "../scripts/build-api.mjs";
-import { buildChannelsResponse } from "../netlify/lib/channels-api.js";
+import { buildChannelsResponse } from "../lib/channels-api.js";
 import { CHECKS, runChecks, startLocalServer } from "../scripts/verify-pages.mjs";
 
 const failing = (results) => results.filter((r) => !r.ok).map((r) => `${r.name}: ${r.error}`);
