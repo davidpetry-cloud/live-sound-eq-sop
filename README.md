@@ -138,7 +138,7 @@ npm run verify:pages -- <url>          # any other copy of the site
 npm run verify:pages -- --local        # a fresh build on a local throwaway server
 ```
 
-Read-only checks: the page, its assets and the strip simulator serve; every file in `api/index.json` is JSON; the data is less than 48 hours old; the status files add up to the whole; a combined filter equals the intersection; no model record reads as attested; only allowlisted fields leave the ledger. Exits non-zero on any failure. `npm test` runs the same checks against a local build.
+Read-only checks: the page, its assets and the strip simulator serve; both pages ask for `?v=`-stamped CSS, JS and fonts; every file in `api/index.json` is JSON; the data is less than 48 hours old; the status files add up to the whole; a combined filter equals the intersection; no model record reads as attested; only allowlisted fields leave the ledger. Exits non-zero on any failure. `npm test` runs the same checks against a local build.
 
 ## Running it
 
@@ -151,6 +151,15 @@ npm run preview     # builds the page and API, then serves public/ as the site r
 resolve inside the published tree, and writes the JSON API to `public/api/`.
 `public/src/` and `public/api/` are generated and gitignored —
 `src/` remains the single source of truth.
+
+The build then stamps each CSS, JS and font URL in the pages, app.js's own
+imports and fonts.css's fonts with a hash of that file's content
+(`app.css?v=afb905c7`). Pages
+caches files for ten minutes, so without the stamp a browser can pair new
+HTML with old CSS just after a deploy. The stamp follows content, not the
+commit, so rebuilding changes nothing unless a file did; `npm test` fails if
+a committed page carries an out-of-date stamp. After editing a page's CSS, JS
+or fonts, run `npm run build` and commit the restamped files.
 
 ## Architecture
 

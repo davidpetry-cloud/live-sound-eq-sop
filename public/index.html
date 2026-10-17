@@ -10,11 +10,11 @@
 <meta name="theme-color" content="#130e0a" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#eae0cf" media="(prefers-color-scheme: light)">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<script src="theme.js"></script>
-<link rel="preload" href="fonts/cormorant-garamond-400-700-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/outfit-300-700-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="app.css">
+<script src="theme.js?v=9d9d36ff"></script>
+<link rel="preload" href="fonts/cormorant-garamond-400-700-latin.woff2?v=5d618c46" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/outfit-300-700-latin.woff2?v=92684e4a" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css?v=6d1f899d">
+<link rel="stylesheet" href="app.css?v=afb905c7">
 </head>
 <body>
 <a class="skip" href="#views">Skip to the channel list</a>
@@ -25,9 +25,9 @@
     <h1><span class="h1-lead">Live Sound</span> EQ SOP</h1>
     <p class="sub">Channel starting points for the Allen &amp; Heath MixWizard WZ3 16:2. Every value below carries a record of who asserted it and what it is grounded in. Nothing here is anonymous.</p>
     <a class="cta" href="strip.html">
-      <svg class="cta-icon" viewBox="0 0 32 32" aria-hidden="true"><path class="c-grid" d="M3 16h26"/><path class="c-curve" d="M3 23c4 0 5-7 8-7s3 3 6 3 4-9 7-9 3 4 5 4"/><circle class="c-lm" cx="11" cy="16" r="2.2"/><circle class="c-hm" cx="24" cy="10" r="2.2"/></svg>
+      <svg class="cta-icon" width="40" height="40" viewBox="0 0 32 32" fill="none" stroke="currentColor" aria-hidden="true"><path class="c-grid" d="M3 16h26"/><path class="c-curve" d="M3 23c4 0 5-7 8-7s3 3 6 3 4-9 7-9 3 4 5 4"/><circle class="c-lm" cx="11" cy="16" r="2.2"/><circle class="c-hm" cx="24" cy="10" r="2.2"/></svg>
       <span class="cta-text"><span class="cta-title">Strip simulator</span><span class="cta-note">Turn any channel's EQ on a virtual WZ3 strip</span></span>
-      <svg class="cta-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4l4 4-4 4"/></svg>
+      <svg class="cta-arrow" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3 8h9M8.5 4l4 4-4 4"/></svg>
     </a>
     <ol class="order" aria-label="Working order">
       <li><span>1</span>Gain</li>
@@ -37,7 +37,7 @@
     </ol>
     <p class="byline">David Petry · FOH engineer</p>
   </div>
-  <svg class="frieze" aria-hidden="true" focusable="false" preserveAspectRatio="none" viewBox="0 0 1200 40">
+  <svg class="frieze" width="100%" height="30" aria-hidden="true" focusable="false" preserveAspectRatio="none" viewBox="0 0 1200 40" fill="none">
     <defs>
       <pattern id="wave" width="160" height="40" patternUnits="userSpaceOnUse">
         <path class="w1" d="M0 26 C 30 26 40 8 80 8 S 130 26 160 26"/>
@@ -59,8 +59,8 @@
       <button class="tab" type="button" role="tab" id="tab-aux" aria-controls="auxPanel" aria-selected="false" tabindex="-1">Aux &amp; effects</button>
     </div>
     <button class="theme-btn" id="mode" type="button">
-      <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
-      <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.6 12.6A6.6 6.6 0 0 1 7.4 4.4a6.6 6.6 0 1 0 8.2 8.2z"/></svg>
+      <svg class="i-sun" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.4M10 15.8v2.4M1.8 10h2.4M15.8 10h2.4M4.2 4.2l1.7 1.7M14.1 14.1l1.7 1.7M4.2 15.8l1.7-1.7M14.1 5.9l1.7-1.7"/></svg>
+      <svg class="i-moon" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true"><path d="M15.6 12.6A6.6 6.6 0 0 1 7.4 4.4a6.6 6.6 0 1 0 8.2 8.2z"/></svg>
       <span id="modeLabel">Light theme</span>
     </button>
   </div>
@@ -76,7 +76,7 @@
         <label class="find" for="q">
           <span class="find-label">Find a channel</span>
           <span class="find-field">
-            <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M12.7 12.7 17 17"/></svg>
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M12.7 12.7 17 17"/></svg>
             <input type="search" id="q" placeholder="kick, vocals, bass…" autocomplete="off" spellcheck="false">
           </span>
         </label>
@@ -97,6 +97,6 @@
   </footer>
 </div>
 
-<script type="module" src="app.js"></script>
+<script type="module" src="app.js?v=d7d69429"></script>
 </body>
 </html>
