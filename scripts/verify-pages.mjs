@@ -49,8 +49,8 @@ export const CHECKS = [
   ["pages ask for versioned assets that serve", async (b) => {
     for (const page of ["", "strip.html"]) {
       const { text } = await get(b, page);
-      const refs = [...text.matchAll(/\b(?:href|src)="([^":?]+\.(?:css|js)(?:\?[^"]*)?)"/g)].map((m) => m[1]);
-      assert(refs.length > 2, `${page || "index"}: no stylesheets or scripts found`);
+      const refs = [...text.matchAll(/\b(?:href|src)="([^":?]+\.(?:css|js|woff2)(?:\?[^"]*)?)"/g)].map((m) => m[1]);
+      assert(refs.length > 2, `${page || "index"}: no stylesheets, scripts or fonts found`);
       for (const ref of refs) {
         assert(/\?v=[0-9a-f]+$/.test(ref), `${page || "index"}: ${ref} has no ?v= stamp`);
         const { res } = await get(b, ref);
