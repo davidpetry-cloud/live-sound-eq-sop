@@ -113,6 +113,10 @@ function curve(raw, status) {
 const num = (text, quiet = false) =>
   `<span class="num${quiet ? " quiet" : ""}">${esc(text).replace(/\s?(kHz|Hz|dB)\b/g, '<span class="u">\u2009$1</span>')}</span>`;
 const word = text => `<span class="w">${text}</span>`;
+/* HPF is an in/out push switch on the strip, so its state reads like one:
+   lit and raised when IN, unlit and recessed when OUT. It is a reading,
+   not a control, so it gets no pointer or hover. */
+const sw = on => `<span class="sw ${on ? "on" : "off"}"><span class="led" aria-hidden="true"></span>${on ? "IN" : "OUT"}</span>`;
 function bandCells(b) {
   const cell = (cls, lbl, top, bottom) => `<li class="band ${cls}"><span class="lbl">${lbl}</span>${top}${bottom}</li>`;
   const sweep = (cls, lbl, F, D) => D === 0 || toHz(F) == null
@@ -122,7 +126,7 @@ function bandCells(b) {
     ? cell(cls, lbl, word("Flat"), num("0 dB", true))
     : cell(cls, lbl, word("Shelf"), num(db(D)));
   return `<ul class="bands" aria-label="EQ, in strip order">
-    ${b.hpf === "IN" ? cell("hpf", "HPF", word("In"), num(`${CONSOLE.hpfHz} Hz`)) : cell("hpf", "HPF", word("Out"), "")}
+    ${b.hpf === "IN" ? cell("hpf", "HPF", sw(true), num(`${CONSOLE.hpfHz} Hz`)) : cell("hpf", "HPF", sw(false), "")}
     ${shelf("hf", "HF", b.hf)}
     ${sweep("hm", "HM", b.hmF, b.hmD)}
     ${sweep("lm", "LM", b.lmF, b.lmD)}

@@ -299,6 +299,22 @@ input[type=search]::placeholder { color: var(--t3); opacity: 1; }
 .num .u { font-size: .68em; font-weight: 500; color: var(--t2); letter-spacing: 0; }
 .num.quiet { font-weight: 400; color: var(--t2); }
 .w { font-size: 16px; font-weight: 500; color: var(--t2); }
+.sw {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  min-width: 72px; padding: 3px 12px; margin-bottom: 3px; border-radius: 7px;
+  font-size: 15px; font-weight: 800; letter-spacing: .1em; line-height: 1.4;
+  border: 1.5px solid var(--b-hpf);
+}
+.sw .led { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid currentColor; }
+.sw.on {
+  background: var(--b-hpf); color: var(--bg);
+  box-shadow: inset 0 1px 0 oklch(1 0 0 / .3), inset 0 -2px 0 oklch(0 0 0 / .22), 0 2px 6px -2px var(--b-hpf);
+}
+.sw.on .led { background: currentColor; }
+.sw.off {
+  background: transparent; color: var(--t2); border-color: var(--ui-edge);
+  box-shadow: inset 0 2px 4px oklch(0 0 0 / .22);
+}
 .card.rejected .band .num { text-decoration: line-through; text-decoration-color: var(--exp); text-decoration-thickness: 2px; }
 
 /* Details: who said so, and on what grounds */
