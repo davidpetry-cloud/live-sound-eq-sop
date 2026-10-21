@@ -643,7 +643,11 @@
     margin-top: 64px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 16px; color: var(--t2); display: grid; gap: 6px;
     & strong { color: var(--text); font-weight: 500; }
   }
-  .foot-links a { color: var(--text); display: inline-block; padding: 3px 0; }
+  /* Links in a row, each a 44px target; the dots between them stay quiet. */
+  .foot-links {
+    display: flex; flex-wrap: wrap; align-items: center; column-gap: 8px;
+    & a { color: var(--text); display: inline-flex; align-items: center; min-height: 44px; }
+  }
 
   /* ----- Scroll reveal -----
      As a card comes up from the bottom of the window it rises 14px into
