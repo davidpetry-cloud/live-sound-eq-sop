@@ -268,14 +268,14 @@
     @media (max-width: 640px) { flex: 1 1 auto; }
   }
   .tab {
-    min-height: 40px; padding: 0 20px; border: 0; border-radius: 999px; background: none; cursor: pointer;
+    min-height: 44px; padding: 0 20px; border: 0; border-radius: 999px; background: none; cursor: pointer;
     font-weight: 500; font-size: 15px; color: var(--t2); transition: background-color .15s, color .15s;
     &:hover { color: var(--text); background: var(--panel2); }
     &[aria-selected="true"] { background: var(--text); color: var(--bg); }
     @media (max-width: 640px) { flex: 1; padding: 0 12px; }
   }
   .theme-btn {
-    display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 16px;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; min-width: 44px; padding: 0 16px;
     border: 1px solid var(--ui-edge); border-radius: 999px; background: var(--panel); cursor: pointer;
     font-size: 14px; color: var(--t2);
     &:hover { color: var(--text); }
@@ -314,7 +314,7 @@
   /* The key: what each state means, one tap away. */
   .key {
     margin-top: 4px;
-    & dl { display: grid; gap: 4px; margin: 4px 0 8px; font-size: 16px; max-width: 72ch; }
+    & dl { display: grid; gap: 4px; margin: 4px 0 8px; font-size: 17px; max-width: 72ch; }
     & dt {
       display: inline-flex; align-items: center; gap: 6px; margin-right: 6px; font-weight: 600; color: var(--c);
       & svg { width: 13px; height: 13px; flex: none; }
@@ -385,7 +385,7 @@
   .card:has(> .card-head[aria-expanded="true"]) { box-shadow: var(--shadow-lift); }
 
   .card-head {
-    display: flex; width: 100%; align-items: center; gap: 14px; justify-content: space-between;
+    display: flex; width: 100%; min-height: 44px; align-items: center; gap: 14px; justify-content: space-between;
     padding: 14px 18px 4px; background: none; border: 0; text-align: left; cursor: pointer;
     border-radius: 0 18px 0 0;
     @container card (width < 704px) { padding: 12px 14px 2px; gap: 10px; align-items: start; }
@@ -505,7 +505,7 @@
     @container card (width < 704px) { margin: 0 14px; }
     &[hidden] { display: none; }
     &:not([hidden]) { animation: open .22s var(--ease); }
-    & dl { display: grid; gap: 4px; font-size: 16px; line-height: 1.5; }
+    & dl { display: grid; gap: 4px; font-size: 17px; line-height: 1.5; }
     & dl > div { max-width: 80ch; }
     & dt { display: inline; margin-right: 6px; font-weight: 600; color: var(--t2); }
     & dd { display: inline; color: var(--text); }
@@ -516,7 +516,7 @@
   /* One sentence of warning for anything not safe to work from. */
   .caution {
     display: flex; gap: 8px; align-items: baseline; margin-top: 8px; max-width: 80ch;
-    font-size: 16px; line-height: 1.5; color: var(--t2);
+    font-size: 17px; line-height: 1.5; color: var(--t2);
     & svg { width: 13px; height: 13px; flex: none; color: var(--edge); translate: 0 1px; }
     & b { color: var(--edge); font-weight: 700; }
   }
