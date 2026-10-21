@@ -416,13 +416,15 @@
     & svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
   }
 
+  /* Status marks are 15px everywhere: Apple's Subheadline step, the same
+     size as the ledger chips. Compact marks only lose padding. */
   .mark {
     display: inline-flex; align-items: center; gap: 7px; white-space: nowrap;
     font-size: 15px; font-weight: 600;
     padding: 3px 12px; border-radius: 999px; border: 1px solid currentColor; color: var(--edge);
     & svg { width: 14px; height: 14px; }
-    &.sm { padding: 2px 10px; font-size: 14px; }
-    @container card (width < 704px) { padding: 2px 10px; font-size: 14px; gap: 6px; }
+    &.sm { padding: 2px 10px; }
+    @container card (width < 704px) { padding: 2px 10px; gap: 6px; }
   }
 
   .strip {
