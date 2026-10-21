@@ -129,9 +129,12 @@
 }
 .val .u { font-size: .68em; font-weight: 500; color: var(--t2); letter-spacing: 0; }
 
+/* A 44px touch target. The negative margins give back the extra 10px, so
+   the groove, knob and ticks sit where they did; the taller hit area only
+   overlaps this slider's own label row and tick numbers. */
 .ctl input[type=range] {
   --a: 50%; --b: 50%;
-  grid-column: 1 / -1; width: 100%; height: 32px; margin: 2px 0 0; cursor: pointer;
+  grid-column: 1 / -1; width: 100%; height: 44px; margin: -3px 0 -7px; cursor: pointer;
   appearance: none; -webkit-appearance: none; background: transparent;
 }
 /* The track: a groove with its edge at 3:1, filled in the band's colour from
@@ -157,9 +160,13 @@
   background: radial-gradient(circle, var(--c) 0 3px, var(--panel) 3.5px); border: 3px solid var(--c);
   box-shadow: 0 2px 5px -1px oklch(0 0 0 / .45);
 }
-.ctl input[type=range]:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 8px; }
-/* Tick marks sit under the knob's travel (11px in from each end). */
-.ticks { grid-column: 1 / -1; position: relative; display: block; height: 20px; margin: 0 11px; font-size: 14px; color: var(--t2); line-height: 1; }
+/* Focus rings the groove, not the whole 44px box, so it clears the ticks. */
+.ctl input[type=range]:focus-visible { outline: none; }
+.ctl input[type=range]:focus-visible::-webkit-slider-runnable-track { outline: 2px solid var(--focus); outline-offset: 7px; }
+.ctl input[type=range]:focus-visible::-moz-range-track { outline: 2px solid var(--focus); outline-offset: 7px; }
+/* Tick marks sit under the knob's travel (11px in from each end). They are
+   labels only, so taps pass through to the slider's 44px target above. */
+.ticks { grid-column: 1 / -1; position: relative; display: block; height: 20px; margin: 0 11px; font-size: 14px; color: var(--t2); line-height: 1; pointer-events: none; }
 .ticks span { position: absolute; left: calc(var(--p) * 100%); top: 6px; translate: -50% 0; white-space: nowrap; }
 .ticks span::before {
   content: ""; position: absolute; left: 50%; top: -6px; width: 1px; height: 4px; background: var(--ui-edge);
