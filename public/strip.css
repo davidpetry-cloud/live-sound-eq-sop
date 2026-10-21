@@ -48,7 +48,11 @@
 .sim-trust .sim-range { clear: both; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line); color: var(--t2); }
 .sim-trust:not([data-status="attested"]) { background: var(--panel2); }
 .sim-why { clear: both; margin-top: 8px; }
-.sim-why summary { cursor: pointer; font-weight: 500; min-height: 32px; display: inline-flex; align-items: center; }
+.sim-why summary { cursor: pointer; font-weight: 500; min-height: 44px; display: inline-flex; align-items: center; gap: 6px; list-style: none; }
+.sim-why summary::-webkit-details-marker { display: none; }
+/* The same open/close mark as the channel list's "Who says so". */
+.sim-why summary::before { content: "+"; width: 18px; height: 18px; display: inline-grid; place-items: center; border: 1px solid var(--ui-edge); border-radius: 50%; font-size: 13px; line-height: 1; }
+.sim-why[open] summary::before { content: "\2212"; }
 .sim-why p { color: var(--t2); margin-top: 4px; }
 
 /* ===== Two panels: the curve and the console ===== */
