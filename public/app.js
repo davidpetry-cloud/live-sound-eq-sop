@@ -9,6 +9,12 @@ const BLURB = {
   attested: "Signed and current", proposed: "Awaiting a practitioner",
   expired: "Needs re-checking", rejected: "Reviewed and turned down"
 };
+const KEY = {
+  attested: "Signed by a named practitioner, and inside its shelf life.",
+  proposed: "Suggested by a model. No practitioner has checked it yet.",
+  expired: "Signed once, but its shelf life has run out. Re-check before use.",
+  rejected: "Reviewed by a practitioner and turned down. Kept, not deleted."
+};
 const EDGE = { attested: "var(--att)", proposed: "var(--prop)", expired: "var(--exp)", rejected: "var(--rej)" };
 const ICON = {
   attested: '<svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3.2L13 5"/></svg>',
@@ -134,35 +140,37 @@ function bandCells(b) {
   </ul>`;
 }
 
-/* ---------- Provenance: who said so, and on what grounds ---------- */
+/* ---------- Provenance: who said so, and on what grounds ----------
+   Compact: each fact is one run-in line ("Attested by David Petry"), and the
+   warning for anything not safe to work from is one sentence under them. */
 function provenance(ch, status) {
   const a = ch.attestation;
-  const note = (title, icon, text) => `<div class="note"><b>${icon}${title}</b><p>${text}</p></div>`;
+  const row = (term, value, cls = "") => `<div><dt>${term}</dt><dd${cls ? ` class="${cls}"` : ""}>${value}</dd></div>`;
+  const caution = (title, icon, text) => `<p class="caution">${icon}<span><b>${title}.</b> ${text}</span></p>`;
   if (status === STATUS.REJECTED) {
     const r = a.rejection;
     const origin = a.source === SOURCE.MODEL
-      ? `<dt>Proposed by</dt><dd>${esc(a.model)}</dd><dt>Reasoning</dt><dd>${esc(a.rationale)}</dd>`
-      : `<dt>Asserted by</dt><dd>${esc(a.by ?? "—")}</dd>`;
+      ? row("Proposed by", esc(a.model)) + row("Reasoning", esc(a.rationale))
+      : row("Asserted by", esc(a.by ?? "—"));
     return `<dl>${origin}
-      <dt>Rejected by</dt><dd>${esc(r.by)}${r.role ? ` · ${esc(r.role)}` : ""}</dd>
-      <dt>Why</dt><dd>${esc(r.reason)}</dd>
-      <dt>Reviewed</dt><dd>${esc(r.reviewed)}</dd></dl>` +
-      note("Turned down", ICON.rejected, "A practitioner reviewed these values and rejected them. They are kept, not deleted, because knowing somebody tried this and found it wrong is worth more than a gap. Do not work from them.");
+      ${row("Rejected by", `${esc(r.by)}${r.role ? ` · ${esc(r.role)}` : ""} · ${esc(r.reviewed)}`)}
+      ${row("Why", esc(r.reason))}</dl>` +
+      caution("Turned down", ICON.rejected, "Kept so you can see what was tried and found wrong. Don’t work from these values.");
   }
   if (a.source === SOURCE.MODEL) {
     return `<dl>
-      <dt>Proposed by</dt><dd>${esc(a.model)}</dd>
-      <dt>Reasoning</dt><dd>${esc(a.rationale)}</dd>
-      <dt>Ratified by</dt><dd class="none">Nobody yet</dd></dl>` +
-      note("Not verified", ICON.proposed, "A model produced these values. No practitioner has confirmed them at a console. Treat them as a hypothesis to test at soundcheck, not a starting point to dial in blind.");
+      ${row("Proposed by", esc(a.model))}
+      ${row("Ratified by", "Nobody yet", "none")}
+      ${row("Reasoning", esc(a.rationale))}</dl>` +
+      caution("Not verified", ICON.proposed, "No practitioner has checked these at a console. Test them at soundcheck; don’t dial them in blind.");
   }
   const left = daysRemaining(ch);
   const lapsed = status === STATUS.EXPIRED;
   return `<dl>
-    <dt>Attested by</dt><dd>${esc(a.by)}${a.role ? ` · ${esc(a.role)}` : ""}</dd>
-    <dt>Grounded in</dt><dd>${esc(a.basis)}</dd>
-    <dt>Verified</dt><dd>${esc(a.verified)} · ${lapsed ? `lapsed ${Math.abs(left)} days ago` : `${left} days remaining`}</dd></dl>` +
-    (lapsed ? note("Attestation lapsed", ICON.expired, "This was signed, but its shelf life has run out. Re-check it in a room before working from it, then re-sign it with today's date.") : "");
+    ${row("Attested by", `${esc(a.by)}${a.role ? ` · ${esc(a.role)}` : ""}`)}
+    ${row("Verified", `${esc(a.verified)} · ${lapsed ? `lapsed ${Math.abs(left)} days ago` : `${left} days left`}`)}
+    ${row("Grounded in", esc(a.basis))}</dl>` +
+    (lapsed ? caution("Lapsed", ICON.expired, "Its shelf life has run out. Re-check it in a room, then re-sign it with today’s date.") : "");
 }
 
 /* ---------- Channels view ---------- */
@@ -248,14 +256,18 @@ toggleAllBtn.addEventListener("click", () => {
   render();
 });
 
+/* The ledger is a row of compact chips that also filter. What each state
+   means sits one tap away in the key below them. */
 function renderFilters() {
   const c = tally(allChannels());
   const tile = (key, n, name, blurb, color, icon = "") =>
     `<button class="tile" type="button" data-f="${key}" aria-pressed="${state.filter === key}" style="--c:${color}">
-      <b>${n}</b><span class="t-name">${icon}${name}</span><span class="t-blurb">${blurb}</span></button>`;
+      <span class="t-name">${icon}${name}</span><b>${n}</b><span class="sr"> — ${blurb}</span></button>`;
   document.getElementById("filters").innerHTML =
     tile("all", TOTAL, "All", "Every channel", "var(--text)") +
     ORDER.map(k => tile(k, c[k], LABEL[k], BLURB[k], EDGE[k], ICON[k])).join("");
+  document.getElementById("key").innerHTML = ORDER.map(k =>
+    `<div><dt style="--c:${EDGE[k]}">${ICON[k]}${LABEL[k]}</dt><dd>${KEY[k]}</dd></div>`).join("");
 }
 /* Update the pressed state in place so keyboard focus stays on the tile. */
 function syncFilters() {
@@ -292,7 +304,7 @@ function renderAuxPanel() {
   const buses = BUSES.map(bus => {
     const s = resolveStatus(bus);
     return `<article class="panel" style="--edge:${EDGE[s]}">
-      <div class="panel-top"><div><p class="bus-id">${esc(bus.id.replace(/(\d)/, " $1"))}</p><h3 class="bus-role">${esc(bus.role)}</h3></div>${mark(s, "sm")}</div>
+      <div class="panel-top">${mark(s, "sm")}<p class="bus-id">${esc(bus.id.replace(/(\d)/, " $1"))}</p><h3 class="bus-role">${esc(bus.role)}</h3></div>
       <p class="tags"><span class="tag ${bus.fade}">${bus.fade === "pre" ? "Pre-fade" : "Post-fade"}</span><span class="tag">${esc(bus.feeds)}</span></p>
       <ul class="policy">${bus.policy.map(policyItem).join("")}</ul>
       ${whoSays(bus)}
@@ -312,7 +324,7 @@ function renderAuxPanel() {
 
   const ring = MONITOR_RINGOUT, rs = resolveStatus(ring);
   const ringHTML = `<article class="panel" style="--edge:${EDGE[rs]}">
-    <div class="panel-top"><p class="section-sub">${esc(ring.note)}</p>${mark(rs, "sm")}</div>
+    <div class="panel-top">${mark(rs, "sm")}<p class="section-sub">${esc(ring.note)}</p></div>
     <div class="note" style="--c:var(--exp)"><b>${WARN.replace('viewBox', 'fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" viewBox')}Rule</b><p>${esc(ring.rule)}</p></div>
     <table class="ring">
       <thead><tr><th scope="col">Frequency</th><th scope="col">Band</th><th scope="col">What it is</th></tr></thead>
@@ -325,7 +337,7 @@ function renderAuxPanel() {
   const opts = FX_OPTIONS.map(o => {
     const s = resolveStatus(o);
     return `<article class="panel" style="--edge:${EDGE[s]}">
-      <div class="panel-top"><h3 class="opt-name">${esc(o.name)}</h3>${mark(s, "sm")}</div>
+      <div class="panel-top">${mark(s, "sm")}<h3 class="opt-name">${esc(o.name)}</h3></div>
       <p class="opt-config">${esc(o.config)}</p>
       <div class="gc"><div class="gains"><b>Gains</b>${esc(o.gains)}</div><div class="costs"><b>Costs</b>${esc(o.costs)}</div></div>
       ${whoSays(o)}
