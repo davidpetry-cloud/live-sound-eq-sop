@@ -17,7 +17,7 @@
     "verify:pages": "node scripts/verify-pages.mjs"
   },
   "dependencies": {
-    "attestation-ledger": "^0.1.0"
+    "attestation-ledger": "^0.1.2"
   },
   "devDependencies": {
     "vitest": "^5.0.1"

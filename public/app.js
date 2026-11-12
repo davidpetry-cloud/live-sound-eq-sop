@@ -1,5 +1,5 @@
 import { GROUPS, allChannels, channelId, toHz, CONSOLE } from "./src/data.js?v=dd90de13";
-import { resolveStatus, daysRemaining, STATUS, SOURCE, tally } from "./vendor/attestation-ledger/index.js?v=0e508f28";
+import { resolveStatus, daysRemaining, STATUS, SOURCE, tally } from "./vendor/attestation-ledger/index.js?v=cb92bb90";
 import { AUX_CONSOLE, BUSES, SEND_RULES, FX_OPTIONS, MONITOR_RINGOUT, BASIS } from "./src/auxes.js?v=f0d02bfb";
 
 /* ---------- Shared vocabulary: one name, one shape, one colour per state ---------- */
