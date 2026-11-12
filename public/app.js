@@ -1,4 +1,4 @@
-import { GROUPS, allChannels, channelId, toHz, CONSOLE } from "./src/data.js?v=07f2cca7";
+import { GROUPS, allChannels, channelId, toHz, CONSOLE } from "./src/data.js?v=1e8d366d";
 import { resolveStatus, daysRemaining, STATUS, SOURCE, tally } from "./vendor/attestation-ledger/index.js?v=0e508f28";
 import { AUX_CONSOLE, BUSES, SEND_RULES, FX_OPTIONS, MONITOR_RINGOUT } from "./src/auxes.js?v=cdf41a0c";
 
