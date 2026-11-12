@@ -233,7 +233,7 @@ export const GROUPS = [
     ]
   },
   {
-    "name": "Bass & guitars",
+    "name": "Bass & Guitars",
     "channels": [
       {
         "name": "BASS GTR",
@@ -346,27 +346,6 @@ export const GROUPS = [
         }
       },
       {
-        "name": "UPRIGHT BASS",
-        "variant": "PICKUP",
-        "pad": null,
-        "bands": {
-          "hpf": "OUT",
-          "lf": 2,
-          "lmF": "250 Hz",
-          "lmD": -4,
-          "hmF": "2 kHz",
-          "hmD": 2,
-          "hf": -2
-        },
-        "attestation": {
-          "source": "model",
-          "model": "Claude (Anthropic)",
-          "rationale": "Piezo pickups are typically boxy in the low mids and thin on top. Follows the acoustic guitar DI pattern. Highly dependent on pickup type.",
-          "by": null,
-          "verified": null
-        }
-      },
-      {
         "name": "BANJO",
         "variant": null,
         "pad": null,
@@ -461,7 +440,7 @@ export const GROUPS = [
     ]
   },
   {
-    "name": "Keys, synths & horns",
+    "name": "Keys, Synths & Horns",
     "channels": [
       {
         "name": "PIANO",
@@ -688,9 +667,98 @@ export const GROUPS = [
           "verified": "2026-08-31",
           "ttlDays": 730
         }
+      }
+    ]
+  },
+  {
+    "name": "Strings & Woodwinds",
+    "channels": [
+      {
+        "name": "VIOLIN",
+        "variant": "MIC",
+        "pad": null,
+        "bands": {
+          "hpf": "IN",
+          "lf": -3,
+          "lmF": "400 Hz",
+          "lmD": -2,
+          "hmF": "3 kHz",
+          "hmD": -2,
+          "hf": 2
+        },
+        "attestation": {
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "Lowest string is G3 (196 Hz), so the HPF and a low shelf cut lose nothing musical and cut handling and floor rumble. A small LM cut for boxiness off the body, a small HM cut for bow harshness, and an HF lift for air. The 3 kHz cut sits inside the lead vocal's presence range, which is the open question. Model inference, unverified on the WZ3.",
+          "by": null,
+          "verified": null
+        }
       },
       {
-        "name": "FIDDLE / VIOLIN",
+        "name": "VIOLA",
+        "variant": "MIC",
+        "pad": null,
+        "bands": {
+          "hpf": "IN",
+          "lf": -2,
+          "lmF": "250 Hz",
+          "lmD": -2,
+          "hmF": "1 kHz",
+          "hmD": -2,
+          "hf": 1
+        },
+        "attestation": {
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "Lowest string is C3 (131 Hz), so the HPF is safe. Viola is darker than violin; a light LM cut controls body boom and an HM cut at 1 kHz targets the nasal quality it can have close-mic'd. Model inference, unverified on the WZ3.",
+          "by": null,
+          "verified": null
+        }
+      },
+      {
+        "name": "CELLO",
+        "variant": "MIC",
+        "pad": null,
+        "bands": {
+          "hpf": "OUT",
+          "lf": 0,
+          "lmF": "250 Hz",
+          "lmD": -3,
+          "hmF": "3 kHz",
+          "hmD": 1,
+          "hf": 0
+        },
+        "attestation": {
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "Lowest string is C2 (65 Hz), below the 80 Hz HPF, so the HPF stays out to keep the fundamental. An LM cut at 250 Hz clears mud where cello overlaps bass and the low male voice; a small HM lift brings out bow articulation. Model inference, unverified on the WZ3.",
+          "by": null,
+          "verified": null
+        }
+      },
+      {
+        "name": "DOUBLE BASS",
+        "variant": "MIC",
+        "pad": null,
+        "bands": {
+          "hpf": "OUT",
+          "lf": 0,
+          "lmF": "180 Hz",
+          "lmD": -3,
+          "hmF": "700 Hz",
+          "hmD": 2,
+          "hf": -2
+        },
+        "attestation": {
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "Lowest string is E1 (41 Hz), so the HPF stays out. A mic'd double bass is feedback-prone around its body resonance, hence the LM cut at 180 Hz; an HM lift at 700 Hz gives finger and growl definition, and an HF cut reduces bleed. Pairs with the UPRIGHT BASS (PICKUP) record when both a mic and a pickup are used. Model inference, unverified on the WZ3.",
+          "by": null,
+          "verified": null
+        }
+      },
+      {
+        "name": "FIDDLE",
         "variant": null,
         "pad": null,
         "bands": {
@@ -706,6 +774,48 @@ export const GROUPS = [
           "source": "model",
           "model": "Claude (Anthropic)",
           "rationale": "HM cut placed to reduce harshness while staying clear of the protected 3 to 5 kHz vocal seat. The conflict with lead vocal is the open question here.",
+          "by": null,
+          "verified": null
+        }
+      },
+      {
+        "name": "UPRIGHT BASS",
+        "variant": "PICKUP",
+        "pad": null,
+        "bands": {
+          "hpf": "OUT",
+          "lf": 2,
+          "lmF": "250 Hz",
+          "lmD": -4,
+          "hmF": "2 kHz",
+          "hmD": 2,
+          "hf": -2
+        },
+        "attestation": {
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "Piezo pickups are typically boxy in the low mids and thin on top. Follows the acoustic guitar DI pattern. Highly dependent on pickup type.",
+          "by": null,
+          "verified": null
+        }
+      },
+      {
+        "name": "FLUTE",
+        "variant": "MIC",
+        "pad": null,
+        "bands": {
+          "hpf": "IN",
+          "lf": -6,
+          "lmF": "250 Hz",
+          "lmD": -3,
+          "hmF": "6 kHz",
+          "hmD": -2,
+          "hf": 0
+        },
+        "attestation": {
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "Lowest note is C4 (262 Hz), so nothing below the HPF is useful; the low shelf cut takes out breath and handling rumble. An LM cut clears stage bleed under the instrument, and an HM cut at 6 kHz softens breath noise without dulling the tone. Model inference, unverified on the WZ3.",
           "by": null,
           "verified": null
         }
