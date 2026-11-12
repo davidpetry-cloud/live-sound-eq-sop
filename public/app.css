@@ -126,9 +126,14 @@
     display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-bottom: 26px;
     @media (max-width: 640px) { gap: 10px; margin-bottom: 18px; }
   }
-  /* Search first, then the ledger chips that filter, then the list: on a
-     phone all three start on the first screen. */
-  .ledger { margin-top: 18px; }
+  /* Search first, its result count right under it, then the ledger chips
+     that filter, then the list. On a phone the ledger steps aside while a
+     search is typed, so the matches appear right under the field; the
+     result line still names any state filter in force. */
+  .ledger { margin-top: 10px; }
+  @media (max-width: 640px) {
+    #channelsPanel:has(#q:not(:placeholder-shown)) .ledger { display: none; }
+  }
   .tiles {
     display: flex; flex-wrap: wrap; gap: 8px;
     @media (max-width: 640px) { gap: 6px; }
@@ -194,9 +199,12 @@
     @media (max-width: 640px) { margin-bottom: 6px; }
   }
   .h1-lead { font-style: italic; font-weight: 500; color: var(--prop); }
+  /* On a phone only the first sentence shows; the ledger's "What the
+     states mean" carries the rest one tap away. */
   .sub {
     color: var(--t2); max-width: 60ch; font-size: 19px; line-height: 1.55;
     @media (max-width: 640px) { font-size: 17px; line-height: 1.5; }
+    & .sub-more { @media (max-width: 640px) { display: none; } }
   }
   /* The way into the strip simulator: a link dressed as a button, framed in
      the masthead's gold, with a small EQ curve in the strip's band colours. */
@@ -231,10 +239,12 @@
     fill: none; stroke: var(--prop); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
     transition: translate .18s var(--ease);
   }
+  /* On a phone the working order and byline step aside, so the first EQ
+     values arrive on the first or second screen instead of the third. */
   .order {
     list-style: none; display: flex; flex-wrap: wrap; gap: 6px 4px; margin-top: 20px;
     font-size: 16px; font-weight: 500; color: var(--t2);
-    @media (max-width: 640px) { margin-top: 14px; }
+    @media (max-width: 640px) { display: none; }
     @media (max-width: 479px) { gap: 8px 14px; }
 
     & li { display: inline-flex; align-items: center; gap: 8px; }
@@ -249,8 +259,9 @@
   }
   .byline {
     font-size: 15px; color: var(--t3); margin: 14px 0 22px;
-    @media (max-width: 640px) { margin: 10px 0 14px; }
+    @media (max-width: 640px) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   }
+  .cta { @media (max-width: 640px) { margin-bottom: 16px; } }
   .frieze {
     display: block; width: 100%; height: 30px;
     @media (max-width: 640px) { height: 22px; }
@@ -292,7 +303,7 @@
      that is filtering fills with its colour, so "pressed" reads by fill as
      well as by hue. */
   .kicker { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
-  .kicker-note { font-weight: 400; color: var(--t2); }
+  .kicker-note { font-weight: 400; color: var(--t2); @media (max-width: 640px) { display: none; } }
   .tile {
     --c: var(--text);
     display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
@@ -364,11 +375,13 @@
   }
 
   /* ----- Channel cards -----
-     Each card is a size container named "card". Below 704px of card width
-     (a phone, or a narrow window) the strip stacks: curve above, then one
-     row per band, top to bottom like the console. That is where five
-     columns stop fitting their 23px numbers; tied to the window instead,
-     the numbers used to overlap between 641px and about 760px. */
+     Each card is a size container named "card", with three layouts:
+     - 704px and wider: curve beside five band columns.
+     - 560 to 703px (a small tablet, a landscape phone): curve above, the
+       five columns below it, so values stay side by side.
+     - Under 560px (a phone): curve above, then one row per band, top to
+       bottom like the console, rows no wider than 420px so a band's name
+       and its values stay together. */
   .card {
     --edge: var(--att);
     container: card / inline-size;
@@ -384,13 +397,17 @@
      aria-expanded, with no extra class from the script. */
   .card:has(> .card-head[aria-expanded="true"]) { box-shadow: var(--shadow-lift); }
 
+  /* The name takes what room it needs; when a long name and the status
+     mark can't share a line, the mark and chevron wrap below it, right
+     aligned, instead of pushing past the card's edge. */
   .card-head {
-    display: flex; width: 100%; min-height: 44px; align-items: center; gap: 14px; justify-content: space-between;
+    display: flex; flex-wrap: wrap; width: 100%; min-height: 44px; align-items: center; gap: 14px; justify-content: space-between;
     padding: 14px 18px 4px; background: none; border: 0; text-align: left; cursor: pointer;
     border-radius: 0 18px 0 0;
     @container card (width < 704px) { padding: 12px 14px 2px; gap: 10px; align-items: start; }
   }
   .nm {
+    flex: 1 1 12ch; min-width: 0; overflow-wrap: anywhere;
     font-weight: 600; font-size: 20px; line-height: 1.25; letter-spacing: .03em;
     @container card (width < 704px) { font-size: 18px; }
     & .var { font-weight: 500; font-size: 17px; letter-spacing: .03em; color: var(--t2); }
@@ -406,7 +423,7 @@
     & svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
   }
   .head-r {
-    display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+    display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto;
     @container card (width < 704px) { gap: 8px; }
   }
   .chev {
@@ -443,15 +460,15 @@
     & .dot { stroke-width: 1.6; fill: var(--panel); }
   }
 
-  /* Narrow cards: one row per band, top to bottom like the strip, numbers
-     kept large. */
+  /* Phone-width cards: one row per band, top to bottom like the strip,
+     numbers kept large. */
   .bands {
     display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; list-style: none;
-    @container card (width < 704px) { grid-template-columns: 1fr; gap: 0; }
+    @container card (width < 560px) { grid-template-columns: 1fr; gap: 0; max-width: 420px; }
   }
   .band {
     display: grid; gap: 2px; justify-items: start; align-content: start; line-height: 1.2;
-    @container card (width < 704px) {
+    @container card (width < 560px) {
       grid-template-columns: 58px minmax(0, 1fr) minmax(0, 1fr); align-items: center; justify-items: start;
       padding: 7px 0; border-top: 1px solid var(--line);
       & > .num:last-child { justify-self: end; }
@@ -459,7 +476,7 @@
     & .lbl {
       font-size: 14px; font-weight: 700; letter-spacing: .05em; padding: 0 9px; border-radius: 999px;
       border: 1.5px solid currentColor; margin-bottom: 6px; line-height: 1.5;
-      @container card (width < 704px) { margin: 0; }
+      @container card (width < 560px) { margin: 0; }
     }
   }
   .band.hpf .lbl, .dot.hpf { color: var(--b-hpf); stroke: var(--b-hpf); }
@@ -478,7 +495,7 @@
   /* A range ("−2 dB to +2 dB") carries two units. In the five columns it
      may break at "to" rather than run into the next band; a single value
      never breaks, and in the rows it has room to stay on one line. */
-  @container card (width >= 704px) {
+  @container card (width >= 560px) {
     .num:has(> .u ~ .u) { white-space: normal; }
   }
   .w { font-size: 16px; font-weight: 500; color: var(--t2); }

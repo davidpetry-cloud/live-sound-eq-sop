@@ -396,7 +396,9 @@ class Simulator {
 
   void _draw() {
     final w = math.max(220, plot.clientWidth).toDouble();
-    final h = (w * 0.48).clamp(200.0, 320.0);
+    // Below 600px the plot pins above the controls, so it may go as short
+    // as 140px and leave the knobs room on a phone.
+    final h = (w * 0.48).clamp(w < 600 ? 140.0 : 200.0, 320.0);
     const l = 40.0, r = 10.0, t = 10.0, b = 28.0;
     final pw = w - l - r, ph = h - t - b;
     double x(double f) => l + math.log(f / _fLo) / math.log(_fHi / _fLo) * pw;

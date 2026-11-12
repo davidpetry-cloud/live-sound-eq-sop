@@ -180,10 +180,32 @@ const resultEl = document.getElementById("result");
 const toggleAllBtn = document.getElementById("toggleAll");
 const TOTAL = allChannels().length;
 
+/* Search in the words people say at the desk, not only the labels on the
+   page: "vox", "bv", "gtr", "hat", "keys", a mic model. Every word typed
+   must match (name, variant, group or cheap-mic note), and each word may
+   match any of its aliases. */
+const ALIASES = {
+  vox: ["vocal"], vocals: ["vocal"], bv: ["backing"], bvs: ["backing"], bgv: ["backing"], bgvs: ["backing"],
+  gtr: ["gtr", "guitar"], guitar: ["gtr", "guitar"], guitars: ["gtr", "guitar"],
+  bd: ["kick"], kik: ["kick"], sn: ["snare"], hh: ["hi-hat", "hihat"], hat: ["hi-hat"], hats: ["hi-hat"],
+  oh: ["overhead"], ohs: ["overhead"], cymbals: ["overhead"],
+  keys: ["keys", "piano", "rhodes", "hammond", "synth"], keyboard: ["keys", "piano", "rhodes", "synth"],
+  organ: ["hammond"], ep: ["electric piano", "rhodes"],
+  horn: ["brass", "sax", "trumpet", "trombone"], horns: ["brass", "sax", "trumpet", "trombone"],
+  tpt: ["trumpet"], tbn: ["trombone"], bone: ["trombone"],
+  fiddle: ["fiddle", "violin"], violin: ["violin", "fiddle"],
+  upright: ["upright", "double bass"], doublebass: ["double bass", "upright"],
+  perc: ["perc", "conga", "cajon"], tracks: ["playback", "house music"], track: ["playback", "house music"]
+};
 function matches(ch, group, status) {
   if (state.filter !== "all" && status !== state.filter) return false;
   if (!state.query) return true;
-  return `${channelId(ch)} ${group.name}`.toLowerCase().includes(state.query);
+  const hay = `${channelId(ch)} ${group.name} ${ch.mic?.cheap ?? ""}`.toLowerCase();
+  const squashed = hay.replace(/[^a-z0-9]+/g, "");
+  return state.query.split(/\s+/).every(word => {
+    const alts = [word, ...(ALIASES[word] ?? [])];
+    return alts.some(a => hay.includes(a) || squashed.includes(a.replace(/[^a-z0-9]+/g, "")));
+  });
 }
 
 function cardHTML(ch, status, id, idx) {
