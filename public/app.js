@@ -215,13 +215,25 @@ function cardHTML(ch, status, id, idx) {
     ? `<span class="pad"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 5h12M2 11h12"/><path d="M8 2v12"/></svg>PAD \u00b7 ${esc(ch.pad)}</span>`
     : "";
   const mic = ch.mic ? `<div class="note mic"><b>Mic · cheap option</b><p>${esc(ch.mic.cheap)}</p><p>${esc(ch.mic.note)}</p></div>` : "";
+  // Anything not safe to work from says so on the closed card, in one line;
+  // the details below give the full reason.
+  const FLAG = {
+    proposed: ["Not verified", "Test at soundcheck before you dial it in."],
+    expired: ["Lapsed", "Re-check it in a room before you use it."],
+    rejected: ["Turned down", "Don’t work from these values."]
+  }[status];
+  const flag = FLAG ? `<p class="card-flag">${ICON[status]}<span><b>${FLAG[0]}.</b> ${FLAG[1]}</span></p>` : "";
+  // The same slug the simulator uses for its #channel links.
+  const slug = id.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  const tryIt = `<a class="try" href="strip.html#${slug}"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="M2 11c2 0 3-4 5-4s2 2 4 2 2-4 3-4"/></svg>Try ${esc(id)} on the strip simulator</a>`;
   return `<article class="card ${status}" style="--edge:${EDGE[status]}" data-id="${esc(id)}">
     <button class="card-head" type="button" aria-expanded="${open}" aria-controls="${pid}">
       <span class="nm">${esc(ch.name)}${ch.variant ? ` <span class="var">· ${esc(ch.variant)}</span>` : ""}${pad}</span>
       <span class="head-r">${mark(status)}<span class="chev">${CHEV}</span></span>
     </button>
     <div class="strip">${curve(ch.bands, status)}${bandCells(ch.bands)}</div>
-    <div class="prov" id="${pid}"${open ? "" : " hidden"}>${provenance(ch, status)}${mic}</div>
+    ${flag}
+    <div class="prov" id="${pid}"${open ? "" : " hidden"}>${provenance(ch, status)}${mic}${tryIt}</div>
   </article>`;
 }
 

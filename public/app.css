@@ -391,6 +391,36 @@
     transition: transform .18s var(--ease), box-shadow .18s;
     &:hover { transform: translateY(-1px); box-shadow: var(--shadow-lift); }
     &.rejected .band .num { text-decoration: line-through; text-decoration-color: var(--exp); text-decoration-thickness: 2px; }
+    /* Weak values look weak (calibrated trust). Proposed, lapsed and
+       rejected numbers keep their size but drop to regular weight in the
+       secondary colour, beside a dashed curve; only attested values are
+       bold in the main text colour. A rejected card's HPF switch goes
+       unlit too, struck through like its numbers. */
+    &:is(.proposed, .expired, .rejected) .band .num:not(.quiet) { font-weight: 400; color: var(--t2); }
+    &.rejected .sw.on {
+      background: transparent; color: var(--t2); border-color: var(--ui-edge); box-shadow: none;
+      text-decoration: line-through; text-decoration-color: var(--exp); text-decoration-thickness: 2px;
+      & .led { background: none; }
+    }
+  }
+  /* The one-line warning on a closed card. Once the card opens, the
+     details carry the same warning with its reasons, so this one steps aside. */
+  .card-flag {
+    display: flex; gap: 8px; align-items: baseline; margin: -6px 18px 14px; max-width: 80ch;
+    font-size: 16px; line-height: 1.45; color: var(--text);
+    @container card (width < 704px) { margin: -4px 14px 12px; }
+    & svg { width: 13px; height: 13px; flex: none; color: var(--edge); translate: 0 1px; }
+    & b { color: var(--edge); font-weight: 700; }
+    .card:has(> .card-head[aria-expanded="true"]) & { display: none; }
+  }
+  /* From reading a channel to trying it: straight to that channel on the
+     strip simulator. */
+  .try {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 10px; padding: 0 16px 0 12px;
+    border: 1.5px solid var(--prop); border-radius: 12px; background: var(--panel2);
+    font-size: 16px; font-weight: 600; color: var(--text); text-decoration: none;
+    & svg { flex: none; color: var(--prop); stroke-width: 1.8; stroke-linecap: round; }
+    &:hover { background: var(--bg); }
   }
   /* An open card keeps the lifted shadow, so its details read as one unit
      with the strip above them. The state comes from the button's own
