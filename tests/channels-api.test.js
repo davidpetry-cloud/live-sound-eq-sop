@@ -86,6 +86,14 @@ describe("group filter and no params", () => {
     expect(VALID_GROUPS).toContain("bass-guitars");
     expect(VALID_GROUPS).toContain("keys-synths-horns");
   });
+
+  it("keeps the published group file names stable", () => {
+    // Each slug is a file under api/channels/. Renaming a group must not
+    // silently move or break those URLs; changing this list should be deliberate.
+    expect(VALID_GROUPS).toEqual([
+      "drums", "bass-guitars", "vocals", "keys-synths-horns", "strings-woodwinds", "playback"
+    ]);
+  });
 });
 
 describe("failing gracefully", () => {
