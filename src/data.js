@@ -233,7 +233,7 @@ export const GROUPS = [
     ]
   },
   {
-    "name": "Bass & guitars",
+    "name": "Bass & Guitars",
     "channels": [
       {
         "name": "BASS GTR",
@@ -461,7 +461,7 @@ export const GROUPS = [
     ]
   },
   {
-    "name": "Keys, synths & horns",
+    "name": "Keys, Synths & Horns",
     "channels": [
       {
         "name": "PIANO",

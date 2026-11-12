@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { CONSOLE, toHz, allChannels, channelId } from "../src/data.js";
+import { CONSOLE, GROUPS, toHz, allChannels, channelId } from "../src/data.js";
 
 const channels = allChannels();
 
@@ -145,6 +145,18 @@ describe("mic field — optional, but well-formed when present", () => {
       const id = channelId(channel);
       expect(channel.mic.cheap, `${id} mic field has no cheap option`).toBeTruthy();
       expect(channel.mic.note, `${id} mic field has no sourcing note`).toBeTruthy();
+    }
+  });
+});
+
+
+describe("group names", () => {
+  it("capitalise every word, so the section headings read consistently", () => {
+    for (const { name } of GROUPS) {
+      const words = name.split(/[^A-Za-z]+/).filter(Boolean);
+      for (const word of words) {
+        expect(word[0], `"${name}": "${word}" should start with a capital`).toBe(word[0].toUpperCase());
+      }
     }
   });
 });

@@ -23,7 +23,7 @@ const FIXTURE = [
     ]
   },
   {
-    name: "Bass & guitars",
+    name: "Bass & Guitars",
     channels: [
       named("BASS", reject(proposal, { by: "A. Tech", reason: "Muddy", reviewed: "2026-08-02" }))
     ]
