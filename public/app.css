@@ -597,6 +597,8 @@
     font-family: var(--display); font-weight: 600; font-size: 1.875rem; line-height: 1.1; margin: 34px 0 6px;
     font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1;
   }
+  /* Said once for the whole view, quietly, above the panels it covers. */
+  .basis-note { color: var(--t2); font-size: 1.0625rem; line-height: 1.5; margin-bottom: 16px; max-width: 72ch; }
   .section-sub { color: var(--t2); font-size: 1.0625rem; margin-bottom: 16px; max-width: 70ch; }
   .alert {
     display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start;

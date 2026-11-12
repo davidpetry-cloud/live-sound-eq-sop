@@ -56,7 +56,8 @@ export const AUX_CONSOLE = {
   specVerified: "2026-08-27 — against the WZ3 16:2 / 12:2 User Guide, publication AP5331"
 };
 
-const BASIS =
+/** The basis every attested aux record shares; the page shows it once. */
+export const BASIS =
   "David Petry's years of music and creative related experiences into live " +
   "audio engineering and other technical endeavors.";
 const DATE = "2026-08-27";
