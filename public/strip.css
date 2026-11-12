@@ -205,6 +205,19 @@
 /* ===== Narrower screens ===== */
 @media (max-width: 899px) {
   .sim-grid { grid-template-columns: minmax(0, 1fr); }
+  /* One column: the graph would scroll away while the lower bands are
+     turned. The panel opens up so the plot alone can pin to the top of the
+     window, a compact strip of curve above the controls. Its heading,
+     legend and summary stay in the flow above the console. */
+  .sim-graph { display: contents; }
+  .sim-graph > .sim-h, .sim-legend, .sim-summary { padding: 0 4px; }
+  .sim-plot {
+    position: sticky; top: 0; z-index: 2; margin: 0; min-height: 0; padding: 6px 8px;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 0 0 14px 14px; box-shadow: var(--shadow-lift);
+  }
+  .sim-summary { margin-top: 0; }
+  /* Keep a focused slider clear of the pinned plot. */
+  html:has(.sim-page) { scroll-padding-top: 172px; }
 }
 @media (max-width: 640px) {
   .sim-trust .mark { float: none; display: flex; width: fit-content; margin: 0 0 8px; }

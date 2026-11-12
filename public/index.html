@@ -14,7 +14,7 @@
 <link rel="preload" href="fonts/cormorant-garamond-400-700-latin.woff2?v=5d618c46" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/outfit-300-700-latin.woff2?v=92684e4a" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css?v=6d1f899d">
-<link rel="stylesheet" href="app.css?v=297ec2bd">
+<link rel="stylesheet" href="app.css?v=7b62de33">
 </head>
 <body>
 <a class="skip" href="#views">Skip to the channel list</a>
@@ -23,7 +23,7 @@
   <div class="wrap">
     <p class="eyebrow">FOH operations <span aria-hidden="true">·</span> Rev. August 2026</p>
     <h1><span class="h1-lead">Live Sound</span> EQ SOP</h1>
-    <p class="sub">Channel starting points for the Allen &amp; Heath MixWizard WZ3 16:2. Every value below carries a record of who asserted it and what it is grounded in. Nothing here is anonymous.</p>
+    <p class="sub">Channel starting points for the Allen &amp; Heath MixWizard WZ3 16:2.<span class="sub-more"> Every value below carries a record of who asserted it and what it is grounded in. Nothing here is anonymous.</span></p>
     <a class="cta" href="strip.html">
       <svg class="cta-icon" width="40" height="40" viewBox="0 0 32 32" fill="none" stroke="currentColor" aria-hidden="true"><path class="c-grid" d="M3 16h26"/><path class="c-curve" d="M3 23c4 0 5-7 8-7s3 3 6 3 4-9 7-9 3 4 5 4"/><circle class="c-lm" cx="11" cy="16" r="2.2"/><circle class="c-hm" cx="24" cy="10" r="2.2"/></svg>
       <span class="cta-text"><span class="cta-title">Strip simulator</span><span class="cta-note">Turn any channel's EQ on a virtual WZ3 strip</span></span>
@@ -77,13 +77,12 @@
         </label>
         <button class="ghost" id="toggleAll" type="button" aria-pressed="false">Open all details</button>
       </div>
+      <p class="result" id="result" role="status" aria-live="polite"></p>
       <section class="ledger" aria-labelledby="ledger-h">
         <h2 id="ledger-h" class="kicker">Attestation ledger <span class="kicker-note">— choose a state to filter</span></h2>
         <div class="tiles" id="filters" role="group" aria-labelledby="ledger-h"></div>
         <details class="key why"><summary>What the states mean</summary><dl id="key"></dl></details>
       </section>
-
-      <p class="result" id="result" role="status" aria-live="polite"></p>
 
       <div id="list"></div>
     </main>
@@ -98,6 +97,6 @@
   </footer>
 </div>
 
-<script type="module" src="app.js?v=3a943e58"></script>
+<script type="module" src="app.js?v=1ce622f7"></script>
 </body>
 </html>

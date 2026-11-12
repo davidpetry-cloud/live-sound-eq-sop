@@ -3763,52 +3763,52 @@ this.X(a,r,q.length===0?null:B.a.L(q,", "))},
 X(a,b,c){var s=c==null?'<span class="same">same as start</span>':'<span class="delta"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 1 9 5 5 9 1 5z"/></svg>Changed: '+A.O(c)+"</span>",r=A.o(A.e(v.G.document).getElementById(a))
 r.toString
 r.innerHTML='<span class="start">'+A.O(b)+"</span> "+s},
-aH(){var s,r,q,p,o,n,m,l,k,j,i,h=this,g='<text class="ax" x="',f=Math.max(220,A.ac(h.y.clientWidth)),e=B.b.A(f*0.48,200,320),d=f-40-10,c=e-10-28,b=new A.cZ(d),a=new A.d_(c),a0=new A.cX(),a1=new A.cY(a0,b,a),a2=new A.bo("")
+aH(){var s,r,q,p,o,n,m,l,k,j,i=this,h='<text class="ax" x="',g=Math.max(220,A.ac(i.y.clientWidth)),f=g<600?140:200,e=B.b.A(g*0.48,f,320),d=g-40-10,c=e-10-28,b=new A.cZ(d),a=new A.d_(c),a0=new A.cX(),a1=new A.cY(a0,b,a),a2=new A.bo("")
 a2.a='<defs><clipPath id="sim-clip"><rect x="40" y="10" width="'+A.d(a0.$1(d))+'" height="'+A.d(a0.$1(c))+'"/></clipPath></defs>'
-for(s=10+c,r=0;r<26;++r){q=B.H[r]
-p=q===100||q===1000||q===1e4?"g-major":"g-minor"
-p='<line class="'+p+'" x1="'+A.d(a0.$1(b.$1(q)))+'" x2="'+A.d(a0.$1(b.$1(q)))+'" y1="10" y2="'+A.d(a0.$1(s))+'"/>'
-a2.a+=p}o=d<420?B.C:B.J
-for(s=o.length,p=e-8,r=0;r<s;++r){q=o[r]
-n=q<1000?""+B.c.n(q):""+B.b.n(q/1000)+"k"
-m=g+A.d(a0.$1(b.$1(q)))+'" y="'+A.d(a0.$1(p))+'" text-anchor="middle">'+n+"</text>"
-a2.a+=m}s=g+A.d(a0.$1(34))+'" y="'+A.d(a0.$1(p))+'" text-anchor="end">Hz</text>'
-a2.a+=s
-for(s=!(c>=180),p=40+d,r=0;r<7;++r){l=B.G[r]
-m=l===0?"g-zero":"g-minor"
-m='<line class="'+m+'" x1="40" x2="'+A.d(a0.$1(p))+'" y1="'+A.d(a0.$1(a.$1(l)))+'" y2="'+A.d(a0.$1(a.$1(l)))+'"/>'
-a2.a+=m
-if(!s||B.c.b1(l,10)===0){m=A.d(a0.$1(34))
-k=a.$1(l)
-if(typeof k!=="number")return k.bH()
-k=g+m+'" y="'+A.d(a0.$1(k+5))+'" text-anchor="end">'+A.a4(B.c.n(l))+"</text>"
-a2.a+=k}}s=h.r
-s===$&&A.J()
-j=a1.$1(s)
-s=h.f
-s===$&&A.J()
-i=a1.$1(s.f)
+for(f=10+c,s=0;s<26;++s){r=B.H[s]
+q=r===100||r===1000||r===1e4?"g-major":"g-minor"
+q='<line class="'+q+'" x1="'+A.d(a0.$1(b.$1(r)))+'" x2="'+A.d(a0.$1(b.$1(r)))+'" y1="10" y2="'+A.d(a0.$1(f))+'"/>'
+a2.a+=q}p=d<420?B.C:B.J
+for(f=p.length,q=e-8,s=0;s<f;++s){r=p[s]
+o=r<1000?""+B.c.n(r):""+B.b.n(r/1000)+"k"
+n=h+A.d(a0.$1(b.$1(r)))+'" y="'+A.d(a0.$1(q))+'" text-anchor="middle">'+o+"</text>"
+a2.a+=n}f=h+A.d(a0.$1(34))+'" y="'+A.d(a0.$1(q))+'" text-anchor="end">Hz</text>'
+a2.a+=f
+for(f=!(c>=180),q=40+d,s=0;s<7;++s){m=B.G[s]
+n=m===0?"g-zero":"g-minor"
+n='<line class="'+n+'" x1="40" x2="'+A.d(a0.$1(q))+'" y1="'+A.d(a0.$1(a.$1(m)))+'" y2="'+A.d(a0.$1(a.$1(m)))+'"/>'
+a2.a+=n
+if(!f||B.c.b1(m,10)===0){n=A.d(a0.$1(34))
+l=a.$1(m)
+if(typeof l!=="number")return l.bH()
+l=h+n+'" y="'+A.d(a0.$1(l+5))+'" text-anchor="end">'+A.a4(B.c.n(m))+"</text>"
+a2.a+=l}}f=i.r
+f===$&&A.J()
+k=a1.$1(f)
+f=i.f
+f===$&&A.J()
+j=a1.$1(f.f)
 a2.a+='<g clip-path="url(#sim-clip)">'
-p='<path class="c-area" d="'+j+"L"+A.d(a0.$1(p))+","+A.d(a0.$1(a.$1(0)))+"L40,"+A.d(a0.$1(a.$1(0)))+'Z"/>'
-p=(a2.a+=p)+('<path class="c-start" d="'+i+'"/>')
-a2.a=p
-a2.a=p+('<path class="c-live" d="'+j+'"/>')
-p=new A.cW(h,a2,a0,b,a)
-if(h.r.a)p.$2("hpf",80)
-if(h.r.r!==0)p.$2("lf",50)
-s=h.r
-if(s.f!==0)p.$2("lm",s.e)
-s=h.r
-if(s.d!==0)p.$2("hm",s.c)
-if(h.r.b!==0)p.$2("hf",12e3)
+q='<path class="c-area" d="'+k+"L"+A.d(a0.$1(q))+","+A.d(a0.$1(a.$1(0)))+"L40,"+A.d(a0.$1(a.$1(0)))+'Z"/>'
+q=(a2.a+=q)+('<path class="c-start" d="'+j+'"/>')
+a2.a=q
+a2.a=q+('<path class="c-live" d="'+k+'"/>')
+q=new A.cW(i,a2,a0,b,a)
+if(i.r.a)q.$2("hpf",80)
+if(i.r.r!==0)q.$2("lf",50)
+f=i.r
+if(f.f!==0)q.$2("lm",f.e)
+f=i.r
+if(f.d!==0)q.$2("hm",f.c)
+if(i.r.b!==0)q.$2("hf",12e3)
 a2.a+="</g>"
-s=h.z
-s.setAttribute("viewBox","0 0 "+A.d(a0.$1(f))+" "+A.d(a0.$1(e)))
-s.setAttribute("width",a0.$1(f))
-s.setAttribute("height",a0.$1(e))
-p=a2.a
-s.innerHTML=p.charCodeAt(0)==0?p:p
-h.bm()},
+f=i.z
+f.setAttribute("viewBox","0 0 "+A.d(a0.$1(g))+" "+A.d(a0.$1(e)))
+f.setAttribute("width",a0.$1(g))
+f.setAttribute("height",a0.$1(e))
+q=a2.a
+f.innerHTML=q.charCodeAt(0)==0?q:q
+i.bm()},
 aa(a){var s,r,q,p,o,n,m,l,k,j,i
 t.e.a(a)
 s=new A.d0()
