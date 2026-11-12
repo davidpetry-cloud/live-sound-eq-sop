@@ -440,7 +440,7 @@ export const GROUPS = [
     ]
   },
   {
-    "name": "Keys, Synths & Horns",
+    "name": "Keys & Synths",
     "channels": [
       {
         "name": "PIANO",
@@ -571,7 +571,12 @@ export const GROUPS = [
           "verified": "2026-08-31",
           "ttlDays": 730
         }
-      },
+      }
+    ]
+  },
+  {
+    "name": "Brass & Woodwinds",
+    "channels": [
       {
         "name": "TENOR SAXOPHONE",
         "variant": null,
@@ -667,11 +672,32 @@ export const GROUPS = [
           "verified": "2026-08-31",
           "ttlDays": 730
         }
+      },
+      {
+        "name": "FLUTE",
+        "variant": "MIC",
+        "pad": null,
+        "bands": {
+          "hpf": "IN",
+          "lf": -6,
+          "lmF": "250 Hz",
+          "lmD": -3,
+          "hmF": "6 kHz",
+          "hmD": -2,
+          "hf": 0
+        },
+        "attestation": {
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "Lowest note is C4 (262 Hz), so nothing below the HPF is useful; the low shelf cut takes out breath and handling rumble. An LM cut clears stage bleed under the instrument, and an HM cut at 6 kHz softens breath noise without dulling the tone. Model inference, unverified on the WZ3.",
+          "by": null,
+          "verified": null
+        }
       }
     ]
   },
   {
-    "name": "Strings & Woodwinds",
+    "name": "Strings",
     "channels": [
       {
         "name": "VIOLIN",
@@ -690,6 +716,27 @@ export const GROUPS = [
           "source": "model",
           "model": "Claude (Anthropic)",
           "rationale": "Lowest string is G3 (196 Hz), so the HPF and a low shelf cut lose nothing musical and cut handling and floor rumble. A small LM cut for boxiness off the body, a small HM cut for bow harshness, and an HF lift for air. The 3 kHz cut sits inside the lead vocal's presence range, which is the open question. Model inference, unverified on the WZ3.",
+          "by": null,
+          "verified": null
+        }
+      },
+      {
+        "name": "VIOLIN",
+        "variant": "ELECTRIC",
+        "pad": "IF LINE",
+        "bands": {
+          "hpf": "IN",
+          "lf": -3,
+          "lmF": "1 kHz",
+          "lmD": -2,
+          "hmF": "4 kHz",
+          "hmD": -3,
+          "hf": -2
+        },
+        "attestation": {
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "A solid-body electric violin has pickups and no resonating body, so it arrives through a DI or, with an active preamp, at line level (hence the pad if line). Its lowest string is G3 (196 Hz), so the HPF is safe. Piezo pickups tend to sound nasal around 1 kHz and harsh around 4 kHz, hence the two cuts; the HF cut takes off pickup fizz. Highly dependent on the instrument and its preamp. Model inference, unverified on the WZ3.",
           "by": null,
           "verified": null
         }
@@ -716,6 +763,27 @@ export const GROUPS = [
         }
       },
       {
+        "name": "VIOLA",
+        "variant": "ELECTRIC",
+        "pad": "IF LINE",
+        "bands": {
+          "hpf": "IN",
+          "lf": -2,
+          "lmF": "700 Hz",
+          "lmD": -2,
+          "hmF": "3 kHz",
+          "hmD": -3,
+          "hf": -2
+        },
+        "attestation": {
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "A solid-body electric viola arrives through a DI or, with an active preamp, at line level (hence the pad if line). Its lowest string is C3 (131 Hz), so the HPF is safe. An LM cut at 700 Hz for pickup honk, an HM cut at 3 kHz for piezo harshness, and an HF cut for fizz. Highly dependent on the instrument and its preamp. Model inference, unverified on the WZ3.",
+          "by": null,
+          "verified": null
+        }
+      },
+      {
         "name": "CELLO",
         "variant": "MIC",
         "pad": null,
@@ -737,6 +805,27 @@ export const GROUPS = [
         }
       },
       {
+        "name": "CELLO",
+        "variant": "ELECTRIC",
+        "pad": "IF LINE",
+        "bands": {
+          "hpf": "OUT",
+          "lf": 2,
+          "lmF": "1 kHz",
+          "lmD": -2,
+          "hmF": "3 kHz",
+          "hmD": -3,
+          "hf": -2
+        },
+        "attestation": {
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "A solid-body electric cello has pickups and no resonating body, so it arrives through a DI or, with an active preamp, at line level (hence the pad if line). Its lowest string is C2 (65 Hz), so the HPF stays out, and a small low shelf lift restores some of the weight a body would give. Piezo pickups tend to honk around 1 kHz and sound brittle around 3 kHz, hence the two cuts; the HF cut takes off pickup fizz. Highly dependent on the instrument and its preamp. Model inference, unverified on the WZ3.",
+          "by": null,
+          "verified": null
+        }
+      },
+      {
         "name": "DOUBLE BASS",
         "variant": "MIC",
         "pad": null,
@@ -753,6 +842,27 @@ export const GROUPS = [
           "source": "model",
           "model": "Claude (Anthropic)",
           "rationale": "Lowest string is E1 (41 Hz), so the HPF stays out. A mic'd double bass is feedback-prone around its body resonance, hence the LM cut at 180 Hz; an HM lift at 700 Hz gives finger and growl definition, and an HF cut reduces bleed. Pairs with the UPRIGHT BASS (PICKUP) record when both a mic and a pickup are used. Model inference, unverified on the WZ3.",
+          "by": null,
+          "verified": null
+        }
+      },
+      {
+        "name": "DOUBLE BASS",
+        "variant": "ELECTRIC",
+        "pad": "IF LINE",
+        "bands": {
+          "hpf": "OUT",
+          "lf": 2,
+          "lmF": "250 Hz",
+          "lmD": -3,
+          "hmF": "700 Hz",
+          "hmD": 2,
+          "hf": -3
+        },
+        "attestation": {
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "An electric upright bass (solid or skeletal body, piezo pickup) arrives through a DI or, with an active preamp, at line level (hence the pad if line). Its lowest string is E1 (41 Hz), so the HPF stays out, and a small low shelf lift restores the weight a body would give. An LM cut at 250 Hz for piezo boom, an HM lift at 700 Hz for note definition, and an HF cut for pickup noise. Model inference, unverified on the WZ3.",
           "by": null,
           "verified": null
         }
@@ -795,27 +905,6 @@ export const GROUPS = [
           "source": "model",
           "model": "Claude (Anthropic)",
           "rationale": "Piezo pickups are typically boxy in the low mids and thin on top. Follows the acoustic guitar DI pattern. Highly dependent on pickup type.",
-          "by": null,
-          "verified": null
-        }
-      },
-      {
-        "name": "FLUTE",
-        "variant": "MIC",
-        "pad": null,
-        "bands": {
-          "hpf": "IN",
-          "lf": -6,
-          "lmF": "250 Hz",
-          "lmD": -3,
-          "hmF": "6 kHz",
-          "hmD": -2,
-          "hf": 0
-        },
-        "attestation": {
-          "source": "model",
-          "model": "Claude (Anthropic)",
-          "rationale": "Lowest note is C4 (262 Hz), so nothing below the HPF is useful; the low shelf cut takes out breath and handling rumble. An LM cut clears stage bleed under the instrument, and an HM cut at 6 kHz softens breath noise without dulling the tone. Model inference, unverified on the WZ3.",
           "by": null,
           "verified": null
         }
