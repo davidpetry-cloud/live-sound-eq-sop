@@ -1,6 +1,6 @@
 import { GROUPS, allChannels, channelId, toHz, CONSOLE } from "./src/data.js?v=dd90de13";
 import { resolveStatus, daysRemaining, STATUS, SOURCE, tally } from "./vendor/attestation-ledger/index.js?v=0e508f28";
-import { AUX_CONSOLE, BUSES, SEND_RULES, FX_OPTIONS, MONITOR_RINGOUT } from "./src/auxes.js?v=cdf41a0c";
+import { AUX_CONSOLE, BUSES, SEND_RULES, FX_OPTIONS, MONITOR_RINGOUT, BASIS } from "./src/auxes.js?v=f0d02bfb";
 
 /* ---------- Shared vocabulary: one name, one shape, one colour per state ---------- */
 const ORDER = ["attested", "proposed", "expired", "rejected"];
@@ -320,11 +320,18 @@ document.getElementById("q").addEventListener("input", e => {
 });
 
 /* ---------- Aux & effects view ---------- */
+/* The basis most aux records share is shown once at the top of the view,
+   so each panel's "Who says so" keeps only what is particular to it. */
+function ownBasis(basis = "") {
+  const own = basis.startsWith(BASIS) ? basis.slice(BASIS.length).trim() : basis.trim();
+  return own ? ` ${esc(own)}` : "";
+}
+
 function whoSays(rec) {
   const a = rec.attestation, status = resolveStatus(rec);
   const body = a.source === SOURCE.MODEL
     ? `Proposed by ${esc(a.model)}. ${esc(a.rationale)} <em>Nobody has ratified it yet.</em>`
-    : `${esc(a.by)}${a.role ? `, ${esc(a.role)}` : ""}, verified ${esc(a.verified)}. ${esc(a.basis)}`;
+    : `${esc(a.by)}${a.role ? `, ${esc(a.role)}` : ""}, verified ${esc(a.verified)}.${ownBasis(a.basis)}`;
   return `<details class="why"><summary>${status === "proposed" ? "Why this was proposed" : "Who says so"}</summary><p>${body}</p></details>`;
 }
 
@@ -379,6 +386,7 @@ function renderAuxPanel() {
   }).join("");
 
   document.getElementById("auxPanel").innerHTML = `
+    <p class="basis-note">Unless a panel says otherwise, everything here rests on ${esc(BASIS)}</p>
     <div class="alert">${WARN}<div><b>Console conflict</b>${esc(fx.conflict)}</div></div>
 
     <h2 class="section-h">Buses</h2>
