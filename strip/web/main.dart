@@ -9,6 +9,7 @@ import 'dart:js_interop';
 import 'dart:math' as math;
 
 import 'package:strip/channel.dart';
+import 'package:strip/dates.dart';
 import 'package:strip/eq.dart';
 import 'package:strip/sweep.dart';
 
@@ -285,7 +286,8 @@ class Simulator {
   void _trustNote() {
     final c = channel, a = c.attestation;
     final who = [a.by, a.role].whereType<String>().join(', ');
-    final asOf = generated.length >= 10 ? ' Status as of ${generated.substring(0, 10)}.' : '';
+    final day = localDay(generated);
+    final asOf = day == null ? '' : ' Status as of $day.';
     final String body;
     switch (c.status) {
       case Status.attested:

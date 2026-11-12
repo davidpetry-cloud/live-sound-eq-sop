@@ -1,7 +1,9 @@
 /* Live Sound EQ SOP — interface styles.
    Colours are oklch tokens; every text pairing was measured at 4.5:1 or more
    on bg, panel and panel2 in both themes. Reading type is Outfit at 15px or
-   more; Cormorant is kept for large headings only. Ornament lives in the masthead and
+   more; Cormorant is kept for large headings only. Type is in rem and
+   breakpoints in em/rem (16px = 1rem), so a larger default text size in
+   the browser grows the text and moves the breakpoints with it. Ornament lives in the masthead and
    frames; the cards, where values are read at the desk, stay quiet.
 
    Organised in cascade layers, lowest priority first. A later layer wins over
@@ -90,7 +92,7 @@
 @layer base {
   body {
     background: var(--bg); color: var(--text);
-    font-family: var(--body); font-size: 17px; line-height: 1.65; font-weight: 400;
+    font-family: var(--body); font-size: 1.0625rem; line-height: 1.65; font-weight: 400;
     -webkit-font-smoothing: antialiased; font-variant-numeric: tabular-nums;
     padding-bottom: 72px;
     transition: background-color .2s, color .2s;
@@ -110,8 +112,8 @@
   /* Cormorant defaults to old-style figures; lining figures keep "MIX 1" from reading as "MIX ı". */
   h1 {
     font-family: var(--display); font-weight: 600; letter-spacing: -.01em;
-    font-size: clamp(44px, 8vw, 76px); line-height: .95; margin-bottom: 16px;
-    @media (max-width: 640px) { font-size: clamp(36px, 10.5vw, 44px); margin-bottom: 10px; }
+    font-size: clamp(2.75rem, 8vw, 4.75rem); line-height: .95; margin-bottom: 16px;
+    @media (max-width: 40em) { font-size: clamp(2.25rem, 10.5vw, 2.75rem); margin-bottom: 10px; }
     font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1;
   }
 }
@@ -120,27 +122,27 @@
 @layer layout {
   .wrap {
     max-width: 1040px; margin: 0 auto; padding: 0 24px;
-    @media (max-width: 640px) { padding: 0 16px; }
+    @media (max-width: 40em) { padding: 0 16px; }
   }
   .toolbar {
     display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-bottom: 26px;
-    @media (max-width: 640px) { gap: 10px; margin-bottom: 18px; }
+    @media (max-width: 40em) { gap: 10px; margin-bottom: 18px; }
   }
   /* Search first, its result count right under it, then the ledger chips
      that filter, then the list. On a phone the ledger steps aside while a
      search is typed, so the matches appear right under the field; the
      result line still names any state filter in force. */
   .ledger { margin-top: 10px; }
-  @media (max-width: 640px) {
+  @media (max-width: 40em) {
     #channelsPanel:has(#q:not(:placeholder-shown)) .ledger { display: none; }
   }
   .tiles {
     display: flex; flex-wrap: wrap; gap: 8px;
-    @media (max-width: 640px) { gap: 6px; }
+    @media (max-width: 40em) { gap: 6px; }
   }
   .findbar {
     display: flex; flex-wrap: wrap; gap: 12px; align-items: end; justify-content: space-between;
-    @media (max-width: 640px) { gap: 10px; }
+    @media (max-width: 40em) { gap: 10px; }
   }
 
   /* Each category is its own section: a wide gap and an ornamental rule end the
@@ -150,7 +152,7 @@
     position: relative;
     & + & {
       margin-top: 64px;
-      @media (max-width: 640px) { margin-top: 44px; }
+      @media (max-width: 40em) { margin-top: 44px; }
     }
     & + &::before {
       content: ""; display: block; height: 14px; margin-bottom: 28px;
@@ -179,7 +181,7 @@
   .masthead {
     position: relative; isolation: isolate;
     padding: 52px 0 0; margin-bottom: 30px;
-    @media (max-width: 640px) { padding-top: 24px; margin-bottom: 20px; }
+    @media (max-width: 40em) { padding-top: 24px; margin-bottom: 20px; }
     background:
       radial-gradient(120% 140% at 0% 0%, color-mix(in oklch, var(--prop) 14%, transparent), transparent 55%),
       radial-gradient(90% 120% at 100% 10%, color-mix(in oklch, var(--b-hf) 12%, transparent), transparent 60%),
@@ -194,17 +196,17 @@
     }
   }
   .eyebrow {
-    font-size: 15px; font-weight: 500; letter-spacing: .02em;
+    font-size: 0.9375rem; font-weight: 500; letter-spacing: .02em;
     color: var(--t3); margin-bottom: 12px;
-    @media (max-width: 640px) { margin-bottom: 6px; }
+    @media (max-width: 40em) { margin-bottom: 6px; }
   }
   .h1-lead { font-style: italic; font-weight: 500; color: var(--prop); }
   /* On a phone only the first sentence shows; the ledger's "What the
      states mean" carries the rest one tap away. */
   .sub {
-    color: var(--t2); max-width: 60ch; font-size: 19px; line-height: 1.55;
-    @media (max-width: 640px) { font-size: 17px; line-height: 1.5; }
-    & .sub-more { @media (max-width: 640px) { display: none; } }
+    color: var(--t2); max-width: 60ch; font-size: 1.1875rem; line-height: 1.55;
+    @media (max-width: 40em) { font-size: 1.0625rem; line-height: 1.5; }
+    & .sub-more { @media (max-width: 40em) { display: none; } }
   }
   /* The way into the strip simulator: a link dressed as a button, framed in
      the masthead's gold, with a small EQ curve in the strip's band colours. */
@@ -214,7 +216,7 @@
     background: var(--panel2); border: 1.5px solid var(--prop); box-shadow: var(--shadow);
     color: var(--text); text-decoration: none;
     transition: transform .18s var(--ease), box-shadow .18s, background-color .18s;
-    @media (max-width: 640px) { margin-top: 14px; min-height: 48px; padding: 6px 14px 6px 8px; gap: 12px; }
+    @media (max-width: 40em) { margin-top: 14px; min-height: 48px; padding: 6px 14px 6px 8px; gap: 12px; }
     &:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); background: var(--panel); }
     &:hover .cta-arrow { translate: 3px 0; }
     @media (prefers-reduced-motion: reduce) {
@@ -232,8 +234,8 @@
     & .c-hm { stroke: var(--b-hm); stroke-width: 1.8; fill: var(--bg); }
   }
   .cta-text { display: grid; gap: 1px; min-width: 0; line-height: 1.3; }
-  .cta-title { font-size: 18px; font-weight: 600; letter-spacing: .01em; }
-  .cta-note { font-size: 15px; color: var(--t2); }
+  .cta-title { font-size: 1.125rem; font-weight: 600; letter-spacing: .01em; }
+  .cta-note { font-size: 0.9375rem; color: var(--t2); }
   .cta-arrow {
     flex: none; width: 18px; height: 18px; margin-left: 4px;
     fill: none; stroke: var(--prop); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
@@ -243,28 +245,28 @@
      values arrive on the first or second screen instead of the third. */
   .order {
     list-style: none; display: flex; flex-wrap: wrap; gap: 6px 4px; margin-top: 20px;
-    font-size: 16px; font-weight: 500; color: var(--t2);
-    @media (max-width: 640px) { display: none; }
-    @media (max-width: 479px) { gap: 8px 14px; }
+    font-size: 1rem; font-weight: 500; color: var(--t2);
+    @media (max-width: 40em) { display: none; }
+    @media (max-width: 29.9375em) { gap: 8px 14px; }
 
     & li { display: inline-flex; align-items: center; gap: 8px; }
     /* Connectors only where the four steps fit on one line. */
-    @media (min-width: 480px) {
+    @media (min-width: 30em) {
       & li + li::before { content: ""; width: 22px; height: 1px; background: var(--ui-edge); margin-right: 4px; }
     }
     & span {
       display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%;
-      border: 1px solid var(--ui-edge); color: var(--text); font-size: 14px; font-weight: 600;
+      border: 1px solid var(--ui-edge); color: var(--text); font-size: 0.875rem; font-weight: 600;
     }
   }
   .byline {
-    font-size: 15px; color: var(--t3); margin: 14px 0 22px;
-    @media (max-width: 640px) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    font-size: 0.9375rem; color: var(--t3); margin: 14px 0 22px;
+    @media (max-width: 40em) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   }
-  .cta { @media (max-width: 640px) { margin-bottom: 16px; } }
+  .cta { @media (max-width: 40em) { margin-bottom: 16px; } }
   .frieze {
     display: block; width: 100%; height: 30px;
-    @media (max-width: 640px) { height: 22px; }
+    @media (max-width: 40em) { height: 22px; }
     & path, & circle { fill: none; stroke-width: 1.4; vector-effect: non-scaling-stroke; }
     & .w1 { stroke: var(--b-lf); opacity: .7; }
     & .w2 { stroke: var(--b-hf); opacity: .7; }
@@ -276,22 +278,22 @@
   .tabs {
     display: inline-flex; padding: 4px; gap: 4px; border-radius: 999px;
     background: var(--panel); border: 1px solid var(--line); box-shadow: var(--shadow);
-    @media (max-width: 640px) { flex: 1 1 auto; }
+    @media (max-width: 40em) { flex: 1 1 auto; }
   }
   .tab {
     min-height: 44px; padding: 0 20px; border: 0; border-radius: 999px; background: none; cursor: pointer;
-    font-weight: 500; font-size: 15px; color: var(--t2); transition: background-color .15s, color .15s;
+    font-weight: 500; font-size: 0.9375rem; color: var(--t2); transition: background-color .15s, color .15s;
     &:hover { color: var(--text); background: var(--panel2); }
     &[aria-selected="true"] { background: var(--text); color: var(--bg); }
-    @media (max-width: 640px) { flex: 1; padding: 0 12px; }
+    @media (max-width: 40em) { flex: 1; padding: 0 12px; }
   }
   .theme-btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; min-width: 44px; padding: 0 16px;
     border: 1px solid var(--ui-edge); border-radius: 999px; background: var(--panel); cursor: pointer;
-    font-size: 14px; color: var(--t2);
+    font-size: 0.875rem; color: var(--t2);
     &:hover { color: var(--text); }
     & svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
-    @media (max-width: 640px) {
+    @media (max-width: 40em) {
       padding: 0 11px;
       & span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
     }
@@ -302,30 +304,30 @@
      One row of chips: shape, name and count, never colour alone. The chip
      that is filtering fills with its colour, so "pressed" reads by fill as
      well as by hue. */
-  .kicker { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
-  .kicker-note { font-weight: 400; color: var(--t2); @media (max-width: 640px) { display: none; } }
+  .kicker { font-size: 1.0625rem; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+  .kicker-note { font-weight: 400; color: var(--t2); @media (max-width: 40em) { display: none; } }
   .tile {
     --c: var(--text);
     display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
     min-height: 44px; padding: 0 16px 0 14px;
     background: var(--panel); border: 1px solid var(--ui-edge); border-radius: 999px;
-    @media (max-width: 640px) { gap: 6px; padding: 0 12px 0 11px; }
+    @media (max-width: 40em) { gap: 6px; padding: 0 12px 0 11px; }
     color: var(--c); box-shadow: var(--shadow);
     transition: background-color .18s, border-color .18s, color .18s;
     &:hover { background: var(--panel2); border-color: var(--c); }
     & .t-name {
-      display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 16px;
-      @media (max-width: 640px) { font-size: 15px; gap: 5px; }
+      display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 1rem;
+      @media (max-width: 40em) { font-size: 0.9375rem; gap: 5px; }
       & svg { width: 13px; height: 13px; flex: none; }
     }
     /* Counts in Outfit: Cormorant's old-style 1 reads as a capital I. */
-    & b { font-family: var(--body); font-weight: 700; font-size: 17px; line-height: 1; letter-spacing: -.01em; }
+    & b { font-family: var(--body); font-weight: 700; font-size: 1.0625rem; line-height: 1; letter-spacing: -.01em; }
     &[aria-pressed="true"] { background: var(--c); border-color: var(--c); color: var(--bg); }
   }
   /* The key: what each state means, one tap away. */
   .key {
     margin-top: 4px;
-    & dl { display: grid; gap: 4px; margin: 4px 0 8px; font-size: 17px; max-width: 72ch; }
+    & dl { display: grid; gap: 4px; margin: 4px 0 8px; font-size: 1.0625rem; max-width: 72ch; }
     & dt {
       display: inline-flex; align-items: center; gap: 6px; margin-right: 6px; font-weight: 600; color: var(--c);
       & svg { width: 13px; height: 13px; flex: none; }
@@ -336,9 +338,9 @@
   /* ----- Find bar ----- */
   .find {
     display: grid; gap: 6px; flex: 1 1 260px; max-width: 420px;
-    @media (max-width: 640px) { flex-basis: 170px; gap: 4px; }
+    @media (max-width: 40em) { flex-basis: 170px; gap: 4px; }
   }
-  .find-label { font-size: 16px; font-weight: 500; color: var(--t2); }
+  .find-label { font-size: 1rem; font-weight: 500; color: var(--t2); }
   .find-field {
     position: relative; display: block;
     & svg {
@@ -347,31 +349,31 @@
     }
   }
   input[type=search] {
-    width: 100%; min-height: 44px; padding: 0 14px 0 42px; font: inherit; font-size: 17px;
+    width: 100%; min-height: 44px; padding: 0 14px 0 42px; font: inherit; font-size: 1.0625rem;
     color: var(--text); background: var(--panel); border: 1px solid var(--ui-edge); border-radius: 12px;
     &::placeholder { color: var(--t3); opacity: 1; }
   }
   .ghost {
     min-height: 44px; padding: 0 18px; border: 1px solid var(--ui-edge); border-radius: 12px;
-    background: transparent; cursor: pointer; font-size: 16px; font-weight: 500; color: var(--text);
+    background: transparent; cursor: pointer; font-size: 1rem; font-weight: 500; color: var(--text);
     &:hover { color: var(--text); background: var(--panel); }
   }
-  .result { font-size: 16px; color: var(--t2); margin: 4px 0 6px; min-height: 1.6em; }
+  .result { font-size: 1rem; color: var(--t2); margin: 4px 0 6px; min-height: 1.6em; }
 
   /* ----- Category banners ----- */
   .group-h {
     position: sticky; top: 0; z-index: 3;
     display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; margin: 0 0 14px;
     padding: 14px 18px 12px;
-    font-family: var(--display); font-weight: 600; font-size: 34px; line-height: 1.1;
+    font-family: var(--display); font-weight: 600; font-size: 2.125rem; line-height: 1.1;
     font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1;
     background: color-mix(in oklch, var(--panel2) 94%, transparent);
     -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
     border: 1px solid var(--line); border-left: 6px solid var(--prop);
     border-radius: 0 0 16px 16px; box-shadow: var(--shadow);
-    @media (max-width: 640px) { font-size: 28px; padding: 10px 14px; }
+    @media (max-width: 40em) { font-size: 1.75rem; padding: 10px 14px; }
 
-    & small { font-family: var(--body); font-size: 16px; font-weight: 500; color: var(--t2); }
+    & small { font-family: var(--body); font-size: 1rem; font-weight: 500; color: var(--t2); }
   }
 
   /* ----- Channel cards -----
@@ -407,8 +409,8 @@
      details carry the same warning with its reasons, so this one steps aside. */
   .card-flag {
     display: flex; gap: 8px; align-items: baseline; margin: -6px 18px 14px; max-width: 80ch;
-    font-size: 16px; line-height: 1.45; color: var(--text);
-    @container card (width < 704px) { margin: -4px 14px 12px; }
+    font-size: 1rem; line-height: 1.45; color: var(--text);
+    @container card (width < 44rem) { margin: -4px 14px 12px; }
     & svg { width: 13px; height: 13px; flex: none; color: var(--edge); translate: 0 1px; }
     & b { color: var(--edge); font-weight: 700; }
     .card:has(> .card-head[aria-expanded="true"]) & { display: none; }
@@ -418,7 +420,7 @@
   .try {
     display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 10px; padding: 0 16px 0 12px;
     border: 1.5px solid var(--prop); border-radius: 12px; background: var(--panel2);
-    font-size: 16px; font-weight: 600; color: var(--text); text-decoration: none;
+    font-size: 1rem; font-weight: 600; color: var(--text); text-decoration: none;
     & svg { flex: none; color: var(--prop); stroke-width: 1.8; stroke-linecap: round; }
     &:hover { background: var(--bg); }
   }
@@ -434,27 +436,27 @@
     display: flex; flex-wrap: wrap; width: 100%; min-height: 44px; align-items: center; gap: 14px; justify-content: space-between;
     padding: 14px 18px 4px; background: none; border: 0; text-align: left; cursor: pointer;
     border-radius: 0 18px 0 0;
-    @container card (width < 704px) { padding: 12px 14px 2px; gap: 10px; align-items: start; }
+    @container card (width < 44rem) { padding: 12px 14px 2px; gap: 10px; align-items: start; }
   }
   .nm {
     flex: 1 1 12ch; min-width: 0; overflow-wrap: anywhere;
-    font-weight: 600; font-size: 20px; line-height: 1.25; letter-spacing: .03em;
-    @container card (width < 704px) { font-size: 18px; }
-    & .var { font-weight: 500; font-size: 17px; letter-spacing: .03em; color: var(--t2); }
+    font-weight: 600; font-size: 1.25rem; line-height: 1.25; letter-spacing: .03em;
+    @container card (width < 44rem) { font-size: 1.125rem; }
+    & .var { font-weight: 500; font-size: 1.0625rem; letter-spacing: .03em; color: var(--t2); }
   }
   /* Pad is a physical switch to set before the fader comes up, so it gets a
      solid badge that can't be mistaken for the outlined status marks. */
   .pad {
     display: inline-flex; align-items: center; gap: 6px; margin-left: 10px; vertical-align: 2px;
     padding: 2px 11px 2px 9px; border-radius: 6px;
-    font-family: var(--body); font-size: 15px; font-weight: 700; letter-spacing: .04em; line-height: 1.4;
+    font-family: var(--body); font-size: 0.9375rem; font-weight: 700; letter-spacing: .04em; line-height: 1.4;
     background: var(--text); color: var(--bg);
-    @container card (width < 704px) { display: flex; width: fit-content; margin: 6px 0 0; }
+    @container card (width < 44rem) { display: flex; width: fit-content; margin: 6px 0 0; }
     & svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
   }
   .head-r {
     display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto;
-    @container card (width < 704px) { gap: 8px; }
+    @container card (width < 44rem) { gap: 8px; }
   }
   .chev {
     width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%;
@@ -467,17 +469,17 @@
      size as the ledger chips. Compact marks only lose padding. */
   .mark {
     display: inline-flex; align-items: center; gap: 7px; white-space: nowrap;
-    font-size: 15px; font-weight: 600;
+    font-size: 0.9375rem; font-weight: 600;
     padding: 3px 12px; border-radius: 999px; border: 1px solid currentColor; color: var(--edge);
     & svg { width: 14px; height: 14px; }
     &.sm { padding: 2px 10px; }
-    @container card (width < 704px) { padding: 2px 10px; gap: 6px; }
+    @container card (width < 44rem) { padding: 2px 10px; gap: 6px; }
   }
 
   .strip {
     display: grid; grid-template-columns: 220px 1fr; gap: 6px 22px; align-items: center;
     padding: 6px 18px 16px;
-    @container card (width < 704px) { grid-template-columns: 1fr; padding: 4px 14px 14px; }
+    @container card (width < 44rem) { grid-template-columns: 1fr; padding: 4px 14px 14px; }
   }
   .curve {
     width: 100%; max-width: 260px; height: auto; display: block; overflow: visible;
@@ -486,7 +488,9 @@
     & .area { fill: color-mix(in oklch, var(--edge) 16%, transparent); }
     & .line { fill: none; stroke: var(--edge); stroke-width: 2; stroke-linejoin: round; }
     &.dashed .line { stroke-dasharray: 5 4; }
-    & .line.alt { stroke-width: 1.2; opacity: .55; stroke-dasharray: 2 3; }
+    /* A range's high end: dashed and lighter in weight, but at full colour so
+       it holds 3:1 against the card like the main line. */
+    & .line.alt { stroke-width: 1.5; stroke-dasharray: 2 3; }
     & .dot { stroke-width: 1.6; fill: var(--panel); }
   }
 
@@ -494,19 +498,19 @@
      numbers kept large. */
   .bands {
     display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; list-style: none;
-    @container card (width < 560px) { grid-template-columns: 1fr; gap: 0; max-width: 420px; }
+    @container card (width < 35rem) { grid-template-columns: 1fr; gap: 0; max-width: 26.25rem; }
   }
   .band {
     display: grid; gap: 2px; justify-items: start; align-content: start; line-height: 1.2;
-    @container card (width < 560px) {
+    @container card (width < 35rem) {
       grid-template-columns: 58px minmax(0, 1fr) minmax(0, 1fr); align-items: center; justify-items: start;
       padding: 7px 0; border-top: 1px solid var(--line);
       & > .num:last-child { justify-self: end; }
     }
     & .lbl {
-      font-size: 14px; font-weight: 700; letter-spacing: .05em; padding: 0 9px; border-radius: 999px;
+      font-size: 0.875rem; font-weight: 700; letter-spacing: .05em; padding: 0 9px; border-radius: 999px;
       border: 1.5px solid currentColor; margin-bottom: 6px; line-height: 1.5;
-      @container card (width < 560px) { margin: 0; }
+      @container card (width < 35rem) { margin: 0; }
     }
   }
   .band.hpf .lbl, .dot.hpf { color: var(--b-hpf); stroke: var(--b-hpf); }
@@ -515,25 +519,25 @@
   .band.lm .lbl, .dot.lm { color: var(--b-lm); stroke: var(--b-lm); }
   .band.lf .lbl, .dot.lf { color: var(--b-lf); stroke: var(--b-lf); }
   .num {
-    font-size: 23px; font-weight: 600; color: var(--text); letter-spacing: -.01em; white-space: nowrap;
+    font-size: 1.4375rem; font-weight: 600; color: var(--text); letter-spacing: -.01em; white-space: nowrap;
     font-variant-numeric: tabular-nums lining-nums;
-    @container card (width < 704px) { font-size: 21px; }
-    @container card (width < 350px) { font-size: 20px; }
+    @container card (width < 44rem) { font-size: 1.3125rem; }
+    @container card (width < 21.875rem) { font-size: 1.25rem; }
     & .u { font-size: .68em; font-weight: 500; color: var(--t2); letter-spacing: 0; white-space: nowrap; }
     &.quiet { font-weight: 400; color: var(--t2); }
   }
   /* A range ("−2 dB to +2 dB") carries two units. In the five columns it
      may break at "to" rather than run into the next band; a single value
      never breaks, and in the rows it has room to stay on one line. */
-  @container card (width >= 560px) {
+  @container card (width >= 35rem) {
     .num:has(> .u ~ .u) { white-space: normal; }
   }
-  .w { font-size: 16px; font-weight: 500; color: var(--t2); }
+  .w { font-size: 1rem; font-weight: 500; color: var(--t2); }
   /* HPF IN/OUT reads like the strip's latched push switch. */
   .sw {
     display: inline-flex; align-items: center; justify-content: center; gap: 7px;
     min-width: 72px; padding: 3px 12px; margin-bottom: 3px; border-radius: 7px;
-    font-size: 15px; font-weight: 800; letter-spacing: .1em; line-height: 1.4;
+    font-size: 0.9375rem; font-weight: 800; letter-spacing: .1em; line-height: 1.4;
     border: 1.5px solid var(--b-hpf);
     & .led { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid currentColor; }
     &.on {
@@ -551,10 +555,10 @@
      term then value, so it reads as a short record rather than a form. */
   .prov {
     margin: 0 18px; padding: 10px 0 14px; border-top: 1px dashed var(--line);
-    @container card (width < 704px) { margin: 0 14px; }
+    @container card (width < 44rem) { margin: 0 14px; }
     &[hidden] { display: none; }
     &:not([hidden]) { animation: open .22s var(--ease); }
-    & dl { display: grid; gap: 4px; font-size: 17px; line-height: 1.5; }
+    & dl { display: grid; gap: 4px; font-size: 1.0625rem; line-height: 1.5; }
     & dl > div { max-width: 80ch; }
     & dt { display: inline; margin-right: 6px; font-weight: 600; color: var(--t2); }
     & dd { display: inline; color: var(--text); }
@@ -565,7 +569,7 @@
   /* One sentence of warning for anything not safe to work from. */
   .caution {
     display: flex; gap: 8px; align-items: baseline; margin-top: 8px; max-width: 80ch;
-    font-size: 17px; line-height: 1.5; color: var(--t2);
+    font-size: 1.0625rem; line-height: 1.5; color: var(--t2);
     & svg { width: 13px; height: 13px; flex: none; color: var(--edge); translate: 0 1px; }
     & b { color: var(--edge); font-weight: 700; }
   }
@@ -573,13 +577,13 @@
     --c: var(--edge);
     margin-top: 14px; padding: 12px 16px; background: var(--panel2);
     border: 1px solid var(--line); border-left: 3px solid var(--c); border-radius: 2px 12px 12px 2px;
-    font-size: 17px; max-width: 72ch;
+    font-size: 1.0625rem; max-width: 72ch;
     & b {
       display: flex; align-items: center; gap: 7px; margin-bottom: 4px; color: var(--c);
-      font-size: 16px; font-weight: 700;
+      font-size: 1rem; font-weight: 700;
       & svg { width: 15px; height: 15px; }
     }
-    & p + p { margin-top: 6px; color: var(--t2); font-size: 16px; }
+    & p + p { margin-top: 6px; color: var(--t2); font-size: 1rem; }
     &.mic { --c: var(--b-hf); }
   }
 
@@ -590,16 +594,16 @@
 
   /* ----- Aux & effects ----- */
   .section-h {
-    font-family: var(--display); font-weight: 600; font-size: 30px; line-height: 1.1; margin: 34px 0 6px;
+    font-family: var(--display); font-weight: 600; font-size: 1.875rem; line-height: 1.1; margin: 34px 0 6px;
     font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1;
   }
-  .section-sub { color: var(--t2); font-size: 17px; margin-bottom: 16px; max-width: 70ch; }
+  .section-sub { color: var(--t2); font-size: 1.0625rem; margin-bottom: 16px; max-width: 70ch; }
   .alert {
     display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start;
     padding: 16px 18px; background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--exp);
     border-radius: var(--r-card); box-shadow: var(--shadow); color: var(--text);
     & svg { width: 20px; height: 20px; color: var(--exp); margin-top: 2px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
-    & b { display: block; color: var(--exp); font-size: 16px; font-weight: 700; }
+    & b { display: block; color: var(--exp); font-size: 1rem; font-weight: 700; }
   }
 
   .panel {
@@ -613,27 +617,27 @@
     display: flow-root;
     & > .mark { float: right; margin: 2px 0 6px 12px; }
   }
-  .bus-id { font-size: 15px; font-weight: 600; letter-spacing: .06em; color: var(--t2); text-transform: uppercase; }
-  .bus-role { font-weight: 600; font-size: 20px; line-height: 1.25; letter-spacing: .03em; margin: 2px 0 10px; }
+  .bus-id { font-size: 0.9375rem; font-weight: 600; letter-spacing: .06em; color: var(--t2); text-transform: uppercase; }
+  .bus-role { font-weight: 600; font-size: 1.25rem; line-height: 1.25; letter-spacing: .03em; margin: 2px 0 10px; }
   .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
   .tag {
-    display: inline-flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 500;
+    display: inline-flex; align-items: center; gap: 6px; font-size: 0.9375rem; font-weight: 500;
     padding: 2px 11px; border-radius: 999px; border: 1px solid var(--ui-edge); color: var(--t2);
     &.pre { color: var(--b-hf); border-color: currentColor; }
     &.post { color: var(--b-lm); border-color: currentColor; }
   }
   .policy {
-    list-style: none; font-size: 17px; color: var(--text); display: grid; gap: 8px;
+    list-style: none; font-size: 1.0625rem; color: var(--text); display: grid; gap: 8px;
     & li { padding-left: 16px; position: relative; }
     & li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 6px; height: 6px; rotate: 45deg; border: 1px solid var(--ui-edge); }
   }
-  .standing { display: block; font-size: 15px; font-weight: 700; color: var(--prop); }
+  .standing { display: block; font-size: 0.9375rem; font-weight: 700; color: var(--prop); }
 
   .rules { display: grid; gap: 0; padding: 4px 18px; }
   .rule {
     display: grid; grid-template-columns: 110px 170px 1fr auto; gap: 16px; align-items: start; padding: 14px 0; border-bottom: 1px solid var(--line);
     &:last-child { border-bottom: 0; }
-    @media (max-width: 860px) {
+    @media (max-width: 53.75em) {
       grid-template-columns: 1fr auto; gap: 4px 12px;
       & .rule-why { grid-column: 1 / -1; }
       & .verdict { grid-column: 1; }
@@ -642,21 +646,21 @@
   }
   .rule-group { font-weight: 600; }
   .verdict {
-    font-size: 16px; font-weight: 700; display: inline-flex; gap: 6px; align-items: center;
+    font-size: 1rem; font-weight: 700; display: inline-flex; gap: 6px; align-items: center;
     &.on { color: var(--att); }
     &.off { color: var(--exp); }
     & svg { width: 12px; height: 12px; flex-shrink: 0; }
   }
-  .rule-why { color: var(--text); font-size: 17px; }
+  .rule-why { color: var(--text); font-size: 1.0625rem; }
 
   .ring {
-    width: 100%; border-collapse: collapse; font-size: 17px; margin-top: 12px;
-    & th { text-align: left; font-size: 15px; font-weight: 600; color: var(--t2); padding: 8px 12px 8px 0; border-bottom: 1px solid var(--ui-edge); }
+    width: 100%; border-collapse: collapse; font-size: 1.0625rem; margin-top: 12px;
+    & th { text-align: left; font-size: 0.9375rem; font-weight: 600; color: var(--t2); padding: 8px 12px 8px 0; border-bottom: 1px solid var(--ui-edge); }
     & td { padding: 11px 12px 11px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
     & tr:last-child td { border-bottom: 0; }
     & .fq { font-weight: 600; color: var(--text); white-space: nowrap; }
     & .bd { font-weight: 500; color: var(--t2); white-space: nowrap; }
-    @media (max-width: 640px) {
+    @media (max-width: 40em) {
       & thead { display: none; }
       & tr { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
       & tr:last-child { border-bottom: 0; }
@@ -665,22 +669,22 @@
     }
   }
 
-  .opt-name { font-weight: 600; font-size: 20px; line-height: 1.25; }
-  .opt-config { font-size: 17px; color: var(--t2); margin: 6px 0 12px; }
+  .opt-name { font-weight: 600; font-size: 1.25rem; line-height: 1.25; }
+  .opt-config { font-size: 1.0625rem; color: var(--t2); margin: 6px 0 12px; }
   .gc {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 18px; font-size: 17px;
-    @media (max-width: 640px) { grid-template-columns: 1fr; }
-    & b { display: flex; align-items: center; gap: 6px; font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+    display: grid; grid-template-columns: 1fr 1fr; gap: 18px; font-size: 1.0625rem;
+    @media (max-width: 40em) { grid-template-columns: 1fr; }
+    & b { display: flex; align-items: center; gap: 6px; font-size: 1rem; font-weight: 700; margin-bottom: 2px; }
     & .gains b { color: var(--att); }
     & .costs b { color: var(--exp); }
   }
   .why {
-    margin-top: 12px; font-size: 17px;
+    margin-top: 12px; font-size: 1.0625rem;
     & summary {
-      cursor: pointer; color: var(--text); font-size: 16px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px;
+      cursor: pointer; color: var(--text); font-size: 1rem; font-weight: 500; display: inline-flex; align-items: center; gap: 6px;
       min-height: 44px; list-style: none;
       &::-webkit-details-marker { display: none; }
-      &::before { content: "+"; width: 18px; height: 18px; display: inline-grid; place-items: center; border: 1px solid var(--ui-edge); border-radius: 50%; font-size: 13px; line-height: 1; }
+      &::before { content: "+"; width: 18px; height: 18px; display: inline-grid; place-items: center; border: 1px solid var(--ui-edge); border-radius: 50%; font-size: 0.8125rem; line-height: 1; }
       &:hover { color: var(--text); }
     }
     &[open] summary::before { content: "−"; }
@@ -689,7 +693,7 @@
 
   /* ----- Footer ----- */
   footer {
-    margin-top: 64px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 16px; color: var(--t2); display: grid; gap: 6px;
+    margin-top: 64px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 1rem; color: var(--t2); display: grid; gap: 6px;
     & strong { color: var(--text); font-weight: 500; }
   }
   /* Links in a row, each a 44px target; the dots between them stay quiet. */
