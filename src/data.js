@@ -440,7 +440,7 @@ export const GROUPS = [
     ]
   },
   {
-    "name": "Keys, Synths & Horns",
+    "name": "Keys & Synths",
     "channels": [
       {
         "name": "PIANO",
@@ -571,7 +571,12 @@ export const GROUPS = [
           "verified": "2026-08-31",
           "ttlDays": 730
         }
-      },
+      }
+    ]
+  },
+  {
+    "name": "Brass & Woodwinds",
+    "channels": [
       {
         "name": "TENOR SAXOPHONE",
         "variant": null,
@@ -667,11 +672,32 @@ export const GROUPS = [
           "verified": "2026-08-31",
           "ttlDays": 730
         }
+      },
+      {
+        "name": "FLUTE",
+        "variant": "MIC",
+        "pad": null,
+        "bands": {
+          "hpf": "IN",
+          "lf": -6,
+          "lmF": "250 Hz",
+          "lmD": -3,
+          "hmF": "6 kHz",
+          "hmD": -2,
+          "hf": 0
+        },
+        "attestation": {
+          "source": "model",
+          "model": "Claude (Anthropic)",
+          "rationale": "Lowest note is C4 (262 Hz), so nothing below the HPF is useful; the low shelf cut takes out breath and handling rumble. An LM cut clears stage bleed under the instrument, and an HM cut at 6 kHz softens breath noise without dulling the tone. Model inference, unverified on the WZ3.",
+          "by": null,
+          "verified": null
+        }
       }
     ]
   },
   {
-    "name": "Strings & Woodwinds",
+    "name": "Strings",
     "channels": [
       {
         "name": "VIOLIN",
@@ -879,27 +905,6 @@ export const GROUPS = [
           "source": "model",
           "model": "Claude (Anthropic)",
           "rationale": "Piezo pickups are typically boxy in the low mids and thin on top. Follows the acoustic guitar DI pattern. Highly dependent on pickup type.",
-          "by": null,
-          "verified": null
-        }
-      },
-      {
-        "name": "FLUTE",
-        "variant": "MIC",
-        "pad": null,
-        "bands": {
-          "hpf": "IN",
-          "lf": -6,
-          "lmF": "250 Hz",
-          "lmD": -3,
-          "hmF": "6 kHz",
-          "hmD": -2,
-          "hf": 0
-        },
-        "attestation": {
-          "source": "model",
-          "model": "Claude (Anthropic)",
-          "rationale": "Lowest note is C4 (262 Hz), so nothing below the HPF is useful; the low shelf cut takes out breath and handling rumble. An LM cut clears stage bleed under the instrument, and an HM cut at 6 kHz softens breath noise without dulling the tone. Model inference, unverified on the WZ3.",
           "by": null,
           "verified": null
         }
