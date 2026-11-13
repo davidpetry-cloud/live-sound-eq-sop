@@ -1,6 +1,7 @@
 import { GROUPS, allChannels, channelId, toHz, CONSOLE } from "./src/data.js?v=dd90de13";
 import { resolveStatus, daysRemaining, STATUS, SOURCE, tally } from "./vendor/attestation-ledger/index.js?v=cb92bb90";
 import { AUX_CONSOLE, BUSES, SEND_RULES, FX_OPTIONS, MONITOR_RINGOUT, BASIS } from "./src/auxes.js?v=f0d02bfb";
+import { bassNotes, LOW_END_RING } from "./src/reference.js?v=11bf0e01";
 
 /* ---------- Shared vocabulary: one name, one shape, one colour per state ---------- */
 const ORDER = ["attested", "proposed", "expired", "rejected"];
@@ -248,6 +249,7 @@ function render() {
     const hid = `g-${group.name.toLowerCase().replace(/[^a-z]+/g, "-")}`;
     html += `<section class="group" aria-labelledby="${hid}"><h2 class="group-h" id="${hid}">${esc(group.name)} <small>${rows.length} ${rows.length === 1 ? "channel" : "channels"}</small></h2>`;
     html += rows.map(({ ch, status }, i) => cardHTML(ch, status, channelId(ch), `${hid}-${i}`)).join("");
+    if (group.name === LOW_END_RING.appliesTo) html += bassNotesHTML();
     html += `</section>`;
   }
   if (!shown) {
@@ -261,6 +263,43 @@ function render() {
   });
   announce(shown);
 }
+
+/* The bass note finder rides under the group it serves. Its frequencies are
+   arithmetic; its procedure is a model's, so it shows its own state and
+   follows the ledger filter like any other proposed record. */
+function bassNotesHTML() {
+  const r = LOW_END_RING, s = resolveStatus(r);
+  if (state.filter !== "all" && state.filter !== s) return "";
+  const rows = bassNotes(CONSOLE).map(n => `<tr${n.open ? ' class="open"' : ""}>
+      <th scope="row" class="fq">${esc(n.note)}</th>
+      <td class="fq hz">${num(`${n.hz} Hz`)}</td>
+      <td>${esc(n.played)}${n.lmReaches ? "" : `<span class="below">Below the LM sweep — LF shelf only</span>`}</td>
+    </tr>`).join("");
+  const open = state.open.has(r.id);
+  return `<article class="panel notes" id="${r.id}" style="--edge:${EDGE[s]}" aria-labelledby="${r.id}-h">
+    <div class="panel-top">${mark(s, "sm")}<h3 class="opt-name" id="${r.id}-h">${esc(r.name)}</h3><p class="section-sub">${esc(r.note)}</p></div>
+    ${s === "attested" ? "" : `<p class="caution">${ICON[s]}<span><b>Not verified.</b> Test at soundcheck before you dial it in.</span></p>`}
+    <details class="why notes-more" data-id="${r.id}"${open ? " open" : ""}>
+      <summary><span>Note table and procedure <span class="sum-note">\u00b7 B0 to A2, ${BASS_ROWS} notes</span></span></summary>
+      <table class="ring notes-t">
+        <caption class="sr">Bass guitar notes B0 to A2, their fundamental frequency, and where each is played. Open strings are highlighted.</caption>
+        <thead><tr><th scope="col">Note</th><th scope="col">Fundamental</th><th scope="col">Where it\u2019s played</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+      <p class="notes-src">Equal temperament, A4 = 440 Hz. Rounded to 0.1 Hz. Open strings are highlighted.</p>
+      <div class="note" style="--c:var(--b-lm)"><b>${WARN.replace('viewBox', 'fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" viewBox')}One LM per strip</b><p>${esc(r.rule)}</p></div>
+      <ol class="steps">${r.steps.map(t => `<li>${esc(t)}</li>`).join("")}</ol>
+    </details>
+    ${whoSays(r)}
+  </article>`;
+}
+const BASS_ROWS = bassNotes(CONSOLE).length;
+/* Keep the finder open or closed across re-renders (filtering, searching). */
+list.addEventListener("toggle", e => {
+  const d = e.target;
+  if (!d.matches?.(".notes-more")) return;
+  if (d.open) state.open.add(d.dataset.id); else state.open.delete(d.dataset.id);
+}, true);
 
 let announceTimer;
 function announce(shown) {
@@ -284,7 +323,7 @@ list.addEventListener("click", e => {
 
 toggleAllBtn.addEventListener("click", () => {
   state.allOpen = !state.allOpen;
-  state.open = state.allOpen ? new Set(allChannels().map(channelId)) : new Set();
+  state.open = state.allOpen ? new Set([...allChannels().map(channelId), LOW_END_RING.id]) : new Set();
   toggleAllBtn.setAttribute("aria-pressed", String(state.allOpen));
   toggleAllBtn.textContent = state.allOpen ? "Close all details" : "Open all details";
   render();

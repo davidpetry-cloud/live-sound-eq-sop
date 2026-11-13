@@ -30,6 +30,7 @@ export const PAGES = ["index.html", "strip.html"];
 const MODULE_SOURCES = {
   "./src/data.js": "src/data.js",
   "./src/auxes.js": "src/auxes.js",
+  "./src/reference.js": "src/reference.js",
   "./vendor/attestation-ledger/index.js": "node_modules/attestation-ledger/src/index.js"
 };
 
