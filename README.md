@@ -40,6 +40,7 @@ Built for reading at the desk, in a dark room or on a phone.
 - **Response curve.** Each card sketches the strip's frequency response from the console's own filters: HPF 80 Hz at 12 dB/octave, shelves at 80 Hz and 12 kHz, sweeps at Q 1.8. Proposed and rejected curves are dashed. The numbers beside the curve are the instruction; the curve is for seeing the shape at a glance.
 - **Pad.** Channels that need the PAD switch carry a solid **PAD** badge next to their name.
 - **Ledger as filter.** The four state counts at the top filter the list. Search matches channel and group names.
+- **Bass note finder.** Under Bass & Guitars, a table of every bass note from the 5-string's low B (B0) to A2: fundamental in Hz, where it is played, and whether the LM sweep can reach it. The frequencies are arithmetic (equal temperament, A4 = 440 Hz) and carry no attestation. The procedure for using them is model-proposed, and shows as Proposed until a practitioner attests it.
 - **Aux & effects.** Every bus, send rule, ring-out step and FX option shows its own state, with who said so (or why a model proposed it) one click away.
 - **Themes.** Dark and a warm light theme. The page follows the device until you choose. The choice is kept in your browser only.
 - **No third parties.** Fonts (Cormorant Garamond and Outfit, SIL Open Font License) are served from the site, so a visit makes no requests to Google or anyone else.
