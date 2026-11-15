@@ -30,6 +30,15 @@ describe("strip simulator", () => {
     for (const id of ids) expect(html, `#${id}`).toContain(`id="${id}"`);
   });
 
+  it("follows the address when its # part changes, in the source and the shipped script", async () => {
+    // Without this, editing the URL or following an in-page link left the
+    // menu on the old channel while the address named a new one.
+    const dart = await read("strip/web/main.dart");
+    const js = await read("public/strip.js");
+    expect(dart).toMatch(/addEventListener\('hashchange'/);
+    expect(js, "public/strip.js is stale; run sh strip/build.sh").toContain("hashchange");
+  });
+
   it("keeps the strip order, top to bottom: HPF, HF, HM, LM, LF", async () => {
     const html = await read("public/strip.html");
     const order = [...html.matchAll(/<li class="knob (\w+)">/g)].map((m) => m[1]);

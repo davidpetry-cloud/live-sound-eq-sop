@@ -220,6 +220,18 @@ class Simulator {
 
     final hash = window.location.hash.replaceFirst('#', '');
     _choose(_bySlug(hash) ?? channels.first, announce: false);
+
+    // The address and the strip must never disagree. Picking from the menu
+    // uses replaceState, which fires no hashchange, so this only runs when the
+    // address changes some other way: an edited URL, a link within the page.
+    window.addEventListener('hashchange', (() {
+      final next = _bySlug(window.location.hash.replaceFirst('#', ''));
+      if (next == null) {
+        window.history.replaceState(null, '', '${window.location.pathname}${window.location.search}#${channel.slug}');
+      } else if (next.slug != channel.slug) {
+        _choose(next, announce: true);
+      }
+    }).toJS);
   }
 
   Channel? _bySlug(String slug) {
